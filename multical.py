@@ -64,7 +64,7 @@ def checkNetsta(netsta):
 	global network, station
 	network, station = netsta.split('/')[-1].split('_')
 	for year in xrange(int(byear), int(eyear) + 1):
-		print str(UTCDateTime.now()).split('.')[0].replace('T',' ') + ': Checking', network, station.ljust(4), year, 'for calibrations'
+		print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, 'for calibrations'
 		if year == int(byear) and year != int(eyear):
 			for day in xrange(int(bjday), 366 + 1):
 				commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
