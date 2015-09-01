@@ -103,8 +103,11 @@ def getCalibrations(file_name):
 def processCals():
 	cals = []
 	filepath = glob.glob('/xs[01]/seed/' + net + '_' + sta + '/')[0]
-	filepath = glob.glob(filepath + year + '/' + year + '_' + jday + '_' + net + '_' + sta + '/')[0]
-	filepaths = glob.glob(filepath + '*[BL]HZ*')
+	try:
+		filepath = glob.glob(filepath + year + '/' + year + '_' + jday + '_' + net + '_' + sta + '/')[0]
+		filepaths = glob.glob(filepath + '*[BL]HZ*')
+	except:
+		filepaths = []
 	for filepath in filepaths:
 		for calibration in getCalibrations(filepath):
 			#Checks to see if there is a calibration for this day (e.g. it was not passed an empty list)
