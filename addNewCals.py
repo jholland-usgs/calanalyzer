@@ -125,17 +125,17 @@ def processCals():
 				if cal['type'] == 300:
 					query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
 					if debug:
-						print 'Step cal:', net, sta, 
+						print '\tStep cal found:', net, sta, cal['startdate'].replace('T',' ').split('.')[0]
 				#Processes a sine calibration
 				if cal['type'] == 310:
 					query = "INSERT INTO tbl_310 (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['signal_period']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
 					if debug:
-						print 'Sine cal:', net, sta, cal['startdate']
+						print '\tSine cal found:', net, sta, cal['startdate'].replace('T',' ').split('.')[0]
 				#Processes a random calibration
 				if cal['type'] == 320:
 					query = "INSERT INTO tbl_320 (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['ptp_amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
 					if debug:
-						print 'Rand cal:', net, sta, cal['startdate']
+						print '\tRand cal found:', net, sta, cal['startdate'].replace('T',' ').split('.')[0]
 				cur.execute(query)
 				conn.commit()
 				cur.close()
