@@ -20,11 +20,13 @@ loc  = ''
 chan = ''
 
 def main():
+	global conn
 	conn = psycopg2.connect("dbname='cals' user='caluser' host='136.177.121.26' password='" + caluser.password() + "'")
 	arguments = getArguments()
 	setArguments(arguments)
 	processCals()
 	conn.close()
+	print 'DONE'
 
 def getArguments():
 	#This function parses the command line arguments
