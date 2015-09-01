@@ -25,6 +25,7 @@ def main():
 	setArguments(arguments)
 	processCals()
 	conn.close()
+	print 'DONE'
 
 def getArguments():
 	#This function parses the command line arguments
