@@ -65,23 +65,26 @@ def checkNetsta(netsta):
 	global network, station
 	network, station = netsta.split('/')[-1].split('_')
 	for year in xrange(int(byear), int(eyear) + 1):
-		print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, 'for calibrations'
 		if year == int(byear) and year != int(eyear):
+			print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, bjday, '- 366', 'for calibrations'
 			for day in xrange(int(bjday), 366 + 1):
 				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
 				if output != '':
 					print output
 		elif int(byear) < year < int(eyear):
+			print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, '001 - 366', 'for calibrations'
 			for day in xrange(1, 366 + 1):
 				ouput = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
 				if output != '':
 					print output
 		elif year == int(eyear) and year != int(byear):
+			print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, '001 -', ejday, 'for calibrations'
 			for day in xrange(1, int(ejday) + 1):
 				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
 				if output != '':
 					print output
 		elif year == int(byear) == int(eyear):
+			print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, bjday, '-', ejday, 'for calibrations'
 			for day in xrange(int(bjday), int(ejday) + 1):
 				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
 				if output != '':
