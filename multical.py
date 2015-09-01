@@ -25,6 +25,7 @@ def main():
 	setArguments(arguments)
 	pool = Pool(20)
 	checkDates()
+	print 'DONE'
 
 def getArguments():
 	#This function parses the command line arguments
@@ -67,19 +68,19 @@ def checkNetsta(netsta):
 		print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, 'for calibrations'
 		if year == int(byear) and year != int(eyear):
 			for day in xrange(int(bjday), 366 + 1):
-				commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
-				# print 'python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3)
+				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
+				print output
 		elif int(byear) < year < int(eyear):
 			for day in xrange(1, 366 + 1):
-				commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
-				# print 'python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3)
+				ouput = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
+				print output
 		elif year == int(eyear) and year != int(byear):
 			for day in xrange(1, int(ejday) + 1):
-				commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
-				# print 'python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3)
+				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
+				print output
 		elif year == int(byear) == int(eyear):
 			for day in xrange(int(bjday), int(ejday) + 1):
-				commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
-				# print 'python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3)
+				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
+				print output
 
 main()
