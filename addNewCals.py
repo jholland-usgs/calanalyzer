@@ -26,7 +26,6 @@ def main():
 	setArguments(arguments)
 	processCals()
 	conn.close()
-	print 'DONE'
 
 def getArguments():
 	#This function parses the command line arguments
@@ -85,18 +84,12 @@ def getCalibrations(file_name):
 					if blockette_type == 300:
 						numStepCals,_,_,intervalDuration,amplitude,calInput = struct.unpack('>BBLLf3s', record[index+14:index+31])
 						calibrations.append({'type': 300, 'startdate': str(stime), 'flags': calFlags, 'num_step_cals': numStepCals, 'step_duration': duration, 'interval_duration': intervalDuration, 'amplitude': amplitude, 'channel': calInput})
-						if debug:
-							print 'Step cal:', net, sta, str(stime)
 					if blockette_type == 310:
 						signalPeriod,amplitude,calInput = struct.unpack('>ff3s',record[index+20:index+31])
 						calibrations.append({'type': 310, 'startdate': str(stime), 'flags': calFlags, 'cal_duration': duration, 'signal_period': signalPeriod, 'amplitude': amplitude, 'channel': calInput})
-						if debug:
-							print 'Sine cal:', net, sta, str(stime)
 					if blockette_type == 320:
 						amplitude,calInput = struct.unpack('>f3s', record[index+20:index+27])
 						calibrations.append({'type': 320, 'startdate': str(stime), 'flags': calFlags, 'cal_duration': duration, 'ptp_amplitude': amplitude, 'channel': calInput})
-						if debug:
-							print 'Rand cal:', net, sta, str(stime)
 					if blockette_type == 390:
 						amplitude,calInput = struct.unpack('>f3s', record[index+20:index+27])
 						calibrations.append({'type': 390, 'startdate': str(stime), 'flags': calFlags, 'duration': duration, 'amplitude': amplitude, 'channel': calInput})
@@ -128,12 +121,18 @@ def processCals():
 				#Processes a step calibration
 				if cal['type'] == 300:
 					query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+					if debug:
+						print 'Step cal:', net, sta, str(stime)
 				#Processes a sine calibration
 				if cal['type'] == 310:
 					query = "INSERT INTO tbl_310 (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['signal_period']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+					if debug:
+						print 'Sine cal:', net, sta, str(stime)
 				#Processes a random calibration
 				if cal['type'] == 320:
 					query = "INSERT INTO tbl_320 (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['ptp_amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+					if debug:
+						print 'Rand cal:', net, sta, str(stime)
 				cur.execute(query)
 				conn.commit()
 				cur.close()
