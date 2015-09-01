@@ -94,7 +94,7 @@ def getCalibrations(file_name):
 						amplitude,calInput = struct.unpack('>f3s', record[index+20:index+27])
 						calibrations.append({'type': 390, 'startdate': str(stime), 'flags': calFlags, 'duration': duration, 'amplitude': amplitude, 'channel': calInput})
 						if debug:
-							print 'Generic cal:', net, sta, str(stime)
+							print 'Generic cal:', net, sta, cal['startdate']
 	except:
 		x = 0
 	fh.close()
@@ -122,17 +122,17 @@ def processCals():
 				if cal['type'] == 300:
 					query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
 					if debug:
-						print 'Step cal:', net, sta, str(stime)
+						print 'Step cal:', net, sta, 
 				#Processes a sine calibration
 				if cal['type'] == 310:
 					query = "INSERT INTO tbl_310 (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['signal_period']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
 					if debug:
-						print 'Sine cal:', net, sta, str(stime)
+						print 'Sine cal:', net, sta, cal['startdate']
 				#Processes a random calibration
 				if cal['type'] == 320:
 					query = "INSERT INTO tbl_320 (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['ptp_amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
 					if debug:
-						print 'Rand cal:', net, sta, str(stime)
+						print 'Rand cal:', net, sta, cal['startdate']
 				cur.execute(query)
 				conn.commit()
 				cur.close()
