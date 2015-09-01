@@ -82,8 +82,6 @@ def getCalibrations(file_name):
 				if blockette_type in (300, 310, 320, 390):
 					year,jday,hour,minute,sec,_,tmsec,_,calFlags,duration = struct.unpack('>HHBBBBHBBL', record[index+4:index+20])
 					stime = UTCDateTime(year=year,julday=jday,hour=hour,minute=minute,second=sec)
-					if debug:
-						print(stime.ctime())
 					if blockette_type == 300:
 						numStepCals,_,_,intervalDuration,amplitude,calInput = struct.unpack('>BBLLf3s', record[index+14:index+31])
 						calibrations.append({'type': 300, 'startdate': str(stime), 'flags': calFlags, 'num_step_cals': numStepCals, 'step_duration': duration, 'interval_duration': intervalDuration, 'amplitude': amplitude, 'channel': calInput})
