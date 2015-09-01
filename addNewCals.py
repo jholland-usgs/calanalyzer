@@ -9,7 +9,7 @@ import struct
 
 from obspy.core import UTCDateTime
 
-debug = False
+debug = True
 
 net  = ''
 sta  = ''
@@ -20,9 +20,11 @@ loc  = ''
 chan = ''
 
 def main():
+	conn = psycopg2.connect("dbname='cals' user='caluser' host='136.177.121.26' password='" + caluser.password() + "'")
 	arguments = getArguments()
 	setArguments(arguments)
 	processCals()
+	conn.close()
 
 def getArguments():
 	#This function parses the command line arguments
@@ -76,8 +78,6 @@ def getCalibrations(file_name):
 				index = next_blockette
 				blockette_type, next_blockette = struct.unpack('>HH', record[index:index+4])
 				if blockette_type in (300, 310, 320, 390):
-					if debug:
-						print 'We have a calibration blockette'
 					year,jday,hour,minute,sec,_,tmsec,_,calFlags,duration = struct.unpack('>HHBBBBHBBL', record[index+4:index+20])
 					stime = UTCDateTime(year=year,julday=jday,hour=hour,minute=minute,second=sec)
 					if debug:
@@ -85,15 +85,23 @@ def getCalibrations(file_name):
 					if blockette_type == 300:
 						numStepCals,_,_,intervalDuration,amplitude,calInput = struct.unpack('>BBLLf3s', record[index+14:index+31])
 						calibrations.append({'type': 300, 'startdate': str(stime), 'flags': calFlags, 'num_step_cals': numStepCals, 'step_duration': duration, 'interval_duration': intervalDuration, 'amplitude': amplitude, 'channel': calInput})
+						if debug:
+							print 'Step cal:', net, sta, str(stime)
 					if blockette_type == 310:
 						signalPeriod,amplitude,calInput = struct.unpack('>ff3s',record[index+20:index+31])
 						calibrations.append({'type': 310, 'startdate': str(stime), 'flags': calFlags, 'cal_duration': duration, 'signal_period': signalPeriod, 'amplitude': amplitude, 'channel': calInput})
+						if debug:
+							print 'Sine cal:', net, sta, str(stime)
 					if blockette_type == 320:
 						amplitude,calInput = struct.unpack('>f3s', record[index+20:index+27])
 						calibrations.append({'type': 320, 'startdate': str(stime), 'flags': calFlags, 'cal_duration': duration, 'ptp_amplitude': amplitude, 'channel': calInput})
+						if debug:
+							print 'Rand cal:', net, sta, str(stime)
 					if blockette_type == 390:
 						amplitude,calInput = struct.unpack('>f3s', record[index+20:index+27])
 						calibrations.append({'type': 390, 'startdate': str(stime), 'flags': calFlags, 'duration': duration, 'amplitude': amplitude, 'channel': calInput})
+						if debug:
+							print 'Generic cal:', net, sta, str(stime)
 	except:
 		x = 0
 	fh.close()
@@ -115,7 +123,6 @@ def processCals():
 				elif locchan[0].isdigit() and locchan[1][:3].isalpha():
 					loc = locchan[0]
 					chan = locchan[1][:3]
-				conn = psycopg2.connect("dbname='cals' user='caluser' host='136.177.121.26' password='" + caluser.password() + "'")
 				cur = conn.cursor()
 				cal = calibration
 				#Processes a step calibration
@@ -130,7 +137,6 @@ def processCals():
 				cur.execute(query)
 				conn.commit()
 				cur.close()
-				conn.close()
 
 def getSensorid():
 	#Queries for a list of the networks and populates a dictionary
@@ -144,12 +150,10 @@ def getSensorid():
 	return sensorid
 
 def queryDatabase(query):
-	conn = psycopg2.connect("dbname='cals' user='caluser' host='136.177.121.26' password='" + caluser.password() + "'")
 	cur = conn.cursor()
 	cur.execute(query)
 	results = cur.fetchall()
 	cur.close()
-	conn.close()
 	return results
 
 def findAppropriateSensorID(sensorIDsDates):
