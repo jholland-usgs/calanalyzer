@@ -4,7 +4,7 @@ import glob
 import multical
 from obspy.core import UTCDateTime
 
-jday = UTCDatetTime.today().julday
+jday = UTCDateTime.now().julday
 
 #get first year
 years = []
