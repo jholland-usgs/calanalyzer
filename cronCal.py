@@ -13,7 +13,8 @@ for path in paths:
 	if path.split('/')[-1] not in years:
 		if path.split('/')[-1].isdigit():
 			years.append(path.split('/')[-1])
-yearFirst = years.sort()[0]
+years.sort()
+yearFirst = years[0]
 
 print yearFirst
 
