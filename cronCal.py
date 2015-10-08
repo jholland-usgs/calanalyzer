@@ -5,6 +5,7 @@ import multical
 from obspy.core import UTCDateTime
 
 jday = UTCDateTime.now().julday
+yearCur = UTCDateTime.now().year
 
 #get first year
 years = []
@@ -16,11 +17,9 @@ for path in paths:
 years.sort()
 yearFirst = years[0]
 
-print yearFirst
-
 #first, check one year
-# yearOne = 
-print 'python multical.py -b '
+yearOne = years[jday % (len(years) - 1)]
+print 'python multical.py -b ' + str(yearOne) + ',001 -e ' + str(yearOne) + ',366'
 
 #second, check one month last year
 
