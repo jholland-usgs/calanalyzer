@@ -9,7 +9,7 @@ jday = UTCDateTime.now().julday
 #get first year
 years = []
 paths = glob.glob('/xs[01]/seed/*/*')
-for path in path:
+for path in paths:
 	if path.split('/')[-1] not in years:
 		if path.split('/')[-1].isdigit():
 			years.append(path.split('/')[-1])
