@@ -139,8 +139,7 @@ def getCalibrations(file_name):
 						if debug:
 							print 'Generic cal:', net, sta, cal['startdate']
 	except:
-		#filler variable assignment
-		x = 0
+		pass
 	fh.close()
 	return calibrations
 
