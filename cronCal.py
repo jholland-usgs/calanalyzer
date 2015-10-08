@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import commands
 import glob
 import multical
 from obspy.core import UTCDateTime
@@ -19,7 +20,8 @@ yearFirst = years[0]
 
 #first, check one year
 yearOne = years[jday % (len(years) - 1)]
-print 'python multical.py -b ' + str(yearOne) + ',001 -e ' + str(yearOne) + ',366'
+output = commands.getstatusoutput('python multical.py -b ' + str(yearOne) + ',001 -e ' + str(yearOne) + ',366')
+print output
 
 #second, check one month last year
 
