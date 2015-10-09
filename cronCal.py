@@ -21,7 +21,7 @@ yearFirst = years[0]
 def printOutput(output):
 	output = output[1].split('\n')
 	for line in output:
-		if 'calibrations' not in line:
+		if 'cal found' in line:
 			print line
 	
 
