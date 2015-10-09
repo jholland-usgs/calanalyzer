@@ -21,7 +21,7 @@ yearFirst = years[0]
 def printOutput(output):
 	output = output[1].split('\n')
 	for line in output:
-		if 'calibrations' not in line:
+		if 'cal found' in line:
 			print line
 	
 
@@ -39,5 +39,5 @@ def printOutput(output):
 steps = [7, 30, 60, 90, 180]
 for step in steps:
 	if jday > step:
-		output = commands.getstatusoutput('python multical.py -b ' + str(yearCur) + ',' + str(step).zfill(3) + ' -e ' + str(yearCur) + ',' + str(step).zfill(3))
+		output = commands.getstatusoutput('python multical.py -b ' + str(yearCur) + ',' + str(jday - step).zfill(3) + ' -e ' + str(yearCur) + ',' + str(jday - step).zfill(3))
 		printOutput(output)
