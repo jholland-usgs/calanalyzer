@@ -19,7 +19,7 @@ years.sort()
 yearFirst = years[0]
 
 def printOutput(output):
-	output = output[0].split('\n')
+	output = output[1].split('\n')
 	for line in output:
 		if 'calibrations' not in line:
 			print line
