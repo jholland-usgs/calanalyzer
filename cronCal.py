@@ -7,6 +7,7 @@ from obspy.core import UTCDateTime
 
 jday = UTCDateTime.now().julday
 yearCur = UTCDateTime.now().year
+logFilepath = '/home/ambaker/calanalyzer/logs/' + str(UTCDateTime.now()).split('.')[0] + '.log'
 
 #get first year
 years = []
@@ -20,9 +21,11 @@ yearFirst = years[0]
 
 def printOutput(output):
 	output = output[1].split('\n')
+	fob = open(logFilepath, 'a')
 	for line in output:
 		if 'cal found' in line:
-			print line
+			fob.write(line + '\n')
+	fob.close()
 
 #first, check in steps
 steps = [7, 30, 60, 90, 180]
