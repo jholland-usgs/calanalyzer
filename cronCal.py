@@ -32,5 +32,5 @@ yearFirst = years[0]
 steps = [7, 30, 60, 90, 180]
 for step in steps:
 	if jday > steps:
-		output = commands.getstatusoutput('python multical.py -b ' + str(yearCur) + ',' + str(step).zfill(3)) + ' -e ' + str(yearCur) + ',' + str(step).zfill(3))
+		output = commands.getstatusoutput('python multical.py -b ' + str(yearCur) + ',' + str(step).zfill(3) + ' -e ' + str(yearCur) + ',' + str(step).zfill(3))
 		print output
