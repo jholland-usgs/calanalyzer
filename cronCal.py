@@ -31,6 +31,7 @@ yearFirst = years[0]
 #third, check in steps
 steps = [7, 30, 60, 90, 180]
 for step in steps:
+	print 'SASSAFRASS'
 	if jday > steps:
 		print 'python multical.py -b ' + str(yearCur) + ',' + str(step).zfill(3) + ' -e ' + str(yearCur) + ',' + str(step).zfill(3)
 		output = commands.getstatusoutput('python multical.py -b ' + str(yearCur) + ',' + str(step).zfill(3) + ' -e ' + str(yearCur) + ',' + str(step).zfill(3))
