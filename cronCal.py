@@ -5,9 +5,10 @@ import glob
 import multical
 from obspy.core import UTCDateTime
 
-jday = UTCDateTime.now().julday
-yearCur = UTCDateTime.now().year
-logFilepath = '/home/ambaker/calanalyzer/logs/' + str(UTCDateTime.now()).split('.')[0] + '.log'
+today = UTCDateTime.now()
+jday = today.julday
+yearCur = today.year
+logFilepath = '/home/ambaker/calanalyzer/logs/' + str(today.year) + str(today.julday) + '.log'
 
 #get first year
 years = []
