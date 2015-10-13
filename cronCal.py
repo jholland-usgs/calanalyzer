@@ -8,7 +8,7 @@ from obspy.core import UTCDateTime
 today = UTCDateTime.now()
 jday = today.julday
 yearCur = today.year
-logFilepath = '/home/ambaker/calanalyzer/logs/' + str(today.year) + str(today.julday) + '.log'
+logFilepath = '/home/ambaker/calanalyzer/logs/' + today.strftime('%Y%j %H%M') + '.log'
 
 #get first year
 years = []
