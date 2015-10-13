@@ -29,18 +29,27 @@ def printOutput(output):
 	fob.close()
 
 #first, check in steps
-steps = [7, 30, 60, 90, 180]
-for step in steps:
-	if jday > step:
-		output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearCur) + ',' + str(jday - step).zfill(3) + ' -e ' + str(yearCur) + ',' + str(jday - step).zfill(3))
-		printOutput(output)
+try:
+	steps = [7, 30, 60, 90, 180]
+	for step in steps:
+		if jday > step:
+			output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearCur) + ',' + str(jday - step).zfill(3) + ' -e ' + str(yearCur) + ',' + str(jday - step).zfill(3))
+			printOutput(output)
+except:
+	pass
 
 #second, check one month last year
-month = jday % 15 * 25 + 1
-output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearCur - 1) + ',' + str(month).zfill(3) + ' -e ' + str(yearCur - 1) + ',' + str(month + 24).zfill(3))
-printOutput(output)
+try:
+	month = jday % 15 * 25 + 1
+	output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearCur - 1) + ',' + str(month).zfill(3) + ' -e ' + str(yearCur - 1) + ',' + str(month + 24).zfill(3))
+	printOutput(output)
+except:
+	pass
 
 #third, check one year
-yearOne = years[jday % (len(years) - 1)]
-output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearOne) + ',001 -e ' + str(yearOne) + ',366')
-printOutput(output)
+try:
+	yearOne = years[jday % (len(years) - 1)]
+	output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearOne) + ',001 -e ' + str(yearOne) + ',366')
+	printOutput(output)
+except:
+	pass
