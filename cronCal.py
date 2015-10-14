@@ -8,7 +8,7 @@ from obspy.core import UTCDateTime
 today = UTCDateTime.now()
 jday = today.julday
 yearCur = today.year
-logFilepath = '/home/ambaker/calanalyzer/logs/' + str(today.year) + str(today.julday) + '.log'
+logFilepath = '/home/ambaker/calanalyzer/logs/' + today.strftime('%Y%j %H%M') + '.log'
 
 #get first year
 years = []
@@ -26,7 +26,7 @@ def printOutput(output):
 	for line in output:
 		if 'cal found' in line:
 			fob.write(line + '\n')
-	fob.write(str(UTCDateTime.now()))
+	fob.write('Scan completed at ' + str(UTCDateTime.now()) + '\n')
 	fob.close()
 
 #first, check in steps
