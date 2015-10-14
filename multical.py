@@ -105,5 +105,4 @@ def checkNetsta(netsta):
 				if output != '':
 					print output
 
-if __name__ == "__main__":
-	main()
+main()
