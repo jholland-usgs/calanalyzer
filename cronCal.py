@@ -26,7 +26,7 @@ def printOutput(output):
 	for line in output:
 		if 'cal found' in line:
 			fob.write(line + '\n')
-	fob.write('Scan completed at ' + str(UTCDateTime.now()) + '\n')
+	fob.write(str(UTCDateTime.now()))
 	fob.close()
 
 #first, check in steps
