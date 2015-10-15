@@ -1,0 +1,8 @@
+---
+# Configuration file
+
+# Database
+database: cals
+host: 136.177.121.26
+username: nfalco
+password: Fritz222
