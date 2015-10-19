@@ -52,7 +52,7 @@ def getPathData():
                                    JOIN tbl_sensors ON tbl_stations.pk_id = tbl_sensors.fk_stationid
                                    JOIN """+calTable+" ON tbl_sensors.pk_id = "+calTable+""".fk_sensorid
                                    LEFT JOIN """+calTable+"calresults ON "+calTable+".pk_id = "+calTable+"""calresults.fk_calibrationid 
-                 WHERE """+calTable+"""calresults is NULL and station_name = 'WCI'
+                 WHERE """+calTable+"""calresults is NULL
                  ORDER BY startdate DESC"""
     cur.execute(query)
     print (query)
