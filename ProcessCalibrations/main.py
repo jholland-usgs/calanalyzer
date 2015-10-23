@@ -57,7 +57,6 @@ def getPathData():
     cur.execute(query)
     print (query)
     rows = cur.fetchall()
-    
     pathlist = []
     for row in rows:
         pathlist.append(PathData.PathData(cal_id=row[0], network=row[1], station=row[2], location=row[3], date=row[4], channel=row[5], cal_duration=row[6]))
@@ -96,8 +95,6 @@ def computeNewCal(pathData):
         
         for outChannel in outChannels:
             dataOutPath = path + pathData.location + "_" + outChannel + ".512.seed"
-            print("OUT PATH = " + dataOutPath)
-            print("IN PATH = " + dataInPath)
             #Compute sine cal for the given data path
             if(os.path.isfile(dataInPath) and os.path.isfile(dataOutPath)):
                 pc = ComputeCalibrations.ComputeCalibrations(dataInPath, dataOutPath, pathData.date, str('{0:0=3d}'.format(julianday)), pathData.cal_duration, pathData.cal_id, outChannel, pathData.network, pathData.station, pathData.location, dbconn)
@@ -112,8 +109,10 @@ if __name__ == "__main__":
     #Global Variables 
     global calType    
     
-    #Setup logging
+    #Setup root logging
     logging.basicConfig(filename='logs/error.log', level=logging.INFO)
+    formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
+    
     
     #Read data from config file
     config = ParseConfig.ParseConfig()
@@ -123,11 +122,13 @@ if __name__ == "__main__":
     #Create a list of all calibration types that were entered in the config file
     calTypes = config.calibrationType.split(',')
 
+    os.mkdir('temp')
     for ct in calTypes:
         calType = ct
         #Query database to get path data for sine calibrations
-        #pool = Pool(10)
+        pool = Pool(10)
         pathData = getPathData()
-        for path in pathData:
-            computeNewCal(path)
-        #pool.map(computeNewCal, pathData)
+        #for path in pathData:
+        #    computeNewCal(path)
+        pool.map(computeNewCal, pathData)
+    os.rmdir('temp')

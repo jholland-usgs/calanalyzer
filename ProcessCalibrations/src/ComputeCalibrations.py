@@ -7,14 +7,15 @@ Created on Sep 18, 2015
 from obspy.core import read, UTCDateTime, Stream
 import numpy as np
 import math
-import cmath as CM
 import sys
 import commands
 import matplotlib.pyplot as plt
 from obspy.signal import cornFreq2Paz
 from scipy.optimize import fmin
+import logging
 import numpy
-from _mysql import NULL
+import psycopg2
+import os
 
 class ComputeCalibrations(object):
     
@@ -30,6 +31,9 @@ class ComputeCalibrations(object):
         self.station = station
         self.location = location
         self.dbconn = dbconn #Database connection object
+        #Setup logging
+        self.stepcal_logger = logging.getLogger('ComputeCalibrations.stepcal')
+        self.sinecal_logger = logging.getLogger('ComputeCalibrations.sinecal')
 
     def computeSineCal(self):
         try:
@@ -57,37 +61,37 @@ class ComputeCalibrations(object):
            
             self.dbconn.commit()
         except:
-            print("Unexpected error:", sys.exc_info()[0])
+            self.sinecal_logger.error("Unexpected error:", sys.exc_info()[0])
             
     def computeStepCal(self):
         
         year = self.startdate.year
         day = self.julianday
+        network = self.network
         sta = self.station
         chan = self.outChannel
         loc = self.location
         duration = self.cal_duration / 10000.0
         
-        mdgetstr = '/home/aringler/data_stuff/checkstep/./mdget.py -n IU -l ' + str(loc) + ' -c ' + str(chan) + \
-            ' -s ' + str(sta) + ' -t ' + str(year) + '-' + str(day) + ' -o' + \
-            ' \'instrument type\''
+        mdgetstr = '/home/aringler/data_stuff/checkstep/./mdget.py -n ' + str(network) + ' -l ' + str(loc) + ' -c ' + str(chan) + \
+            ' -s ' + str(sta) + ' -t ' + str(year) + '-' + str(day) + ' -o \'instrument type\''
 
         output = commands.getstatusoutput(mdgetstr)
-
+        
         # These might not be consistent names for sensors between networks
         try:
             output = output[1].split(',')[4]
             print ("output sensor = " + output)
         except:
-            print ('We have a problem with: ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
+            self.stepcal_logger.error('We have a problem with: ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
         sensor = ''
         if 'E300' in output:
             sensor = 'STS1'
         elif 'Trillium' in output:
             sensor='T240'
-        elif 'STS-1' in output:
+        elif 'STS-1' or 'STS1' in output:
             sensor = 'STS1'
-        elif 'STS-2' in output:
+        elif 'STS-2' or 'STS2' in output:
             sensor = 'STS2'
         pz = self.pzvals(sensor)
         
@@ -111,9 +115,11 @@ class ComputeCalibrations(object):
             if temp.max() < 0.0:
                 trOUT.data = - trOUT.data
         except:
-            print ('Problem with : ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
+            self.stepcal_logger.error('Problem with : ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
         
         try:
+            print("abs(pz['poles'][0]) = " + str(abs(pz['poles'][0])))
+            print(pz['poles'])
             f = 1. /(2*math.pi / abs(pz['poles'][0]))
             #f = 2. * math.pi / 360.
             h = abs(pz['poles'][0].real)/abs(pz['poles'][0])
@@ -128,7 +134,7 @@ class ComputeCalibrations(object):
             #bf = x    
             print ('Here is the best fit: ' + str(bf))
         except:
-            print ('Unable to calculate ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
+            self.stepcal_logger.error('Unable to calculate ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
     
         try:
             pazNOM = cornFreq2Paz(f,h)
@@ -158,7 +164,7 @@ class ComputeCalibrations(object):
             compOUT = sum((trOUTsim.data - trIN.data)**2)
             compOUTPERT = sum((trOUTsimPert.data - trIN.data)**2)
         except:
-            print ('Unable to do calculation on ' + sta + ' ' + loc + ' ' + chan)
+            self.stepcal_logger.error('Unable to do calculation on ' + sta + ' ' + loc + ' ' + chan)
     
         try:
             plt.clf()
@@ -170,20 +176,21 @@ class ComputeCalibrations(object):
             plt.ylabel('Cnts normalized')
             plt.title('Step Calibration ' + trOUT.stats.station + ' ' + str(trOUT.stats.starttime.year) + ' ' + str(trOUT.stats.starttime.julday).zfill(3))
             plt.legend()
-            plt.xlim((0, 2500))
-            plt.ylim((-1.5, 1.5))
-            plt.show()
-            plt.savefig(str(trOUT.stats.station) + str(chan) + str(loc) + str(year) + str(day) + 'step.jpg',format = "jpeg", dpi = 400)
+            plt.savefig('temp/'+str(trOUT.stats.station) + str(chan) + str(loc) + str(year) + str(day) + 'step.png',format = "png", dpi = 400)
         except:
-            print ('Unable to plot: ' + sta + ' ' + loc + ' ' + chan)
+            self.stepcal_logger.error('Unable to plot: ' + sta + ' ' + loc + ' ' + chan)
         
-        #insert results into the database
-        query = '''INSERT INTO tbl_300calresults (fk_calibrationid, nominal_cornerfreq, nominal_dampingratio, nominal_resi, fitted_cornerfreq, fitted_dampingratio, fitted_resi, stepcal_img)
-                VALUES(''' + str(self.cal_id) + ',' + str(round(f,6))+',' + str(round(h,6)) + ',' + str(round(compOUT,6)) + ',' + str(round(bf[0],6)) + ',' + str(round(bf[1],6)) + ',' +  str(round(compOUTPERT,6)) + ",'" + (str(trOUT.stats.station) + str(chan) + str(loc) + str(year) + str(day) + 'step.jpg') + "')"
-        cur = self.dbconn.cursor()
-        cur.execute(query)
-        self.dbconn.commit()
-
+        try:
+            #insert results into the database
+            fin = open(str(trOUT.stats.station) + str(chan) + str(loc) + str(year) + str(day) + 'step.png', 'rb')
+            imgdata = fin.read()
+            cur = self.dbconn.cursor()
+            cur.execute('''INSERT INTO tbl_300calresults (fk_calibrationid, nominal_cornerfreq, nominal_dampingratio, nominal_resi, fitted_cornerfreq, fitted_dampingratio, fitted_resi, stepcal_img)
+                        VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''', [self.cal_id, round(f,6), round(h,6), round(compOUT,6), round(bf[0],6), round(bf[1],6), round(compOUTPERT,6), psycopg2.Binary(imgdata)])
+            self.dbconn.commit()
+        except:
+            self.stepcal_logger.error('Unable to insert into database')
+    
     def pzvals(self, sensor):
         if sensor == 'STS2':
             pz ={'zeros': [0.], 'poles': [-0.035647 - 0.036879j, \
