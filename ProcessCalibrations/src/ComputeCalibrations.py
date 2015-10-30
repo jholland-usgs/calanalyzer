@@ -10,12 +10,14 @@ import math
 import sys
 import commands
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
 from obspy.signal import cornFreq2Paz
 from scipy.optimize import fmin
 import logging
 import numpy
 import psycopg2
-import os
+import thread
+from Crypto.Util.number import size
 
 class ComputeCalibrations(object):
     
@@ -31,30 +33,30 @@ class ComputeCalibrations(object):
         self.station = station
         self.location = location
         self.dbconn = dbconn #Database connection object
-        #Setup logging
+        #Setup logging for calibrations
         self.stepcal_logger = logging.getLogger('ComputeCalibrations.stepcal')
         self.sinecal_logger = logging.getLogger('ComputeCalibrations.sinecal')
 
     def computeSineCal(self):
         try:
-            # Read in BH and BC
+            #Read in BH and BC
             dataIN = read(self.dataInLoc)
             dataOUT = read(self.dataOutLoc)
-            #print("Calibration Duration = " + str(self.cal_duration))
-            # Trim data to start and end time
+
+            #Convert start date to UTC
             stime = UTCDateTime(str(self.startdate))
-            #print ("Data In Length Before Trim = " + str(len(dataIN)))
+
+            #Trim data to only grab the sine calibration
             dataIN.trim(starttime=stime, endtime=stime + self.cal_duration)
-            #print ("Data In Length After Trim = " + str(len(dataIN)))
             dataOUT.trim(starttime=stime, endtime=stime + self.cal_duration)
         
-            # Calculate RMS of both traces and divide
+            #Calculate RMS of both traces and divide
             dataINRMS = math.sqrt(2.)*sum(np.square(dataIN[0].data))
             dataINRMS /= float(dataIN[0].stats.npts)
             dataOUTRMS = math.sqrt(2.)*sum(np.square(dataOUT[0].data))
             dataINRMS /= float(dataOUT[0].stats.npts)  
         
-            #Write results to datbase      
+            #Write results to database      
             cur = self.dbconn.cursor()
             cur.execute("""INSERT INTO tbl_310calresults (fk_calibrationid, input_rms, output_rms, outchannel, coil_constant)
                            VALUES ("""+ "'" + str(self.cal_id) + "', '" + str(dataINRMS) + "', '" + str(dataOUTRMS) + "', '" + str(self.outChannel) + "', '" + str(dataINRMS/dataOUTRMS) + "')")
@@ -62,39 +64,26 @@ class ComputeCalibrations(object):
             self.dbconn.commit()
         except:
             self.sinecal_logger.error("Unexpected error:", sys.exc_info()[0])
+            thread.exit() #exit current thread if error occurred
             
     def computeStepCal(self):
-        
-        year = self.startdate.year
-        day = self.julianday
-        network = self.network
-        sta = self.station
-        chan = self.outChannel
-        loc = self.location
+        print('stepcal loop')
+        #cal duration needs to be divided by 10000 for step cals only
         duration = self.cal_duration / 10000.0
         
-        mdgetstr = '/home/aringler/data_stuff/checkstep/./mdget.py -n ' + str(network) + ' -l ' + str(loc) + ' -c ' + str(chan) + \
-            ' -s ' + str(sta) + ' -t ' + str(year) + '-' + str(day) + ' -o \'instrument type\''
-
-        output = commands.getstatusoutput(mdgetstr)
+        #Determine the type of sensor from the metadata
+        sensor = self.determineSensorType();
         
-        # These might not be consistent names for sensors between networks
-        try:
-            output = output[1].split(',')[4]
-            print ("output sensor = " + output)
-        except:
-            self.stepcal_logger.error('We have a problem with: ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
-        sensor = ''
-        if 'E300' in output:
-            sensor = 'STS1'
-        elif 'Trillium' in output:
-            sensor='T240'
-        elif 'STS-1' or 'STS1' in output:
-            sensor = 'STS1'
-        elif 'STS-2' or 'STS2' in output:
-            sensor = 'STS2'
+        #ignores every location except for Z for triaxial STS-2s
+        if(("Z" not in self.outChannel) and (sensor == "STS-2HG" or sensor == "STS-4B" or sensor == "STS-2")):
+            print("Skipped " + str(self.outChannel) + ' ' + sensor)
+            thread.exit();
+            
+        
+        #get the poles values for the sensor type
         pz = self.pzvals(sensor)
         
+        #read data for the calibration
         try:
             stOUT = Stream()   
             stime = UTCDateTime(self.startdate) - 5*60  
@@ -115,27 +104,37 @@ class ComputeCalibrations(object):
             if temp.max() < 0.0:
                 trOUT.data = - trOUT.data
         except:
-            self.stepcal_logger.error('Problem with : ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
-        
+            self.stepcal_logger.error('Unable to read data for {' 
+                                      + 'network = ' + self.network 
+                                      + ', station = ' + self.station 
+                                      + ', sensor = ' + str(sensor) 
+                                      + ', location = ' + str(self.location)
+                                      + ', channel = ' + str(self.outChannel)
+                                      + '}')
+            thread.exit() #exit current thread if error occurred
         try:
-            print("abs(pz['poles'][0]) = " + str(abs(pz['poles'][0])))
-            print(pz['poles'])
-            f = 1. /(2*math.pi / abs(pz['poles'][0]))
-            #f = 2. * math.pi / 360.
-            h = abs(pz['poles'][0].real)/abs(pz['poles'][0])
+            f = 1. /(2*math.pi / abs(pz['poles'][0])) #compute corner (cutoff) frequency
+            h = abs(pz['poles'][0].real)/abs(pz['poles'][0]) #compute damping ratio
             sen = 10.0            
-            print ('trIN = ' + str(trIN) + "\ntrOUT = " + str(trOUT))
+            
             print ('Using: h=' + str(h) + ' f=' + str(f) + ' sen = ' + str(sen))
+           
             x = numpy.array([f, h, sen])
             try:
+                #compute best fit
                 bf = fmin(self.resi,x, args=(trIN, trOUT),xtol=10**-8,ftol=10**-3,disp=False)
             except:
                 bf = x 
-            #bf = x    
-            print ('Here is the best fit: ' + str(bf))
+   
         except:
-            self.stepcal_logger.error('Unable to calculate ' + str(sta) + ' ' + str(chan) + ' ' + str(loc))
-    
+            self.stepcal_logger.error('Unable to calculate {' 
+                                      + 'network = ' + self.network 
+                                      + ', station = ' + self.station 
+                                      + ', sensor = ' + str(sensor) 
+                                      + ', location = ' + str(self.location)
+                                      + ', channel = ' + str(self.outChannel)
+                                      + '}')
+            thread.exit() #exit current thread if error occurred
         try:
             pazNOM = cornFreq2Paz(f,h)
             pazNOM['zeros']=[0.+0.j]
@@ -164,9 +163,16 @@ class ComputeCalibrations(object):
             compOUT = sum((trOUTsim.data - trIN.data)**2)
             compOUTPERT = sum((trOUTsimPert.data - trIN.data)**2)
         except:
-            self.stepcal_logger.error('Unable to do calculation on ' + sta + ' ' + loc + ' ' + chan)
-    
+            self.stepcal_logger.error('Unable to do calculation for {' 
+                                      + 'network = ' + self.network 
+                                      + ', station = ' + self.station 
+                                      + ', sensor = ' + str(sensor) 
+                                      + ', location = ' + str(self.location)
+                                      + ', channel = ' + str(self.outChannel)
+                                      + '}')
+            thread.exit() #exit current thread if error occurred
         try:
+            #create a plot for the step calibration and save it to the ./temp directory.  This directory will be deleted when the program is finished running.
             plt.clf()
             t = numpy.arange(0,trOUTsim.stats.npts /trOUTsim.stats.sampling_rate,trOUTsim.stats.delta)
             plt.plot(t,trIN.data,'b',label = 'Input')
@@ -175,36 +181,72 @@ class ComputeCalibrations(object):
             plt.xlabel('Time (s)')
             plt.ylabel('Cnts normalized')
             plt.title('Step Calibration ' + trOUT.stats.station + ' ' + str(trOUT.stats.starttime.year) + ' ' + str(trOUT.stats.starttime.julday).zfill(3))
-            plt.legend()
-            plt.savefig('temp/'+str(trOUT.stats.station) + str(chan) + str(loc) + str(year) + str(day) + 'step.png',format = "png", dpi = 400)
+            plt.legend(prop={'size':6})
+            plt.savefig('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png',format = "png", dpi = 400)
+            plt.close()
         except:
-            self.stepcal_logger.error('Unable to plot: ' + sta + ' ' + loc + ' ' + chan)
-        
-        try:
+            self.stepcal_logger.error('Unable to plot {' 
+                                      + 'network = ' + self.network 
+                                      + ', station = ' + self.station 
+                                      + ', sensor = ' + str(sensor) 
+                                      + ', location = ' + str(self.location)
+                                      + ', channel = ' + str(self.outChannel)
+                                      + '}')
+            thread.exit() #exit current thread if error occurred
+        #try:
             #insert results into the database
-            fin = open(str(trOUT.stats.station) + str(chan) + str(loc) + str(year) + str(day) + 'step.png', 'rb')
-            imgdata = fin.read()
-            cur = self.dbconn.cursor()
-            cur.execute('''INSERT INTO tbl_300calresults (fk_calibrationid, nominal_cornerfreq, nominal_dampingratio, nominal_resi, fitted_cornerfreq, fitted_dampingratio, fitted_resi, stepcal_img)
-                        VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''', [self.cal_id, round(f,6), round(h,6), round(compOUT,6), round(bf[0],6), round(bf[1],6), round(compOUTPERT,6), psycopg2.Binary(imgdata)])
-            self.dbconn.commit()
-        except:
-            self.stepcal_logger.error('Unable to insert into database')
-    
+        fin = open('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png', 'rb')
+        imgdata = fin.read()
+        cur = self.dbconn.cursor()
+        cur.execute('''INSERT INTO tbl_300calresults (fk_calibrationid, nominal_cornerfreq, nominal_dampingratio, nominal_resi, fitted_cornerfreq, fitted_dampingratio, fitted_resi, outchannel, stepcal_img)
+                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''', [self.cal_id, round(f,6), round(h,6), round(compOUT,6), round(bf[0],6), round(bf[1],6), round(compOUTPERT,6), str(self.outChannel), psycopg2.Binary(imgdata)])
+        self.dbconn.commit()
+        '''except:
+            self.stepcal_logger.error('Unable to insert into database for {' 
+                                      + 'network = ' + self.network 
+                                      + ', station = ' + self.station 
+                                      + ', sensor = ' + str(sensor) 
+                                      + ', location = ' + str(self.location)
+                                      + ', channel = ' + str(self.outChannel)
+                                      + '}')
+            thread.exit() #exit current thread if error occurred
+        '''    
     def pzvals(self, sensor):
-        if sensor == 'STS2':
-            pz ={'zeros': [0.], 'poles': [-0.035647 - 0.036879j, \
-                -0.035647 + 0.036879j], 'gain': 1., 'sensitivity': 1. }
-        elif sensor == 'STS1':
+        #get the instrument values for a given type of seismometer
+        if sensor == 'STS-1':
             pz ={'zeros': [0.], 'poles': [-0.01234 - 0.01234j, \
                 -0.01234 + 0.01234j], 'gain': 1., 'sensitivity': 1. }
-        elif sensor == 'T240':
+        elif sensor == 'STS-2':
+            pz ={'zeros': [0.], 'poles': [-0.035647 - 0.036879j, \
+                -0.035647 + 0.036879j], 'gain': 1., 'sensitivity': 1. }
+        elif sensor == 'STS-2HG':
+            pz = {'gain': 5.96806*10**7, 'zeros': [0, 0], 'poles': [-0.035647 - 0.036879j,  
+                -0.035647 + 0.036879j, -251.33, -131.04 - 467.29j, -131.04 + 467.29j],
+                'sensitivity': 3.355500*10**10}
+        elif sensor == 'T-120':
+            pz = {'gain': 8.318710*10**17, 'zeros': [0 + 0j, 0 + 0j, -31.63 + 0j, 
+                -160.0 + 0j, -350.0 + 0j, -3177.0 + 0j], 'poles':[-0.036614 + 0.037059j,  
+                -0.036614 - 0.037059j, -32.55 + 0j, -142.0 + 0j, -364.0  + 404.0j, 
+                -364.0 - 404.0j, -1260.0 + 0j, -4900.0 + 5204.0j, -4900.0 - 5204.0j, 
+                -7100.0 + 1700.0j, -7100.0 - 1700.0j], 'sensitivity': 2.017500*10**9}
+        elif sensor == 'T-240':
             pz ={'zeros': [0.], 'poles': [-0.0178231 - 0.017789j, \
                 -0.0178231 + 0.017789j], 'gain': 1., 'sensitivity': 1. }
+        elif sensor == 'CMG-3T':
+            pz = {'gain': 5.71508*10**8, 'zeros': [0, 0], 'poles': [-0.037008 - 0.037008j,  
+                -0.037008 + 0.037008j, -502.65, -1005.0, -1131.0],
+                'sensitivity': 3.3554*10**10}
+        elif sensor == 'KS-54000':
+            pz = {'gain': 86298.5, 'zeros': [0, 0], 'poles': [-59.4313,  
+                -22.7121 + 27.1065j, -22.7121 + 27.1065j, -0.0048004, -0.073199],
+                'sensitivity': 3.3554*10**9}
+        elif sensor == 'KS-54000':
+            pz = {'gain': 86298.5, 'zeros': [0, 0], 'poles': [-59.4313,  
+                -22.7121 + 27.1065j, -22.7121 + 27.1065j, -0.0048004, -0.073199],
+                'sensitivity': 3.3554*10**9}
         else:
             pz = {'zeros': [-1. -1.j], 'poles': [-1. -1.j], 'gain': 1., 'sensitivity': 1.}
-    
-    
+
         return pz
     
     def resi(self, x, *args):
@@ -231,3 +273,44 @@ class ComputeCalibrations(object):
         comp = sum((trOUTsim.data - trINCP)**2)
         print(comp)
         return comp
+
+    def determineSensorType(self):
+        #returns the sensor type for a given station location/channel
+        mdgetstr = '/home/aringler/data_stuff/checkstep/./mdget.py -n ' + str(self.network) + ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
+                    ' -s ' + str(self.station) + ' -t ' + str(self.startdate.year) + '-' + str(self.julianday) + ' -o \'instrument type\''
+
+        output = commands.getstatusoutput(mdgetstr)
+        
+        # These might not be consistent names for sensors between networks
+        try:
+            output = output[1].split(',')[4] #extract the sensor data from the metadata output
+        except:
+            self.stepcal_logger.error('Unable to acquire sensor information for {' 
+                                      + 'network = ' + self.network 
+                                      + ', station = ' + self.station 
+                                      + ', location = ' + str(self.location)
+                                      + ', channel = ' + str(self.outChannel)
+                                      + '}')
+            thread.exit() #exit current thread if error occurred
+            
+        sensor = ''
+        if ('T-240' in output) or ('Trillium 240' in output):
+            sensor='T-240'
+        elif ('T-120' in output) or ('T120' in output):
+            sensor = 'T-120'
+        elif ('CMG-3T' in output) or ('CMG3T' in output) or ('CMG3-T' in output):
+            sensor='CMG-3T'
+        elif 'STS-2HG' in output:
+            sensor = 'STS2-HG'
+        elif 'STS-4B' in output:
+            sensor = 'STS-4B'
+        elif 'KS-54000' in output:
+            sensor = 'KS-54000'
+        elif '151-120' in output:
+            sensor = '151-120'
+        elif ('STS-1' in output) or ('STS1' in output) or ('E300' in output):
+            sensor = 'STS-1'
+        elif ('STS-2' in output) or ('STS2' in output):
+            sensor = 'STS-2'
+        
+        return sensor

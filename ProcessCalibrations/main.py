@@ -19,17 +19,13 @@ from multiprocessing import Pool
 
 '''Connect to the database using the db info read from the config file'''
 def connectToDatabase(config):
-    print("dbname='" + config.dbname 
-        + "' user='" + config.username 
-        + "' host='" + config.host 
-        + "' password='" + config.password + "'")
     try:
         conn = psycopg2.connect("dbname='" + config.dbname 
                                 + "' user='" + config.username 
                                 + "' host='" + config.host 
                                 + "' password='" + config.password + "'")
     except:
-        print ('I am unable to connect to the database')
+        logging('I am unable to connect to the database')
     return conn
         
 ''' Returns the set of all networks/stations and calibration dates for a given calibration type'''
@@ -54,8 +50,8 @@ def getPathData():
                                    LEFT JOIN """+calTable+"calresults ON "+calTable+".pk_id = "+calTable+"""calresults.fk_calibrationid 
                  WHERE """+calTable+"""calresults is NULL
                  ORDER BY startdate DESC"""
+    print(query)
     cur.execute(query)
-    print (query)
     rows = cur.fetchall()
     pathlist = []
     for row in rows:
@@ -109,19 +105,20 @@ if __name__ == "__main__":
     #Global Variables 
     global calType    
     
-    #Setup root logging
+    #Setup logging
     logging.basicConfig(filename='logs/error.log', level=logging.INFO)
-    formatter = logging.Formatter('%(name)-12s: %(levelname)-8s %(message)s')
-    
     
     #Read data from config file
     config = ParseConfig.ParseConfig()
     #Connect to the database
     dbconn = connectToDatabase(config)
     
-    #Create a list of all calibration types that were entered in the config file
+    #Create a list of all caliSbration types that were entered in the config file
     calTypes = config.calibrationType.split(',')
+    #remove temp directory and contents if it already exists
+    os.system('rm -rf temp')
 
+    #make a directory called temp to store image files to be written to the database
     os.mkdir('temp')
     for ct in calTypes:
         calType = ct
@@ -131,4 +128,5 @@ if __name__ == "__main__":
         #for path in pathData:
         #    computeNewCal(path)
         pool.map(computeNewCal, pathData)
-    os.rmdir('temp')
+    os.system('rm -rf temp')
+    exit(1)
