@@ -40,6 +40,8 @@ def getPathData():
     elif(calType == "step"):
         calTable = 'tbl_300'
         durationType = 'step_duration'
+    #Connect to the database
+    dbconn = connectToDatabase(config)
     #Create cursor used to query the database
     cur = dbconn.cursor()
     #Query the database to retrieve all records for the given calibration type
@@ -53,6 +55,7 @@ def getPathData():
     print(query)
     cur.execute(query)
     rows = cur.fetchall()
+    dbconn.close()
     pathlist = []
     for row in rows:
         pathlist.append(PathData.PathData(cal_id=row[0], network=row[1], station=row[2], location=row[3], date=row[4], channel=row[5], cal_duration=row[6]))
@@ -93,11 +96,14 @@ def computeNewCal(pathData):
             dataOutPath = path + pathData.location + "_" + outChannel + ".512.seed"
             #Compute sine cal for the given data path
             if(os.path.isfile(dataInPath) and os.path.isfile(dataOutPath)):
+                #Connect to the database
+                dbconn = connectToDatabase(config)
                 pc = ComputeCalibrations.ComputeCalibrations(dataInPath, dataOutPath, pathData.date, str('{0:0=3d}'.format(julianday)), pathData.cal_duration, pathData.cal_id, outChannel, pathData.network, pathData.station, pathData.location, dbconn)
                 if(calType == 'sine'):
                     pc.computeSineCal() 
                 elif(calType == 'step'):
                     pc.computeStepCal()
+                dbconn.close()
                     
                     
 #main program here
@@ -110,8 +116,6 @@ if __name__ == "__main__":
     
     #Read data from config file
     config = ParseConfig.ParseConfig()
-    #Connect to the database
-    dbconn = connectToDatabase(config)
     
     #Create a list of all caliSbration types that were entered in the config file
     calTypes = config.calibrationType.split(',')

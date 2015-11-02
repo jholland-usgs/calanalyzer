@@ -10,14 +10,12 @@ import math
 import sys
 import commands
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 from obspy.signal import cornFreq2Paz
 from scipy.optimize import fmin
 import logging
 import numpy
 import psycopg2
-import thread
-from Crypto.Util.number import size
+
 
 class ComputeCalibrations(object):
     
@@ -64,7 +62,6 @@ class ComputeCalibrations(object):
             self.dbconn.commit()
         except:
             self.sinecal_logger.error("Unexpected error:", sys.exc_info()[0])
-            thread.exit() #exit current thread if error occurred
             
     def computeStepCal(self):
         print('stepcal loop')
@@ -77,7 +74,6 @@ class ComputeCalibrations(object):
         #ignores every location except for Z for triaxial STS-2s
         if(("Z" not in self.outChannel) and (sensor == "STS-2HG" or sensor == "STS-4B" or sensor == "STS-2")):
             print("Skipped " + str(self.outChannel) + ' ' + sensor)
-            thread.exit();
             
         
         #get the poles values for the sensor type
@@ -111,7 +107,6 @@ class ComputeCalibrations(object):
                                       + ', location = ' + str(self.location)
                                       + ', channel = ' + str(self.outChannel)
                                       + '}')
-            thread.exit() #exit current thread if error occurred
         try:
             f = 1. /(2*math.pi / abs(pz['poles'][0])) #compute corner (cutoff) frequency
             h = abs(pz['poles'][0].real)/abs(pz['poles'][0]) #compute damping ratio
@@ -134,7 +129,6 @@ class ComputeCalibrations(object):
                                       + ', location = ' + str(self.location)
                                       + ', channel = ' + str(self.outChannel)
                                       + '}')
-            thread.exit() #exit current thread if error occurred
         try:
             pazNOM = cornFreq2Paz(f,h)
             pazNOM['zeros']=[0.+0.j]
@@ -170,7 +164,6 @@ class ComputeCalibrations(object):
                                       + ', location = ' + str(self.location)
                                       + ', channel = ' + str(self.outChannel)
                                       + '}')
-            thread.exit() #exit current thread if error occurred
         try:
             #create a plot for the step calibration and save it to the ./temp directory.  This directory will be deleted when the program is finished running.
             plt.clf()
@@ -192,16 +185,15 @@ class ComputeCalibrations(object):
                                       + ', location = ' + str(self.location)
                                       + ', channel = ' + str(self.outChannel)
                                       + '}')
-            thread.exit() #exit current thread if error occurred
-        #try:
+        try:
             #insert results into the database
-        fin = open('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png', 'rb')
-        imgdata = fin.read()
-        cur = self.dbconn.cursor()
-        cur.execute('''INSERT INTO tbl_300calresults (fk_calibrationid, nominal_cornerfreq, nominal_dampingratio, nominal_resi, fitted_cornerfreq, fitted_dampingratio, fitted_resi, outchannel, stepcal_img)
-                    VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''', [self.cal_id, round(f,6), round(h,6), round(compOUT,6), round(bf[0],6), round(bf[1],6), round(compOUTPERT,6), str(self.outChannel), psycopg2.Binary(imgdata)])
-        self.dbconn.commit()
-        '''except:
+            fin = open('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png', 'rb')
+            imgdata = fin.read()
+            cur = self.dbconn.cursor()
+            cur.execute('''INSERT INTO tbl_300calresults (fk_calibrationid, nominal_cornerfreq, nominal_dampingratio, nominal_resi, fitted_cornerfreq, fitted_dampingratio, fitted_resi, outchannel, stepcal_img)
+                        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''', [self.cal_id, round(f,6), round(h,6), round(compOUT,6), round(bf[0],6), round(bf[1],6), round(compOUTPERT,6), str(self.outChannel), psycopg2.Binary(imgdata)])
+            self.dbconn.commit()
+        except:
             self.stepcal_logger.error('Unable to insert into database for {' 
                                       + 'network = ' + self.network 
                                       + ', station = ' + self.station 
@@ -209,8 +201,7 @@ class ComputeCalibrations(object):
                                       + ', location = ' + str(self.location)
                                       + ', channel = ' + str(self.outChannel)
                                       + '}')
-            thread.exit() #exit current thread if error occurred
-        '''    
+            
     def pzvals(self, sensor):
         #get the instrument values for a given type of seismometer
         if sensor == 'STS-1':
@@ -291,12 +282,11 @@ class ComputeCalibrations(object):
                                       + ', location = ' + str(self.location)
                                       + ', channel = ' + str(self.outChannel)
                                       + '}')
-            thread.exit() #exit current thread if error occurred
             
         sensor = ''
         if ('T-240' in output) or ('Trillium 240' in output):
             sensor='T-240'
-        elif ('T-120' in output) or ('T120' in output):
+        elif ('T-120' in output) or ('T120' in output) or ('TRILLIUM_120' in output):
             sensor = 'T-120'
         elif ('CMG-3T' in output) or ('CMG3T' in output) or ('CMG3-T' in output):
             sensor='CMG-3T'
