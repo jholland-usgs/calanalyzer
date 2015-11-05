@@ -84,26 +84,26 @@ class ComputeCalibrations(object):
         pz = self.pzvals(sensor)
         
         #read data for the calibration
-        #try:
-        stOUT = Stream()   
-        stime = UTCDateTime(self.startdate) - 5*60  
-        stOUT = read(self.dataOutLoc,starttime = stime, endtime = stime + duration + 5*60 +900 )
-        stOUT.merge()
-        stIN = read(self.dataInLoc,starttime = stime, endtime = stime + duration + 5*60  + 900)
-        stIN.merge()
-        trIN = stIN[0]
-        trOUT = stOUT[0]
-        trOUT.filter('lowpass',freq=.1)
-        trIN.filter('lowpass',freq=.1)
-        trIN.detrend('constant')
-        trIN.normalize()
-        trOUT.detrend('constant')
-        trOUT.normalize()
-        temp=trOUT.copy()
-        temp.trim(endtime = stime + int(duration/2.))
-        if temp.max() < 0.0:
-            trOUT.data = - trOUT.data
-        '''except:
+        try:
+            stOUT = Stream()   
+            stime = UTCDateTime(self.startdate) - 5*60  
+            stOUT = read(self.dataOutLoc,starttime = stime, endtime = stime + duration + 5*60 +900 )
+            stOUT.merge()
+            stIN = read(self.dataInLoc,starttime = stime, endtime = stime + duration + 5*60  + 900)
+            stIN.merge()
+            trIN = stIN[0]
+            trOUT = stOUT[0]
+            trOUT.filter('lowpass',freq=.1)
+            trIN.filter('lowpass',freq=.1)
+            trIN.detrend('constant')
+            trIN.normalize()
+            trOUT.detrend('constant')
+            trOUT.normalize()
+            temp=trOUT.copy()
+            temp.trim(endtime = stime + int(duration/2.))
+            if temp.max() < 0.0:
+                trOUT.data = - trOUT.data
+        except:
             if(self.dbconn != None):
                 self.stepcal_logger.error('Unable to read data for {' 
                                           + 'network = ' + self.network 
@@ -113,22 +113,22 @@ class ComputeCalibrations(object):
                                           + ', channel = ' + str(self.outChannel)
                                           + '}')
             else:
-                self.stepcal_logger.error('(Manual Override) Unable read data for manual input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))'''
-        #try:
-        f = 1. /(2*math.pi / abs(pz['poles'][0])) #compute corner (cutoff) frequency
-        h = abs(pz['poles'][0].real)/abs(pz['poles'][0]) #compute damping ratio
-        sen = 10.0            
-        
-        print ('Using: h=' + str(h) + ' f=' + str(f) + ' sen = ' + str(sen))
-       
-        x = numpy.array([f, h, sen])
+                self.stepcal_logger.error('(Manual Override) Unable read data for manual input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))
         try:
-            #compute best fit
-            bf = fmin(self.resi,x, args=(trIN, trOUT),xtol=10**-8,ftol=10**-3,disp=False)
-        except:
-            bf = x 
+            f = 1. /(2*math.pi / abs(pz['poles'][0])) #compute corner (cutoff) frequency
+            h = abs(pz['poles'][0].real)/abs(pz['poles'][0]) #compute damping ratio
+            sen = 10.0            
+            
+            print ('Using: h=' + str(h) + ' f=' + str(f) + ' sen = ' + str(sen))
+           
+            x = numpy.array([f, h, sen])
+            try:
+                #compute best fit
+                bf = fmin(self.resi,x, args=(trIN, trOUT),xtol=10**-8,ftol=10**-3,disp=False)
+            except:
+                bf = x 
    
-        '''except:
+        except:
             if(self.dbconn != None): 
                 self.stepcal_logger.error('Unable to calculate {' 
                                           + 'network = ' + self.network 
@@ -138,35 +138,35 @@ class ComputeCalibrations(object):
                                           + ', channel = ' + str(self.outChannel)
                                           + '}')
             else:
-                self.stepcal_logger.error('(Manual Override) Unable to perform corner freq, damping ratio, and best fit calculations for input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))'''
-        #try:
-        pazNOM = cornFreq2Paz(f,h)
-        pazNOM['zeros']=[0.+0.j]
-
-        pazPERT = cornFreq2Paz(bf[0],bf[1])
-        pazPERT['zeros']=[0]
-
-        trOUTsimPert = trOUT.copy()
-        trOUTsimPert.simulate(paz_remove = pazPERT)
-        trOUTsimPert.trim(trOUTsimPert.stats.starttime + 50,trOUTsimPert.stats.endtime - 50)
-        trOUTsimPert.detrend('constant')
-        trOUTsimPert.normalize()
-
-        trOUTsim = trOUT.copy()
-
-        trOUTsim.simulate(paz_remove = pazNOM)
-        trOUTsim.trim(trOUTsim.stats.starttime + 50,trOUTsim.stats.endtime - 50)
-        trOUTsim.detrend('constant')
-        trOUTsim.normalize()
-
-
-        trIN.trim(trIN.stats.starttime + 50,trIN.stats.endtime - 50)
-        trIN.detrend('constant')
-        trIN.normalize()
+                self.stepcal_logger.error('(Manual Override) Unable to perform corner freq, damping ratio, and best fit calculations for input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))
+        try:
+            pazNOM = cornFreq2Paz(f,h)
+            pazNOM['zeros']=[0.+0.j]
     
-        compOUT = sum((trOUTsim.data - trIN.data)**2)
-        compOUTPERT = sum((trOUTsimPert.data - trIN.data)**2)
-        '''except:
+            pazPERT = cornFreq2Paz(bf[0],bf[1])
+            pazPERT['zeros']=[0]
+    
+            trOUTsimPert = trOUT.copy()
+            trOUTsimPert.simulate(paz_remove = pazPERT)
+            trOUTsimPert.trim(trOUTsimPert.stats.starttime + 50,trOUTsimPert.stats.endtime - 50)
+            trOUTsimPert.detrend('constant')
+            trOUTsimPert.normalize()
+    
+            trOUTsim = trOUT.copy()
+    
+            trOUTsim.simulate(paz_remove = pazNOM)
+            trOUTsim.trim(trOUTsim.stats.starttime + 50,trOUTsim.stats.endtime - 50)
+            trOUTsim.detrend('constant')
+            trOUTsim.normalize()
+    
+    
+            trIN.trim(trIN.stats.starttime + 50,trIN.stats.endtime - 50)
+            trIN.detrend('constant')
+            trIN.normalize()
+        
+            compOUT = sum((trOUTsim.data - trIN.data)**2)
+            compOUTPERT = sum((trOUTsimPert.data - trIN.data)**2)
+        except:
             if(self.dbconn != None): 
                 self.stepcal_logger.error('Unable to do calculation for {' 
                                           + 'network = ' + self.network 
@@ -176,20 +176,20 @@ class ComputeCalibrations(object):
                                           + ', channel = ' + str(self.outChannel)
                                           + '}')
             else:
-                self.stepcal_logger.error('(Manual Override) Unable to perform poles calculation or input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))'''
-        #try:
-        #create a plot for the step calibration and save it to the ./temp directory.  This directory will be deleted when the program is finished running.
-        plt.clf()
-        t = numpy.arange(0,trOUTsim.stats.npts /trOUTsim.stats.sampling_rate,trOUTsim.stats.delta)
-        plt.plot(t,trIN.data,'b',label = 'Input')
-        plt.plot(t,trOUTsim.data,'k',label='h=' + str(round(h,6)) + ' f=' + str(round(f,6)) + ' resi=' + str(round(compOUT,6)))
-        plt.plot(t,trOUTsimPert.data,'g',label = 'h=' + str(round(bf[1],6)) + ' f=' + str(round(bf[0],6))+ ' resi=' + str(round(compOUTPERT,6)))
-        plt.xlabel('Time (s)')
-        plt.ylabel('Cnts normalized')
-        plt.title('Step Calibration ' + trOUT.stats.station + ' ' + str(trOUT.stats.starttime.year) + ' ' + str(trOUT.stats.starttime.julday).zfill(3))
-        plt.legend(prop={'size':6})
-        plt.savefig('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png',format = "png", dpi = 400)
-        '''except:
+                self.stepcal_logger.error('(Manual Override) Unable to perform poles calculation or input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))
+        try:
+            #create a plot for the step calibration and save it to the ./temp directory.  This directory will be deleted when the program is finished running.
+            plt.clf()
+            t = numpy.arange(0,trOUTsim.stats.npts /trOUTsim.stats.sampling_rate,trOUTsim.stats.delta)
+            plt.plot(t,trIN.data,'b',label = 'Input')
+            plt.plot(t,trOUTsim.data,'k',label='h=' + str(round(h,6)) + ' f=' + str(round(f,6)) + ' resi=' + str(round(compOUT,6)))
+            plt.plot(t,trOUTsimPert.data,'g',label = 'h=' + str(round(bf[1],6)) + ' f=' + str(round(bf[0],6))+ ' resi=' + str(round(compOUTPERT,6)))
+            plt.xlabel('Time (s)')
+            plt.ylabel('Cnts normalized')
+            plt.title('Step Calibration ' + trOUT.stats.station + ' ' + str(trOUT.stats.starttime.year) + ' ' + str(trOUT.stats.starttime.julday).zfill(3))
+            plt.legend(prop={'size':6})
+            plt.savefig('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png',format = "png", dpi = 400)
+        except:
             if(self.dbconn != None):
                 self.stepcal_logger.error('Unable to plot {' 
                                           + 'network = ' + self.network 
@@ -199,7 +199,7 @@ class ComputeCalibrations(object):
                                           + ', channel = ' + str(self.outChannel)
                                           + '}')
             else:
-                self.stepcal_logger.error('(Manual Override) Unable to make plot for input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))'''
+                self.stepcal_logger.error('(Manual Override) Unable to make plot for input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))
         if(self.dbconn != None):
             try:
                 plt.close()
@@ -220,17 +220,17 @@ class ComputeCalibrations(object):
                                           + '}')
                     
         else:
-            #try:
-            print('nominal corner freq = ' + str(round(f,6)) 
-                  + ', nominal damping ratio = ' + str(round(h,6)) 
-                  + ', nominal best fit = ' + str(round(compOUT,6)) 
-                  + ', fitted corner freq = ' + str(round(bf[0],6)) 
-                  + ', fitted damping ratio = ' + str(round(bf[1], 6)) 
-                  + ', pert best fit ' + str(round(compOUTPERT,6)))
-            plt.show()
-            plt.close()
-            #except:
-            #    print('(Manual Override) Error displaying calculation results.')
+            try:
+                print('nominal corner freq = ' + str(round(f,6)) 
+                      + ', nominal damping ratio = ' + str(round(h,6)) 
+                      + ', nominal best fit = ' + str(round(compOUT,6)) 
+                      + ', fitted corner freq = ' + str(round(bf[0],6)) 
+                      + ', fitted damping ratio = ' + str(round(bf[1], 6)) 
+                      + ', pert best fit ' + str(round(compOUTPERT,6)))
+                plt.show()
+                plt.close()
+            except:
+                print('(Manual Override) Error displaying calculation results.')
             
     def pzvals(self, sensor):
         #get the instrument values for a given type of seismometer
