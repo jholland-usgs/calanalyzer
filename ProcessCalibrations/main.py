@@ -15,6 +15,7 @@ from src import ComputeCalibrations
 from src import PathData
 import psycopg2
 from multiprocessing import Pool
+import datetime
 
 
 '''Connect to the database using the db info read from the config file'''
@@ -52,7 +53,6 @@ def getPathData():
                                    LEFT JOIN """+calTable+"calresults ON "+calTable+".pk_id = "+calTable+"""calresults.fk_calibrationid 
                  WHERE """+calTable+"""calresults is NULL
                  ORDER BY startdate DESC"""
-    print(query)
     cur.execute(query)
     rows = cur.fetchall()
     dbconn.close()
@@ -63,53 +63,63 @@ def getPathData():
     return pathlist
   
 def computeNewCal(pathData):      
-    if(pathData != None):
-        #Calculate equivalent julian calendar day
-        julianday = UTCDateTime(pathData.date.year, pathData.date.month, pathData.date.day, 0, 0).julday
-        #Build the relative data path
-        if(pathData.network == 'US'):
-            path = '/xs1/seed/'+pathData.network+'_'+pathData.station+'/'+str(pathData.date.year)+'/'+str(pathData.date.year)+'_'+ str('{0:0=3d}'.format(julianday))+'_'+pathData.network+'_'+pathData.station+'/'
-        else:
-            path = '/xs0/seed/'+pathData.network+'_'+pathData.station+'/'+str(pathData.date.year)+'/'+str(pathData.date.year)+'_'+ str('{0:0=3d}'.format(julianday))+'_'+pathData.network+'_'+pathData.station+'/'
-        
-        #Build the path for the input file
-        dataInPath = ''
-        if len(glob.glob(path+pathData.channel+'.*')) > 0:
-            dataInPath = str(glob.glob(path+pathData.channel+'.*')[0])
-        elif len(pathData.location) > 0 and len(glob.glob(path+pathData.channel[0]+"C"+pathData.location[0]+'.*')) > 0:
-            dataInPath = str(glob.glob(path+pathData.channel[0]+"C"+pathData.location[0]+'.*')[0])
-        else:
-            logging.warn('Unable to find input file ' + str(path+pathData.channel+'.*'))
+    #Calculate equivalent julian calendar day
+    julianday = UTCDateTime(pathData.date.year, pathData.date.month, pathData.date.day, 0, 0).julday
+    #Build the relative data path
+    if(pathData.network == 'US'):
+        path = '/xs1/seed/'+pathData.network+'_'+pathData.station+'/'+str(pathData.date.year)+'/'+str(pathData.date.year)+'_'+ str('{0:0=3d}'.format(julianday))+'_'+pathData.network+'_'+pathData.station+'/'
+    else:
+        path = '/xs0/seed/'+pathData.network+'_'+pathData.station+'/'+str(pathData.date.year)+'/'+str(pathData.date.year)+'_'+ str('{0:0=3d}'.format(julianday))+'_'+pathData.network+'_'+pathData.station+'/'
     
-        #Build the path for the output file
-        patternBH = re.compile("^BC*")
-        outChannels = []
-        if(pathData.channel == 'BC8'):
-            outChannels = ['BHZ'] 
-        elif(patternBH.match(pathData.channel)):
-            outChannels = ['BHZ', 'BH1', 'BH2']                          
-        else:
-            outChannels = ['LHZ'] 
-        dataOutPath = ''
-        
-        for outChannel in outChannels:
-            dataOutPath = path + pathData.location + "_" + outChannel + ".512.seed"
-            #Compute sine cal for the given data path
-            if(os.path.isfile(dataInPath) and os.path.isfile(dataOutPath)):
-                #Connect to the database
-                dbconn = connectToDatabase(config)
-                pc = ComputeCalibrations.ComputeCalibrations(dataInPath, dataOutPath, pathData.date, str('{0:0=3d}'.format(julianday)), pathData.cal_duration, pathData.cal_id, outChannel, pathData.network, pathData.station, pathData.location, dbconn)
-                if(calType == 'sine'):
-                    pc.computeSineCal() 
-                elif(calType == 'step'):
-                    pc.computeStepCal()
-                dbconn.close()
-                    
+    #Build the path for the input file
+    dataInPath = ''
+    if len(glob.glob(path+pathData.channel+'.*')) > 0:
+        dataInPath = str(glob.glob(path+pathData.channel+'.*')[0])
+    elif len(pathData.location) > 0 and len(glob.glob(path+pathData.channel[0]+"C"+pathData.location[0]+'.*')) > 0:
+        dataInPath = str(glob.glob(path+pathData.channel[0]+"C"+pathData.location[0]+'.*')[0])
+    else:
+        logging.warn('Unable to find input file ' + str(path+pathData.channel+'.*'))
+
+    #Build the path for the output file
+    patternBH = re.compile("^BC*")
+    outChannels = []
+    if(pathData.channel == 'BC8'):
+        outChannels = ['BHZ'] 
+    elif(patternBH.match(pathData.channel)):
+        outChannels = ['BHZ', 'BH1', 'BH2']                          
+    else:
+        outChannels = ['LHZ'] 
+    dataOutPath = ''
+    
+    for outChannel in outChannels:
+        dataOutPath = path + pathData.location + "_" + outChannel + ".512.seed"
+        #Compute sine cal for the given data path
+        if(os.path.isfile(dataInPath) and os.path.isfile(dataOutPath)):
+            #Connect to the database
+            dbconn = connectToDatabase(config)
+            pc = ComputeCalibrations.ComputeCalibrations(dataInPath, dataOutPath, pathData.date, str('{0:0=3d}'.format(julianday)), pathData.cal_duration, pathData.cal_id, outChannel, pathData.network, pathData.station, pathData.location, dbconn)
+            if(calType == 'sine'):
+                pc.computeSineCal() 
+            elif(calType == 'step'):
+                pc.computeStepCal()
+            dbconn.close()
+    #If specific calibration information is provided  use the provided information rather getting the information from the file system
+
+def computeNewCalManualOverride():
+    #Calculate equivalent julian calendar day
+    date = datetime.datetime.strptime(config.startdate, '%Y-%m-%d %H:%M:%S')
+    julianday = UTCDateTime(date.year, date.month, date.day, 0, 0).julday
+    pc = ComputeCalibrations.ComputeCalibrations(config.inputloc, config.outputloc, date, str('{0:0=3d}'.format(julianday)), float(config.duration), None, None, None, None, None, None, config.sentype)
+    if(calType == 'sine'):
+        pc.computeSineCal() 
+    elif(calType == 'step'):
+        pc.computeStepCal()                 
                     
 #main program here
 if __name__ == "__main__":
     #Global Variables 
     global calType    
+    global config
     
     #Setup logging
     logging.basicConfig(filename='logs/error.log', level=logging.INFO)
@@ -117,7 +127,7 @@ if __name__ == "__main__":
     #Read data from config file
     config = ParseConfig.ParseConfig()
     
-    #Create a list of all caliSbration types that were entered in the config file
+    #Create a list of all calibration types that were entered in the config file
     calTypes = config.calibrationType.split(',')
     #remove temp directory and contents if it already exists
     os.system('rm -rf temp')
@@ -128,9 +138,16 @@ if __name__ == "__main__":
         calType = ct
         #Query database to get path data for sine calibrations
         pool = Pool(10)
-        pathData = getPathData()
+        #If specific calibration information is provided  use the provided information rather than querying the database
+        if((config.sentype == None) and (config.startdate == None) and (config.duration == None) and (config.inputloc == None) and (config.outputloc == None)):
+            pathData = getPathData()
+            pool.map(computeNewCal, pathData)
+        elif((config.sentype != None) and (config.startdate != None) and (config.duration != None) and (config.inputloc != None) and (config.outputloc != None)):
+            computeNewCalManualOverride()
+        else:
+            print("There was a problem with way the program was called. Please verify your input.")
         #for path in pathData:
         #    computeNewCal(path)
-        pool.map(computeNewCal, pathData)
+        
     os.system('rm -rf temp')
     exit(1)

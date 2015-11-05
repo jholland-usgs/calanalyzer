@@ -6,6 +6,8 @@ Created on Sep 18, 2015
 
 import argparse
 import yaml
+import datetime
+import time
 
 class ParseConfig(object):
     
@@ -18,9 +20,23 @@ class ParseConfig(object):
         parser = argparse.ArgumentParser(description='Code used to process calibrations')
 
         #Sets flag for the configuration file location
-        parser.add_argument('-config', action = "store", help="Configuration file to parse", type = str, required = True)
-        #Sets flag for the configuration file location
-        parser.add_argument('-caltype', action = "store", default="Sine,Step,Random", help="Type of calibration to compute. Choose from {sine, step, random} separated by commas.", type = str, required = False)
+        parser.add_argument('-config', action='store', help='Configuration file to parse', type = str, required = True)
+        #Sets flag for the configuration file location (Optional)
+        parser.add_argument('-caltype', action='store', default='Sine,Step,Random', help='(Optional) Type of calibration to compute. Choose from {sine, step, random} separated by commas.', type = str, required = False)
+        
+        #Manual override for  sensor type
+        parser.add_argument('-sentype', action='store', default=None, help='(Optional) Manual override for sensor type.', type = str, required = False)
+        #Manual override for start date & time
+        parser.add_argument('-startdate', action='store', default=None, help="(Optional) Manual override for start time. Format as 'YYYY-MM-DD hh:mm:ss'.", type = str, required = False)
+        #Manual override for end date & time
+        parser.add_argument('-duration', action='store', default=None, help="(Optional) Manual override for calibration duration in seconds.", type = str, required = False)
+        #Manual override for input data location
+        parser.add_argument('-inputloc', action='store', default=None, help="(Optional) Manual override for input data location.", type = str, required = False)
+                #Manual override for input data location
+        parser.add_argument('-outputloc', action='store', default=None, help="(Optional) Manual override for output data location.", type = str, required = False)
+        #Manual override for  capacitive vs. resistive calibration type
+        parser.add_argument('-cr', action='store', default='R', help="(Optional) Manual override for capacitive vs. resistive random calibration. {C = capacitive, R = resistive}'.", type = str, required = False)
+        
         parserval = parser.parse_args()
         return parserval
     
@@ -32,3 +48,10 @@ class ParseConfig(object):
             self.username = conf['username']
             self.password = conf['password']
         self.calibrationType = arguments.caltype.lower()
+        self.sentype = arguments.sentype
+        self.startdate = arguments.startdate
+        self.duration = int(arguments.duration)* 1000 #convert from seconds to milliseconds
+        self.inputloc = arguments.inputloc
+        self.outputloc = arguments.outputloc
+        self.cr = arguments.cr
+        

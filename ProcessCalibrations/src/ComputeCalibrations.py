@@ -19,7 +19,7 @@ import psycopg2
 
 class ComputeCalibrations(object):
     
-    def __init__(self, dataInLoc, dataOutLoc, startdate, julianday, cal_duration, cal_id, outChannel, network, station, location, dbconn):
+    def __init__(self, dataInLoc, dataOutLoc, startdate, julianday, cal_duration, cal_id, outChannel, network, station, location, dbconn, sentype = None):
         self.dataInLoc = dataInLoc #Location where the input data is located 
         self.dataOutLoc = dataOutLoc #Location where the output seed data is located
         self.startdate = startdate #Start data for the calibration
@@ -30,6 +30,7 @@ class ComputeCalibrations(object):
         self.network = network
         self.station = station
         self.location = location
+        self.sentype = sentype #Manual override for sensor type
         self.dbconn = dbconn #Database connection object
         #Setup logging for calibrations
         self.stepcal_logger = logging.getLogger('ComputeCalibrations.stepcal')
@@ -40,10 +41,9 @@ class ComputeCalibrations(object):
             #Read in BH and BC
             dataIN = read(self.dataInLoc)
             dataOUT = read(self.dataOutLoc)
-
             #Convert start date to UTC
             stime = UTCDateTime(str(self.startdate))
-
+    
             #Trim data to only grab the sine calibration
             dataIN.trim(starttime=stime, endtime=stime + self.cal_duration)
             dataOUT.trim(starttime=stime, endtime=stime + self.cal_duration)
@@ -53,26 +53,30 @@ class ComputeCalibrations(object):
             dataINRMS /= float(dataIN[0].stats.npts)
             dataOUTRMS = math.sqrt(2.)*sum(np.square(dataOUT[0].data))
             dataINRMS /= float(dataOUT[0].stats.npts)  
-        
-            #Write results to database      
-            cur = self.dbconn.cursor()
-            cur.execute("""INSERT INTO tbl_310calresults (fk_calibrationid, input_rms, output_rms, outchannel, coil_constant)
-                           VALUES ("""+ "'" + str(self.cal_id) + "', '" + str(dataINRMS) + "', '" + str(dataOUTRMS) + "', '" + str(self.outChannel) + "', '" + str(dataINRMS/dataOUTRMS) + "')")
-           
-            self.dbconn.commit()
+            
+            if(self.dbconn != None):
+                #Write results to database      
+                cur = self.dbconn.cursor()
+                cur.execute("""INSERT INTO tbl_310calresults (fk_calibrationid, input_rms, output_rms, outchannel, coil_constant)
+                               VALUES ("""+ "'" + str(self.cal_id) + "', '" + str(dataINRMS) + "', '" + str(dataOUTRMS) + "', '" + str(self.outChannel) + "', '" + str(dataINRMS/dataOUTRMS) + "')")
+                self.dbconn.commit()
+            else:
+                print('input rms = ' + str(dataINRMS) + ', output rms = ' + str(dataOUTRMS) + ', coil constant = ' + str(dataINRMS/dataOUTRMS))
         except:
             self.sinecal_logger.error("Unexpected error:", sys.exc_info()[0])
             
     def computeStepCal(self):
-        print('stepcal loop')
-        #cal duration needs to be divided by 10000 for step cals only
-        duration = self.cal_duration / 10000.0
+        #cal duration needs to be divided by 10000 for step cals only.  This only applies for when you are reading the cal duration from the database. 
+        if(self.dbconn != None):
+            duration = self.cal_duration / 10000.0 #divide by 10000 when getting the cal_duration from the database
+        else:
+            duration = self.cal_duration
         
         #Determine the type of sensor from the metadata
-        sensor = self.determineSensorType();
+        sensor = self.determineSensorType()
         
         #ignores every location except for Z for triaxial STS-2s
-        if(("Z" not in self.outChannel) and (sensor == "STS-2HG" or sensor == "STS-4B" or sensor == "STS-2")):
+        if((self.dbconn != None) and ("Z" not in self.outChannel) and (sensor == "STS-2HG" or sensor == "STS-4B" or sensor == "STS-2")):
             print("Skipped " + str(self.outChannel) + ' ' + sensor)
             
         
@@ -80,127 +84,153 @@ class ComputeCalibrations(object):
         pz = self.pzvals(sensor)
         
         #read data for the calibration
-        try:
-            stOUT = Stream()   
-            stime = UTCDateTime(self.startdate) - 5*60  
-            stOUT = read(self.dataOutLoc,starttime = stime, endtime = stime + duration + 5*60 +900 )
-            stOUT.merge()
-            stIN = read(self.dataInLoc,starttime = stime, endtime = stime + duration + 5*60  + 900)
-            stIN.merge()
-            trIN = stIN[0]
-            trOUT = stOUT[0]
-            trOUT.filter('lowpass',freq=.1)
-            trIN.filter('lowpass',freq=.1)
-            trIN.detrend('constant')
-            trIN.normalize()
-            trOUT.detrend('constant')
-            trOUT.normalize()
-            temp=trOUT.copy()
-            temp.trim(endtime = stime + int(duration/2.))
-            if temp.max() < 0.0:
-                trOUT.data = - trOUT.data
-        except:
-            self.stepcal_logger.error('Unable to read data for {' 
-                                      + 'network = ' + self.network 
-                                      + ', station = ' + self.station 
-                                      + ', sensor = ' + str(sensor) 
-                                      + ', location = ' + str(self.location)
-                                      + ', channel = ' + str(self.outChannel)
-                                      + '}')
-        try:
-            f = 1. /(2*math.pi / abs(pz['poles'][0])) #compute corner (cutoff) frequency
-            h = abs(pz['poles'][0].real)/abs(pz['poles'][0]) #compute damping ratio
-            sen = 10.0            
-            
-            print ('Using: h=' + str(h) + ' f=' + str(f) + ' sen = ' + str(sen))
-           
-            x = numpy.array([f, h, sen])
-            try:
-                #compute best fit
-                bf = fmin(self.resi,x, args=(trIN, trOUT),xtol=10**-8,ftol=10**-3,disp=False)
-            except:
-                bf = x 
-   
-        except:
-            self.stepcal_logger.error('Unable to calculate {' 
-                                      + 'network = ' + self.network 
-                                      + ', station = ' + self.station 
-                                      + ', sensor = ' + str(sensor) 
-                                      + ', location = ' + str(self.location)
-                                      + ', channel = ' + str(self.outChannel)
-                                      + '}')
-        try:
-            pazNOM = cornFreq2Paz(f,h)
-            pazNOM['zeros']=[0.+0.j]
-    
-            pazPERT = cornFreq2Paz(bf[0],bf[1])
-            pazPERT['zeros']=[0]
-    
-            trOUTsimPert = trOUT.copy()
-            trOUTsimPert.simulate(paz_remove = pazPERT)
-            trOUTsimPert.trim(trOUTsimPert.stats.starttime + 50,trOUTsimPert.stats.endtime - 50)
-            trOUTsimPert.detrend('constant')
-            trOUTsimPert.normalize()
-    
-            trOUTsim = trOUT.copy()
-    
-            trOUTsim.simulate(paz_remove = pazNOM)
-            trOUTsim.trim(trOUTsim.stats.starttime + 50,trOUTsim.stats.endtime - 50)
-            trOUTsim.detrend('constant')
-            trOUTsim.normalize()
-    
-    
-            trIN.trim(trIN.stats.starttime + 50,trIN.stats.endtime - 50)
-            trIN.detrend('constant')
-            trIN.normalize()
+        #try:
+        stOUT = Stream()   
+        stime = UTCDateTime(self.startdate) - 5*60  
+        stOUT = read(self.dataOutLoc,starttime = stime, endtime = stime + duration + 5*60 +900 )
+        stOUT.merge()
+        stIN = read(self.dataInLoc,starttime = stime, endtime = stime + duration + 5*60  + 900)
+        stIN.merge()
+        trIN = stIN[0]
+        trOUT = stOUT[0]
+        trOUT.filter('lowpass',freq=.1)
+        trIN.filter('lowpass',freq=.1)
+        trIN.detrend('constant')
+        trIN.normalize()
+        trOUT.detrend('constant')
+        trOUT.normalize()
+        temp=trOUT.copy()
+        temp.trim(endtime = stime + int(duration/2.))
+        if temp.max() < 0.0:
+            trOUT.data = - trOUT.data
+        '''except:
+            if(self.dbconn != None):
+                self.stepcal_logger.error('Unable to read data for {' 
+                                          + 'network = ' + self.network 
+                                          + ', station = ' + self.station 
+                                          + ', sensor = ' + str(sensor) 
+                                          + ', location = ' + str(self.location)
+                                          + ', channel = ' + str(self.outChannel)
+                                          + '}')
+            else:
+                self.stepcal_logger.error('(Manual Override) Unable read data for manual input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))'''
+        #try:
+        f = 1. /(2*math.pi / abs(pz['poles'][0])) #compute corner (cutoff) frequency
+        h = abs(pz['poles'][0].real)/abs(pz['poles'][0]) #compute damping ratio
+        sen = 10.0            
         
-            compOUT = sum((trOUTsim.data - trIN.data)**2)
-            compOUTPERT = sum((trOUTsimPert.data - trIN.data)**2)
-        except:
-            self.stepcal_logger.error('Unable to do calculation for {' 
-                                      + 'network = ' + self.network 
-                                      + ', station = ' + self.station 
-                                      + ', sensor = ' + str(sensor) 
-                                      + ', location = ' + str(self.location)
-                                      + ', channel = ' + str(self.outChannel)
-                                      + '}')
+        print ('Using: h=' + str(h) + ' f=' + str(f) + ' sen = ' + str(sen))
+       
+        x = numpy.array([f, h, sen])
         try:
-            #create a plot for the step calibration and save it to the ./temp directory.  This directory will be deleted when the program is finished running.
-            plt.clf()
-            t = numpy.arange(0,trOUTsim.stats.npts /trOUTsim.stats.sampling_rate,trOUTsim.stats.delta)
-            plt.plot(t,trIN.data,'b',label = 'Input')
-            plt.plot(t,trOUTsim.data,'k',label='h=' + str(round(h,6)) + ' f=' + str(round(f,6)) + ' resi=' + str(round(compOUT,6)))
-            plt.plot(t,trOUTsimPert.data,'g',label = 'h=' + str(round(bf[1],6)) + ' f=' + str(round(bf[0],6))+ ' resi=' + str(round(compOUTPERT,6)))
-            plt.xlabel('Time (s)')
-            plt.ylabel('Cnts normalized')
-            plt.title('Step Calibration ' + trOUT.stats.station + ' ' + str(trOUT.stats.starttime.year) + ' ' + str(trOUT.stats.starttime.julday).zfill(3))
-            plt.legend(prop={'size':6})
-            plt.savefig('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png',format = "png", dpi = 400)
+            #compute best fit
+            bf = fmin(self.resi,x, args=(trIN, trOUT),xtol=10**-8,ftol=10**-3,disp=False)
+        except:
+            bf = x 
+   
+        '''except:
+            if(self.dbconn != None): 
+                self.stepcal_logger.error('Unable to calculate {' 
+                                          + 'network = ' + self.network 
+                                          + ', station = ' + self.station 
+                                          + ', sensor = ' + str(sensor) 
+                                          + ', location = ' + str(self.location)
+                                          + ', channel = ' + str(self.outChannel)
+                                          + '}')
+            else:
+                self.stepcal_logger.error('(Manual Override) Unable to perform corner freq, damping ratio, and best fit calculations for input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))'''
+        #try:
+        pazNOM = cornFreq2Paz(f,h)
+        pazNOM['zeros']=[0.+0.j]
+
+        pazPERT = cornFreq2Paz(bf[0],bf[1])
+        pazPERT['zeros']=[0]
+
+        trOUTsimPert = trOUT.copy()
+        trOUTsimPert.simulate(paz_remove = pazPERT)
+        trOUTsimPert.trim(trOUTsimPert.stats.starttime + 50,trOUTsimPert.stats.endtime - 50)
+        trOUTsimPert.detrend('constant')
+        trOUTsimPert.normalize()
+
+        trOUTsim = trOUT.copy()
+
+        trOUTsim.simulate(paz_remove = pazNOM)
+        trOUTsim.trim(trOUTsim.stats.starttime + 50,trOUTsim.stats.endtime - 50)
+        trOUTsim.detrend('constant')
+        trOUTsim.normalize()
+
+
+        trIN.trim(trIN.stats.starttime + 50,trIN.stats.endtime - 50)
+        trIN.detrend('constant')
+        trIN.normalize()
+    
+        compOUT = sum((trOUTsim.data - trIN.data)**2)
+        compOUTPERT = sum((trOUTsimPert.data - trIN.data)**2)
+        '''except:
+            if(self.dbconn != None): 
+                self.stepcal_logger.error('Unable to do calculation for {' 
+                                          + 'network = ' + self.network 
+                                          + ', station = ' + self.station 
+                                          + ', sensor = ' + str(sensor) 
+                                          + ', location = ' + str(self.location)
+                                          + ', channel = ' + str(self.outChannel)
+                                          + '}')
+            else:
+                self.stepcal_logger.error('(Manual Override) Unable to perform poles calculation or input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))'''
+        #try:
+        #create a plot for the step calibration and save it to the ./temp directory.  This directory will be deleted when the program is finished running.
+        plt.clf()
+        t = numpy.arange(0,trOUTsim.stats.npts /trOUTsim.stats.sampling_rate,trOUTsim.stats.delta)
+        plt.plot(t,trIN.data,'b',label = 'Input')
+        plt.plot(t,trOUTsim.data,'k',label='h=' + str(round(h,6)) + ' f=' + str(round(f,6)) + ' resi=' + str(round(compOUT,6)))
+        plt.plot(t,trOUTsimPert.data,'g',label = 'h=' + str(round(bf[1],6)) + ' f=' + str(round(bf[0],6))+ ' resi=' + str(round(compOUTPERT,6)))
+        plt.xlabel('Time (s)')
+        plt.ylabel('Cnts normalized')
+        plt.title('Step Calibration ' + trOUT.stats.station + ' ' + str(trOUT.stats.starttime.year) + ' ' + str(trOUT.stats.starttime.julday).zfill(3))
+        plt.legend(prop={'size':6})
+        plt.savefig('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png',format = "png", dpi = 400)
+        '''except:
+            if(self.dbconn != None):
+                self.stepcal_logger.error('Unable to plot {' 
+                                          + 'network = ' + self.network 
+                                          + ', station = ' + self.station 
+                                          + ', sensor = ' + str(sensor) 
+                                          + ', location = ' + str(self.location)
+                                          + ', channel = ' + str(self.outChannel)
+                                          + '}')
+            else:
+                self.stepcal_logger.error('(Manual Override) Unable to make plot for input file ' + str(self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))'''
+        if(self.dbconn != None):
+            try:
+                plt.close()
+                #insert results into the database
+                fin = open('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png', 'rb')
+                imgdata = fin.read()
+                cur = self.dbconn.cursor()
+                cur.execute('''INSERT INTO tbl_300calresults (fk_calibrationid, nominal_cornerfreq, nominal_dampingratio, nominal_resi, fitted_cornerfreq, fitted_dampingratio, fitted_resi, outchannel, stepcal_img)
+                            VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''', [self.cal_id, round(f,6), round(h,6), round(compOUT,6), round(bf[0],6), round(bf[1],6), round(compOUTPERT,6), str(self.outChannel), psycopg2.Binary(imgdata)])
+                self.dbconn.commit()
+            except:
+                self.stepcal_logger.error('Unable to insert into database for {' 
+                                          + 'network = ' + self.network 
+                                          + ', station = ' + self.station 
+                                          + ', sensor = ' + str(sensor) 
+                                          + ', location = ' + str(self.location)
+                                          + ', channel = ' + str(self.outChannel)
+                                          + '}')
+                    
+        else:
+            #try:
+            print('nominal corner freq = ' + str(round(f,6)) 
+                  + ', nominal damping ratio = ' + str(round(h,6)) 
+                  + ', nominal best fit = ' + str(round(compOUT,6)) 
+                  + ', fitted corner freq = ' + str(round(bf[0],6)) 
+                  + ', fitted damping ratio = ' + str(round(bf[1], 6)) 
+                  + ', pert best fit ' + str(round(compOUTPERT,6)))
+            plt.show()
             plt.close()
-        except:
-            self.stepcal_logger.error('Unable to plot {' 
-                                      + 'network = ' + self.network 
-                                      + ', station = ' + self.station 
-                                      + ', sensor = ' + str(sensor) 
-                                      + ', location = ' + str(self.location)
-                                      + ', channel = ' + str(self.outChannel)
-                                      + '}')
-        try:
-            #insert results into the database
-            fin = open('temp/'+str(trOUT.stats.station) + str(self.outChannel) + str(self.location) + str(self.startdate.year) + str(self.julianday) + 'step.png', 'rb')
-            imgdata = fin.read()
-            cur = self.dbconn.cursor()
-            cur.execute('''INSERT INTO tbl_300calresults (fk_calibrationid, nominal_cornerfreq, nominal_dampingratio, nominal_resi, fitted_cornerfreq, fitted_dampingratio, fitted_resi, outchannel, stepcal_img)
-                        VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)''', [self.cal_id, round(f,6), round(h,6), round(compOUT,6), round(bf[0],6), round(bf[1],6), round(compOUTPERT,6), str(self.outChannel), psycopg2.Binary(imgdata)])
-            self.dbconn.commit()
-        except:
-            self.stepcal_logger.error('Unable to insert into database for {' 
-                                      + 'network = ' + self.network 
-                                      + ', station = ' + self.station 
-                                      + ', sensor = ' + str(sensor) 
-                                      + ', location = ' + str(self.location)
-                                      + ', channel = ' + str(self.outChannel)
-                                      + '}')
+            #except:
+            #    print('(Manual Override) Error displaying calculation results.')
             
     def pzvals(self, sensor):
         #get the instrument values for a given type of seismometer
@@ -266,22 +296,25 @@ class ComputeCalibrations(object):
         return comp
 
     def determineSensorType(self):
-        #returns the sensor type for a given station location/channel
-        mdgetstr = '/home/aringler/data_stuff/checkstep/./mdget.py -n ' + str(self.network) + ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
-                    ' -s ' + str(self.station) + ' -t ' + str(self.startdate.year) + '-' + str(self.julianday) + ' -o \'instrument type\''
-
-        output = commands.getstatusoutput(mdgetstr)
-        
-        # These might not be consistent names for sensors between networks
-        try:
-            output = output[1].split(',')[4] #extract the sensor data from the metadata output
-        except:
-            self.stepcal_logger.error('Unable to acquire sensor information for {' 
-                                      + 'network = ' + self.network 
-                                      + ', station = ' + self.station 
-                                      + ', location = ' + str(self.location)
-                                      + ', channel = ' + str(self.outChannel)
-                                      + '}')
+        if(self.dbconn != None):
+            #returns the sensor type for a given station location/channel
+            mdgetstr = '/home/aringler/data_stuff/checkstep/./mdget.py -n ' + str(self.network) + ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
+                        ' -s ' + str(self.station) + ' -t ' + str(self.startdate.year) + '-' + str(self.julianday) + ' -o \'instrument type\''
+    
+            output = commands.getstatusoutput(mdgetstr)
+            
+            # These might not be consistent names for sensors between networks
+            try:
+                output = output[1].split(',')[4] #extract the sensor data from the metadata output
+            except:
+                self.stepcal_logger.error('Unable to acquire sensor information for {' 
+                                          + 'network = ' + self.network 
+                                          + ', station = ' + self.station 
+                                          + ', location = ' + str(self.location)
+                                          + ', channel = ' + str(self.outChannel)
+                                          + '}')
+        else:
+            output = self.sentype
             
         sensor = ''
         if ('T-240' in output) or ('Trillium 240' in output):
