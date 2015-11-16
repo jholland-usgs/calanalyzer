@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 '''
 Created on Sep 18, 2015
 
@@ -15,6 +17,9 @@ from scipy.optimize import fmin
 import logging
 import numpy
 import psycopg2
+import spectrum
+from inspect import trace
+import obspy
 
 
 class ComputeCalibrations(object):
@@ -231,7 +236,55 @@ class ComputeCalibrations(object):
                 plt.close()
             except:
                 print('(Manual Override) Error displaying calculation results.')
+    
+    def computeRandomCal(self):
+        if(self.dbconn != None):
+            duration = self.cal_duration / 10000.0 #divide by 10000 when getting the cal_duration from the database
+        else:
+            duration = self.cal_duration
+        
+        #read data for the calibration  
+        stime = UTCDateTime(self.startdate) - 5*60  
+        stOUT = read(self.dataOutLoc,starttime = stime, endtime = stime + duration)
+        stOUT.merge()
+        stIN = read(self.dataInLoc,starttime = stime, endtime = stime + duration)
+        stIN.merge()
+        trIN = stIN[0]
+        trOUT = stOUT[0]
+        trIN.normalize()
+        trOUT.normalize()
+        trIN.detrend('constant')
+        trOUT.detrend('constant')
+        temp=trOUT.copy()
+        temp.trim(endtime = stime + int(duration/2.))
+        if temp.max() < 0.0:
+            trOUT.data = - trOUT.data
             
+        samplerate = trOUT.stats.sampling_rate
+
+        print (samplerate)
+
+        #trIN.decimate(factor=int(samplerate), strict_length=False, no_filter=True)
+        #trOUT.decimate(factor=int(samplerate), strict_length=False, no_filter=True)
+        
+        # If you already have the DPSS windows
+        [tapers, eigen] = spectrum.dpss(len(trIN), 12, 12)
+       
+        x = self.pmtm(trIN.data, trIN.data, e=tapers, v=eigen, show=False)
+        y = self.pmtm(trIN.data, trOUT.data, e=tapers, v=eigen, show=False)
+
+        res = numpy.divide(y,x)
+
+        freq = np.fft.fftfreq(len(res))[1:]
+        print("freq length = " + str(len(freq)))
+        print("data length = " + str(len(res)))
+
+        plt.semilogx(np.divide(1,freq), 20*np.log10(np.multiply(res[1:], (2*math.pi*freq))))
+        plt.xlabel('Period (seconds)')
+        plt.ylabel('DB')
+        plt.title('Instrument Response')
+        plt.show()
+
     def pzvals(self, sensor):
         #get the instrument values for a given type of seismometer
         if sensor == 'STS-1':
@@ -337,3 +390,59 @@ class ComputeCalibrations(object):
             sensor = 'STS-2'
         
         return sensor
+    
+    def pmtm(self, x,y, NW=None, k=None, NFFT=None, e=None, v=None, method='eigen', show=True):
+        """Multitapering spectral estimation
+        :param array x: the data
+        :param float NW: The time half bandwidth parameter (typical values are 2.5,3,3.5,4). Must be provided otherwise the tapering windows and eigen values (outputs of dpss) must be provided  
+        :param int k: uses the first k Slepian sequences. If *k* is not provided, *k* is set to *NW*2*.
+        :param NW
+        :param e: the matrix containing the tapering windows
+        :param v: the window concentrations (eigenvalues)
+        :param str method: set how the eigenvalues are used. Must be in ['unity', 'adapt', 'eigen']
+        :param bool show: plot results
+        """
+        assert method in ['adapt','eigen','unity']
+    
+        N = len(x)
+        # if dpss not provided, compute them
+        if e is None and v is None:
+            if NW is not None:
+                [tapers, eigenvalues] = spectrum.dpss(N, NW, k=k)
+            else:
+                raise ValueError("NW must be provided (e.g. 2.5, 3, 3.5, 4")
+        elif e is not None and v is not None:
+            eigenvalues = v[:]
+            tapers = e[:]
+        else:
+            raise ValueError("if e provided, v must be provided as well and viceversa.")
+        nwin = len(eigenvalues) # length of the eigen values vector to be used later
+    
+        # set the NFFT
+        if NFFT==None:
+            NFFT = max(256, 2**spectrum.nextpow2(N))
+        # si nfft smaller than N, cut otherwise add zero.
+        # compute 
+        if method == 'unity':
+            weights = np.ones((nwin, 1))
+        elif method == 'eigen':
+            # The S_k spectrum can be weighted by the eigenvalues, as in Park et al. 
+            weights = np.array([_x/float(i+1) for i,_x in enumerate(eigenvalues)])
+            weights = weights.reshape(nwin,1)
+
+        xin = np.fft.fft(np.multiply(tapers.transpose(), x), NFFT)
+        yin = np.fft.fft(np.multiply(tapers.transpose(), y), NFFT)
+        print('number of windows length = ' + str(len(tapers.transpose())))
+        print('window length = ' + str(len(tapers.transpose()[0])))
+        print('window length = ' + str(len(tapers.transpose()[11])))
+        print('signal length length = ' + str(len(tapers.transpose())))
+        Sk = numpy.multiply(xin,np.conj(yin))
+        print('xin dimensions, width = ' + str(len(xin)) + ', height = ' + str(len(xin[0])))
+        print(Sk.shape)
+        Sk = np.mean(Sk * weights, axis=0)
+        print(Sk.shape)
+    
+        #clf(); p.plot(); plot(arange(0,0.5,1./512),20*log10(res[0:256]))
+        if show==True:
+            spectrum.semilogy(Sk)
+        return Sk

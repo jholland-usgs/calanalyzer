@@ -29,7 +29,7 @@ class ParseConfig(object):
         #Manual override for start date & time
         parser.add_argument('-startdate', action='store', default=None, help="(Optional) Manual override for start time. Format as 'YYYY-MM-DD hh:mm:ss'.", type = str, required = False)
         #Manual override for end date & time
-        parser.add_argument('-duration', action='store', default=None, help="(Optional) Manual override for calibration duration in seconds.", type = str, required = False)
+        parser.add_argument('-duration', action='store', default='0', help="(Optional) Manual override for calibration duration in seconds.", type = str, required = False)
         #Manual override for input data location
         parser.add_argument('-inputloc', action='store', default=None, help="(Optional) Manual override for input data location.", type = str, required = False)
                 #Manual override for input data location

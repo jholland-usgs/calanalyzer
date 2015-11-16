@@ -38,6 +38,7 @@ def getPathData():
         durationType = 'cal_duration'
     elif(calType == "random"):
         calTable = 'tbl_320'
+        durationType = 'cal_duration'
     elif(calType == "step"):
         calTable = 'tbl_300'
         durationType = 'step_duration'
@@ -53,6 +54,7 @@ def getPathData():
                                    LEFT JOIN """+calTable+"calresults ON "+calTable+".pk_id = "+calTable+"""calresults.fk_calibrationid 
                  WHERE """+calTable+"""calresults is NULL
                  ORDER BY startdate DESC"""
+    print(query)
     cur.execute(query)
     rows = cur.fetchall()
     dbconn.close()
@@ -91,6 +93,9 @@ def computeNewCal(pathData):
         outChannels = ['LHZ'] 
     dataOutPath = ''
     
+    print("input channel = " + str(pathData.channel))
+    print("out channel = " + str(outChannels))
+    
     for outChannel in outChannels:
         dataOutPath = path + pathData.location + "_" + outChannel + ".512.seed"
         #Compute sine cal for the given data path
@@ -102,6 +107,10 @@ def computeNewCal(pathData):
                 pc.computeSineCal() 
             elif(calType == 'step'):
                 pc.computeStepCal()
+            elif(calType == 'random'):
+                print('Data Input = ' + dataInPath)
+                print('Data Output = ' + dataOutPath)
+                pc.computeRandomCal()
             dbconn.close()
     #If specific calibration information is provided  use the provided information rather getting the information from the file system
 
@@ -137,17 +146,20 @@ if __name__ == "__main__":
     for ct in calTypes:
         calType = ct
         #Query database to get path data for sine calibrations
-        pool = Pool(10)
+        '''pool = Pool(10)
         #If specific calibration information is provided  use the provided information rather than querying the database
-        if((config.sentype == None) and (config.startdate == None) and (config.duration == None) and (config.inputloc == None) and (config.outputloc == None)):
+        if((config.sentype == None) and (config.startdate == None) and (config.duration == 0) and (config.inputloc == None) and (config.outputloc == None)):
             pathData = getPathData()
             pool.map(computeNewCal, pathData)
         elif((config.sentype != None) and (config.startdate != None) and (config.duration != None) and (config.inputloc != None) and (config.outputloc != None)):
             computeNewCalManualOverride()
         else:
-            print("There was a problem with way the program was called. Please verify your input.")
-        #for path in pathData:
-        #    computeNewCal(path)
+            print("There was a problem with way the program was called. Please verify your input.")'''
+        
+        pathData = getPathData()
+        for path in pathData:
+            computeNewCal(path)
+        
         
     os.system('rm -rf temp')
     exit(1)
