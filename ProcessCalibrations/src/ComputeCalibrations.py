@@ -251,8 +251,6 @@ class ComputeCalibrations(object):
         stIN.merge()
         trIN = stIN[0]
         trOUT = stOUT[0]
-        trIN.normalize()
-        trOUT.normalize()
         trIN.detrend('constant')
         trOUT.detrend('constant')
         temp=trOUT.copy()
@@ -273,13 +271,48 @@ class ComputeCalibrations(object):
         x = self.pmtm(trIN.data, trIN.data, e=tapers, v=eigen, show=False)
         y = self.pmtm(trIN.data, trOUT.data, e=tapers, v=eigen, show=False)
 
-        res = numpy.divide(y,x)
+        res = numpy.divide(y,x) 
+                
+                
+        freq = np.multiply(np.fft.fftfreq(len(res)), samplerate)
+        freq = freq[freq > 0] #only grab positive frequencies
+        
+        #get the index of the frequency closest to 20 seconds period (0.05 Hz)
+        freq20Array = freq[(freq >= (1./20.))]
+        min20Freq = np.min(freq20Array)
+        print('min20Freq = ' + str(min20Freq))
+        freq20Index = np.where(freq == min20Freq )[0]
+        print('freq20Index = ' + str(freq20Index))
 
-        freq = np.fft.fftfreq(len(res))[1:]
+        #get the index of the frequency closest to 1000 seconds period (0.001 Hz)
+        freq1000Array = freq[(freq >= (1./1000.))]
+        min1000Freq = np.min(freq1000Array)
+        print('min1000Freq = ' + str(min1000Freq))
+        freq1000Index = np.where(freq == min1000Freq )[0]
+        print('freq1000Index = ' + str(freq1000Index))
+        
+        freq = freq[freq1000Index : freq20Index]      
+        res = res[freq1000Index : freq20Index]    
+        
+        res = res * (2.*math.pi*freq)
+        
+        #get index where frequency closest to 50 seconds (0.02 Hz)
+        freq50Array = freq[(freq >= (1./50.))]
+        min50Freq= np.min(freq50Array)
+        print('res50Freq = ' + str(min50Freq))
+        res50Index = np.where(freq == min50Freq )[0]
+        print('res50Index = ' + str(res50Index))
+        print('res[res50Index] = ' + str(np.abs(res[res50Index])))
+
+        res = res / np.abs(res[res50Index]) #normalize the data
+        
+        for i in range(0, len(res)):
+            print('at index ' + str(i) + 'res[' + str(i) + '] = ' +  str(res[i]))
+
         print("freq length = " + str(len(freq)))
         print("data length = " + str(len(res)))
 
-        plt.semilogx(np.divide(1,freq), 20*np.log10(np.multiply(res[1:], (2*math.pi*freq))))
+        plt.semilogx(np.divide(1,freq), 20*np.log10(np.abs(res)))
         plt.xlabel('Period (seconds)')
         plt.ylabel('DB')
         plt.title('Instrument Response')
