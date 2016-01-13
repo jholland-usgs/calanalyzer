@@ -258,7 +258,7 @@ class ComputeCalibrations(object):
         temp.trim(endtime = stime + int(duration/2.))
         #only grab the positive portion of the fft data
         if temp.max() < 0.0:
-            trOUT.data = - trOUT.data
+            trOUT.data = -trOUT.data
     
         #remove the linear trend from the data
         trIN.detrend('constant')
@@ -280,7 +280,7 @@ class ComputeCalibrations(object):
             self.sentype = self.determineSensorType()
         
         #determine the response based off of the poles and zeros values
-        resPaz = self.getRespFromModel(self.pzvals(self.sentype), len(trIN.data), trIN.stats.delta)
+        resPaz = self.getRespFromModel(self.pzvals(self.sentype), len(trOUT.data), trOUT.stats.delta)
                 
         #generate the frequency array
         freq = numpy.multiply(numpy.fft.fftfreq(len(res)), samplerate)
@@ -300,8 +300,8 @@ class ComputeCalibrations(object):
         #limit to data between 20s and 1000s period
         freq = freq[freq1000Index : freq20Index]  
         res = res[freq1000Index : freq20Index]    
-        res = res * (2.*math.pi*freq)
         resPaz = resPaz[freq1000Index : freq20Index]    
+        res = res * (2.*math.pi*freq)
         resPaz = resPaz * (2.*math.pi*freq)
 
         #get index where frequency closest to 50 seconds (0.02 Hz)
@@ -326,16 +326,17 @@ class ComputeCalibrations(object):
         ax.legend(loc=9,ncol=2, mode="expand", borderaxespad=0.)
         
         ax = fig.add_subplot(122)
-        ax.semilogx(numpy.divide(1,freq), abs(resPhase), label = 'Actual')
-        ax.semilogx(numpy.divide(1,freq), resPazPhase, label = 'Nominal')
+        ax.semilogx(numpy.divide(1,freq), resPhase, label = 'Actual')
+        ax.semilogx(numpy.divide(1,freq), -resPazPhase, label = 'Nominal')
         ax.set_xlabel('Period (seconds)')
         ax.set_ylabel('Phase [radian]')
         plt.legend(loc=9,ncol=2, mode="expand", borderaxespad=0.)
         plt.subplots_adjust(wspace = 0.3, top = 0.85)
+        
         title = 'Frequency Response of a ' + self.sentype + ' Seismometer for \n Station = ' \
             + self.network +'_' +self.station + ', Location = ' + self.location \
             + ', Channel = ' + self.outChannel + ', Start-time = ' + str(self.startdate) \
-            + '\n' + u"\u03B6" + ' = ' + str(damping) + ', fp= ' + str(fp)
+            + '\nh = ' + str(damping) + ', fp= ' + str(fp)
         plt.suptitle(title, fontsize=11)
         plt.show()
 

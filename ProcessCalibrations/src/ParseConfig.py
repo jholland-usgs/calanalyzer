@@ -30,8 +30,8 @@ class ParseConfig(object):
         parser.add_argument('-startdate', action='store', default=None, help="(Optional) Manual override for start time. Format as 'YYYY-MM-DD hh:mm:ss'.", type = str, required = False)
         #Manual override for end date & time
         parser.add_argument('-duration', action='store', default='0', help="(Optional) Manual override for calibration duration in seconds.", type = str, required = False)
-        #Manual override for inumpyut data location
-        parser.add_argument('-inumpyutloc', action='store', default=None, help="(Optional) Manual override for inumpyut data location.", type = str, required = False)
+        #Manual override for input data location
+        parser.add_argument('-inputloc', action='store', default=None, help="(Optional) Manual override for inumpyut data location.", type = str, required = False)
                 #Manual override for inumpyut data location
         parser.add_argument('-outputloc', action='store', default=None, help="(Optional) Manual override for output data location.", type = str, required = False)
         #Manual override for  capacitive vs. resistive calibration type
@@ -51,7 +51,7 @@ class ParseConfig(object):
         self.sentype = arguments.sentype
         self.startdate = arguments.startdate
         self.duration = int(arguments.duration)* 1000 #convert from seconds to milliseconds
-        self.inumpyutloc = arguments.inumpyutloc
+        self.inputloc = arguments.inputloc
         self.outputloc = arguments.outputloc
         self.cr = arguments.cr
         

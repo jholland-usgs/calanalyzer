@@ -116,11 +116,17 @@ def computeNewCalManualOverride():
     #Calculate equivalent julian calendar day
     date = datetime.datetime.strptime(config.startdate, '%Y-%m-%d %H:%M:%S')
     julianday = UTCDateTime(date.year, date.month, date.day, 0, 0).julday
-    pc = ComputeCalibrations.ComputeCalibrations(config.inumpyutloc, config.outputloc, date, str('{0:0=3d}'.format(julianday)), float(config.duration), None, None, None, None, None, None, config.sentype)
+    pc = ComputeCalibrations.ComputeCalibrations(config.inputloc, config.outputloc, 
+                                                 date, str('{0:0=3d}'.format(julianday)), 
+                                                 float(config.duration), None, '', '', 
+                                                 '', '', None, config.sentype)
     if(calType == 'sine'):
         pc.computeSineCal() 
     elif(calType == 'step'):
-        pc.computeStepCal()                 
+        pc.computeStepCal()    
+    elif(calType == 'random'):
+        pc.computeRandomCal()
+      
                     
 #main program here
 if __name__ == "__main__":
@@ -144,20 +150,20 @@ if __name__ == "__main__":
     for ct in calTypes:
         calType = ct
         #Query database to get path data for sine calibrations
-        '''pool = Pool(10)
+        pool = Pool(10)
         #If specific calibration information is provided  use the provided information rather than querying the database
-        if((config.sentype == None) and (config.startdate == None) and (config.duration == 0) and (config.inumpyutloc == None) and (config.outputloc == None)):
+        if((config.sentype == None) and (config.startdate == None) and (config.duration == 0) and (config.inputloc == None) and (config.outputloc == None)):
             pathData = getPathData()
             pool.map(computeNewCal, pathData)
-        elif((config.sentype != None) and (config.startdate != None) and (config.duration != None) and (config.inumpyutloc != None) and (config.outputloc != None)):
+        elif((config.sentype != None) and (config.startdate != None) and (config.duration != None) and (config.inputloc != None) and (config.outputloc != None)):
             computeNewCalManualOverride()
         else:
-            print("There was a problem with way the program was called. Please verify your inumpyut.")'''
+            print("There was a problem with way the program was called. Please verify your inumpyut.")
         
-        pathData = getPathData()
+        '''pathData = getPathData()
         for path in pathData:
             computeNewCal(path)
-        
+        '''
         
     os.system('rm -rf temp')
     exit(1)
