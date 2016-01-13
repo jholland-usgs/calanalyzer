@@ -7,7 +7,6 @@ Created on Sep 18, 2015
 '''
 
 from obspy.core import read, UTCDateTime, Stream
-import numpy as np
 import math
 import sys
 import commands
@@ -18,8 +17,7 @@ import logging
 import numpy
 import psycopg2
 import spectrum
-from inspect import trace
-import obspy
+from obspy.signal import pazToFreqResp
 
 
 class ComputeCalibrations(object):
@@ -54,10 +52,10 @@ class ComputeCalibrations(object):
             dataOUT.trim(starttime=stime, endtime=stime + self.cal_duration)
         
             #Calculate RMS of both traces and divide
-            dataINRMS = math.sqrt(2.)*sum(np.square(dataIN[0].data))
-            dataINRMS /= float(dataIN[0].stats.npts)
-            dataOUTRMS = math.sqrt(2.)*sum(np.square(dataOUT[0].data))
-            dataINRMS /= float(dataOUT[0].stats.npts)  
+            dataINRMS = math.sqrt(2.)*sum(numpy.square(dataIN[0].data))
+            dataINRMS /= float(dataIN[0].stats.numpyts)
+            dataOUTRMS = math.sqrt(2.)*sum(numpy.square(dataOUT[0].data))
+            dataINRMS /= float(dataOUT[0].stats.numpyts)  
             
             if(self.dbconn != None):
                 #Write results to database      
@@ -185,8 +183,8 @@ class ComputeCalibrations(object):
         try:
             #create a plot for the step calibration and save it to the ./temp directory.  This directory will be deleted when the program is finished running.
             plt.clf()
-            t = numpy.arange(0,trOUTsim.stats.npts /trOUTsim.stats.sampling_rate,trOUTsim.stats.delta)
-            plt.plot(t,trIN.data,'b',label = 'Input')
+            t = numpy.arange(0,trOUTsim.stats.numpyts /trOUTsim.stats.sampling_rate,trOUTsim.stats.delta)
+            plt.plot(t,trIN.data,'b',label = 'input')
             plt.plot(t,trOUTsim.data,'k',label='h=' + str(round(h,6)) + ' f=' + str(round(f,6)) + ' resi=' + str(round(compOUT,6)))
             plt.plot(t,trOUTsimPert.data,'g',label = 'h=' + str(round(bf[1],6)) + ' f=' + str(round(bf[0],6))+ ' resi=' + str(round(compOUTPERT,6)))
             plt.xlabel('Time (s)')
@@ -243,7 +241,7 @@ class ComputeCalibrations(object):
         else:
             duration = self.cal_duration
         
-        #read data for the calibration  
+        #read data for the random calibration  
         stime = UTCDateTime(self.startdate) - 5*60  
         stOUT = read(self.dataOutLoc,starttime = stime, endtime = stime + duration)
         stOUT.merge()
@@ -251,72 +249,113 @@ class ComputeCalibrations(object):
         stIN.merge()
         trIN = stIN[0]
         trOUT = stOUT[0]
-        trIN.detrend('constant')
-        trOUT.detrend('constant')
+
+        #trim input array if it is larger than the output
+        #if(trIN.data.size > trOUT.data.size):
+        #    trIN.data = trIN.data[:trOUT.data.size]
+        
         temp=trOUT.copy()
         temp.trim(endtime = stime + int(duration/2.))
+        #only grab the positive portion of the fft data
         if temp.max() < 0.0:
             trOUT.data = - trOUT.data
-            
+    
+        #remove the linear trend from the data
+        trIN.detrend('constant')
+        trOUT.detrend('constant')
+    
         samplerate = trOUT.stats.sampling_rate
 
-        print (samplerate)
-
-        #trIN.decimate(factor=int(samplerate), strict_length=False, no_filter=True)
-        #trOUT.decimate(factor=int(samplerate), strict_length=False, no_filter=True)
-        
         # If you already have the DPSS windows
         [tapers, eigen] = spectrum.dpss(len(trIN), 12, 12)
        
+        #perform the multi-taper method on both the input and output traces
         x = self.pmtm(trIN.data, trIN.data, e=tapers, v=eigen, show=False)
         y = self.pmtm(trIN.data, trOUT.data, e=tapers, v=eigen, show=False)
-
+        #determine the frequency resopnse by dividing the output by the input
         res = numpy.divide(y,x) 
-                
-                
-        freq = np.multiply(np.fft.fftfreq(len(res)), samplerate)
-        freq = freq[freq > 0] #only grab positive frequencies
         
+        #determine sensor type 
+        if self.sentype == None:
+            self.sentype = self.determineSensorType()
+        
+        #determine the response based off of the poles and zeros values
+        resPaz = self.getRespFromModel(self.pzvals(self.sentype), len(trIN.data), trIN.stats.delta)
+                
+        #generate the frequency array
+        freq = numpy.multiply(numpy.fft.fftfreq(len(res)), samplerate)
+        
+        #only grab positive frequencies
+        freq = freq[freq > 0] 
         #get the index of the frequency closest to 20 seconds period (0.05 Hz)
         freq20Array = freq[(freq >= (1./20.))]
-        min20Freq = np.min(freq20Array)
-        print('min20Freq = ' + str(min20Freq))
-        freq20Index = np.where(freq == min20Freq )[0]
-        print('freq20Index = ' + str(freq20Index))
+        min20Freq = numpy.min(freq20Array)
+        freq20Index = numpy.where(freq == min20Freq )[0]
 
         #get the index of the frequency closest to 1000 seconds period (0.001 Hz)
         freq1000Array = freq[(freq >= (1./1000.))]
-        min1000Freq = np.min(freq1000Array)
-        print('min1000Freq = ' + str(min1000Freq))
-        freq1000Index = np.where(freq == min1000Freq )[0]
-        print('freq1000Index = ' + str(freq1000Index))
-        
-        freq = freq[freq1000Index : freq20Index]      
+        min1000Freq = numpy.min(freq1000Array)
+        freq1000Index = numpy.where(freq == min1000Freq )[0]
+
+        #limit to data between 20s and 1000s period
+        freq = freq[freq1000Index : freq20Index]  
         res = res[freq1000Index : freq20Index]    
-        
         res = res * (2.*math.pi*freq)
-        
+        resPaz = resPaz[freq1000Index : freq20Index]    
+        resPaz = resPaz * (2.*math.pi*freq)
+
         #get index where frequency closest to 50 seconds (0.02 Hz)
         freq50Array = freq[(freq >= (1./50.))]
-        min50Freq= np.min(freq50Array)
-        print('res50Freq = ' + str(min50Freq))
-        res50Index = np.where(freq == min50Freq )[0]
-        print('res50Index = ' + str(res50Index))
-        print('res[res50Index] = ' + str(np.abs(res[res50Index])))
+        min50Freq= numpy.min(freq50Array)
+        res50Index = numpy.where(freq == min50Freq )[0]
 
-        res = res / np.abs(res[res50Index]) #normalize the data
+        res, resPhase = self.respToFAP(res, res50Index)
+        resPaz, resPazPhase = self.respToFAP(resPaz, res50Index)
         
-        for i in range(0, len(res)):
-            print('at index ' + str(i) + 'res[' + str(i) + '] = ' +  str(res[i]))
-
-        print("freq length = " + str(len(freq)))
-        print("data length = " + str(len(res)))
-
-        plt.semilogx(np.divide(1,freq), 20*np.log10(np.abs(res)))
-        plt.xlabel('Period (seconds)')
-        plt.ylabel('DB')
-        plt.title('Instrument Response')
+        #calculate the free period
+        fp = 2*math.pi/abs(numpy.min(self.pzvals(self.sentype)["poles"])) 
+        #determine the damping ratio of the signal
+        damping = abs(numpy.real(numpy.min(self.pzvals(self.sentype)["poles"]))/(2*math.pi/fp))
+        
+        fig = plt.figure()
+        ax = fig.add_subplot(121)
+        ax.semilogx(numpy.divide(1,freq), res, label = 'Actual')
+        ax.semilogx(numpy.divide(1,freq), resPaz, label = 'Nominal')
+        ax.set_xlabel('Period (seconds)')
+        ax.set_ylabel('Amplitude [DB]')
+        ax.legend(loc=9,ncol=2, mode="expand", borderaxespad=0.)
+        
+        ax = fig.add_subplot(122)
+        ax.semilogx(numpy.divide(1,freq), abs(resPhase), label = 'Actual')
+        ax.semilogx(numpy.divide(1,freq), resPazPhase, label = 'Nominal')
+        ax.set_xlabel('Period (seconds)')
+        ax.set_ylabel('Phase [radian]')
+        plt.legend(loc=9,ncol=2, mode="expand", borderaxespad=0.)
+        plt.subplots_adjust(wspace = 0.3, top = 0.85)
+        title = 'Frequency Response of a ' + self.sentype + ' Seismometer for \n Station = ' \
+            + self.network +'_' +self.station + ', Location = ' + self.location \
+            + ', Channel = ' + self.outChannel + ', Start-time = ' + str(self.startdate) \
+            + '\n' + u"\u03B6" + ' = ' + str(damping) + ', fp= ' + str(fp)
+        plt.suptitle(title, fontsize=11)
         plt.show()
+
+    def getRespFromModel(self, pazModel,nfft, delta):
+    #This function returns the response without normalization
+        resp = pazToFreqResp(pazModel['poles'],pazModel['zeros'], 1, delta, \
+                            nfft, freq=False)
+        return resp
+
+    def respToFAP(self, resp, norm):
+    #This function returns the phase in degrees and the amp in dB
+    #Convert the amplitude response to dB
+        respAmp = 20*numpy.log10(abs(resp))
+        respAmp = respAmp - respAmp[norm]
+    
+    #Convert the phase response to degrees
+        respPhase = numpy.unwrap(numpy.angle(resp))*180/math.pi
+        respPhase = respPhase - respPhase[norm]
+    
+        return respAmp, respPhase
 
     def pzvals(self, sensor):
         #get the instrument values for a given type of seismometer
@@ -378,13 +417,12 @@ class ComputeCalibrations(object):
         trOUTsim.normalize()
 
         comp = sum((trOUTsim.data - trINCP)**2)
-        print(comp)
         return comp
 
     def determineSensorType(self):
         if(self.dbconn != None):
             #returns the sensor type for a given station location/channel
-            mdgetstr = '/home/aringler/data_stuff/checkstep/./mdget.py -n ' + str(self.network) + ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
+            mdgetstr = '/home/nfalco/calanalyzer/./mdget.py -n ' + str(self.network) + ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
                         ' -s ' + str(self.station) + ' -t ' + str(self.startdate.year) + '-' + str(self.julianday) + ' -o \'instrument type\''
     
             output = commands.getstatusoutput(mdgetstr)
@@ -424,7 +462,7 @@ class ComputeCalibrations(object):
         
         return sensor
     
-    def pmtm(self, x,y, NW=None, k=None, NFFT=None, e=None, v=None, method='eigen', show=True):
+    def pmtm(self, x, y, NW=None, k=None, NFFT=None, e=None, v=None, method='eigen', show=True):
         """Multitapering spectral estimation
         :param array x: the data
         :param float NW: The time half bandwidth parameter (typical values are 2.5,3,3.5,4). Must be provided otherwise the tapering windows and eigen values (outputs of dpss) must be provided  
@@ -457,23 +495,17 @@ class ComputeCalibrations(object):
         # si nfft smaller than N, cut otherwise add zero.
         # compute 
         if method == 'unity':
-            weights = np.ones((nwin, 1))
+            weights = numpy.ones((nwin, 1))
         elif method == 'eigen':
             # The S_k spectrum can be weighted by the eigenvalues, as in Park et al. 
-            weights = np.array([_x/float(i+1) for i,_x in enumerate(eigenvalues)])
+            weights = numpy.array([_x/float(i+1) for i,_x in enumerate(eigenvalues)])
             weights = weights.reshape(nwin,1)
-
-        xin = np.fft.fft(np.multiply(tapers.transpose(), x), NFFT)
-        yin = np.fft.fft(np.multiply(tapers.transpose(), y), NFFT)
-        print('number of windows length = ' + str(len(tapers.transpose())))
-        print('window length = ' + str(len(tapers.transpose()[0])))
-        print('window length = ' + str(len(tapers.transpose()[11])))
-        print('signal length length = ' + str(len(tapers.transpose())))
-        Sk = numpy.multiply(xin,np.conj(yin))
-        print('xin dimensions, width = ' + str(len(xin)) + ', height = ' + str(len(xin[0])))
-        print(Sk.shape)
-        Sk = np.mean(Sk * weights, axis=0)
-        print(Sk.shape)
+       
+        xin = numpy.fft.fft(numpy.multiply(tapers.transpose(), x), NFFT)
+        yin = numpy.fft.fft(numpy.multiply(tapers.transpose(), y), NFFT)
+        
+        Sk = numpy.multiply(xin,numpy.conj(yin))
+        Sk = numpy.mean(Sk * weights, axis=0)
     
         #clf(); p.plot(); plot(arange(0,0.5,1./512),20*log10(res[0:256]))
         if show==True:
