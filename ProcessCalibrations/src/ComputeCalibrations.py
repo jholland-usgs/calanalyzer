@@ -29,10 +29,10 @@ class ComputeCalibrations(object):
         self.julianday = julianday
         self.cal_duration = cal_duration #Duration of the calibration in milliseconds 
         self.cal_id = cal_id #Database primary key of the calibration
-        self.outChannel = outChannel #Channel for which the calibration was calculated (eg. BHZ, BH1, BH2, etc.)
         self.network = network
         self.station = station
         self.location = location
+        self.outChannel = outChannel #Channel for which the calibration was calculated (eg. BHZ, BH1, BH2, etc.)
         self.sentype = sentype #Manual override for sensor type
         self.dbconn = dbconn #Database connection object
         #Setup logging for calibrations

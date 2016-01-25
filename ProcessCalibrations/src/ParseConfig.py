@@ -6,8 +6,6 @@ Created on Sep 18, 2015
 
 import argparse
 import yaml
-import datetime
-import time
 
 class ParseConfig(object):
     
