@@ -22,7 +22,7 @@ from obspy.signal import pazToFreqResp
 
 class ComputeCalibrations(object):
     
-    def __init__(self, dataInLoc, dataOutLoc, startdate, julianday, cal_duration, cal_id, outChannel, network, station, location, dbconn, sentype = None):
+    def __init__(self, dataInLoc, dataOutLoc, startdate, julianday, cal_duration, cal_id, network, station, location, outChannel, dbconn, sentype = None):
         self.dataInLoc = dataInLoc #Location where the input data is located 
         self.dataOutLoc = dataOutLoc #Location where the output seed data is located
         self.startdate = startdate #Start data for the calibration
