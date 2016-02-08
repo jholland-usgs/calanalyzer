@@ -5,21 +5,24 @@ Created on Sep 18, 2015
 @author: Nick Falco
 '''
 
-from obspy.core import UTCDateTime
+'''Connect to the database using the db info read from the config file'''
+
+import datetime
 import glob
 import logging
+from multiprocessing import Pool
 import os
 import re
-from src import ParseConfig
-from src import ComputeCalibrations
-from src import PathData
-import psycopg2
-from multiprocessing import Pool
-import datetime
+
 import obspy
+from obspy.core import UTCDateTime
+import psycopg2
+
+from src import ComputeCalibrations
+from src import ParseConfig
+from src import PathData
 
 
-'''Connect to the database using the db info read from the config file'''
 def connectToDatabase(config):
     try:
         conn = psycopg2.connect("dbname='" + config.dbname 
@@ -108,10 +111,7 @@ def computeNewCal(pathData):
             elif(calType == 'step'):
                 pc.computeStepCal()
             elif(calType == 'random'):
-                try:
-                    pc.computeRandomCal()
-                except Exception as err:
-                    print 'error occured ' + str(err.message)
+                pc.computeRandomCal()
             dbconn.close()
     #If specific calibration information is provided  use the provided information rather getting the information from the file system
 

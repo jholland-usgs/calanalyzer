@@ -7,6 +7,7 @@ Created on Sep 18, 2015
 import argparse
 import yaml
 
+
 class ParseConfig(object):
     
     def __init__(self):
@@ -20,7 +21,7 @@ class ParseConfig(object):
         #Sets flag for the configuration file location
         parser.add_argument('-config', action='store', help='Configuration file to parse', type = str, required = True)
         #Sets flag for the configuration file location (Optional)
-        parser.add_argument('-caltype', action='store', default='Sine,Step,Random', help='(Optional) Type of calibration to compute. Choose from {sine, step, random} separated by commas.', type = str, required = False)
+        parser.add_argument('-caltype', action='store', default='sine,step,random', help='(Optional) Type of calibration to compute. Choose from {sine, step, random} separated by commas.', type = str, required = False)
         
         #Manual override for  sensor type
         parser.add_argument('-sentype', action='store', default=None, help='(Optional) Manual override for sensor type.', type = str, required = False)
@@ -48,7 +49,10 @@ class ParseConfig(object):
         self.calibrationType = arguments.caltype.lower()
         self.sentype = arguments.sentype
         self.startdate = arguments.startdate
-        self.duration = int(arguments.duration)* 1000 #convert from seconds to milliseconds
+        if self.calibrationType == 'random':
+            self.duration = arguments.duration
+        else:
+            self.duration = int(arguments.duration)* 1000 #convert from seconds to milliseconds
         self.inputloc = arguments.inputloc
         self.outputloc = arguments.outputloc
         self.cr = arguments.cr

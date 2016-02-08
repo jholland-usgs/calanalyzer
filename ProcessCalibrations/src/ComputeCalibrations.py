@@ -18,6 +18,9 @@ import numpy
 import psycopg2
 import spectrum
 from obspy.signal import pazToFreqResp
+import scipy
+from scipy import signal
+from obspy.realtime.signal import offset
 
 
 class ComputeCalibrations(object):
@@ -240,7 +243,7 @@ class ComputeCalibrations(object):
             duration = self.cal_duration / 10000.0 #divide by 10000 when getting the cal_duration from the database
         else:
             duration = self.cal_duration
-        
+        print 'cal duration = ' + str(duration)
         #read data for the random calibration  
         stime = UTCDateTime(self.startdate) - 5*60  
         stOUT = read(self.dataOutLoc,starttime = stime, endtime = stime + duration)
@@ -263,17 +266,30 @@ class ComputeCalibrations(object):
         #remove the linear trend from the data
         trIN.detrend('constant')
         trOUT.detrend('constant')
-    
         samplerate = trOUT.stats.sampling_rate
-
-        # If you already have the DPSS windows
-        [tapers, eigen] = spectrum.dpss(len(trIN), 12, 12)
-       
-        #perform the multi-taper method on both the input and output traces
-        x = self.pmtm(trIN.data, trIN.data, e=tapers, v=eigen, show=False)
-        y = self.pmtm(trIN.data, trOUT.data, e=tapers, v=eigen, show=False)
-        #determine the frequency resopnse by dividing the output by the input
-        res = numpy.divide(y,x) 
+        segLength = int(math.pow(2, math.floor(math.log(math.floor(len(trIN.data)/1.3), 2))))
+        offset = 0.8 * segLength
+        cnt = 0
+        runningTotal = numpy.zeros(segLength)
+        numSegments = 0
+        [tapers, eigen] = spectrum.dpss(int(segLength), 12, 12);
+        while (cnt + segLength < len(trIN.data)):
+            x = trIN.data[cnt:cnt+segLength]
+            y = trOUT.data[cnt:cnt+segLength]
+            #perform the multi-taper method on both the input and output traces
+            x = self.pmtm(x, x, e=tapers, v=eigen, NFFT = segLength, show=False)
+            y = self.pmtm(x, y, e=tapers, v=eigen, NFFT = segLength, show=False)
+            #determine the frequency response by dividing the output by the input
+            res = numpy.divide(y,x) 
+            #create a running total of all responses
+            runningTotal = numpy.add(runningTotal, res)
+            if(cnt + segLength > len(trIN.data)):
+                cnt = len(trIN.data)- segLength
+            else:
+                cnt = cnt + (segLength - offset)
+            numSegments = numSegments + 1
+        #find the average of segments
+        res = runningTotal / numSegments
         
         #determine sensor type 
         if self.sentype == None:
@@ -466,6 +482,7 @@ class ComputeCalibrations(object):
     def pmtm(self, x, y, NW=None, k=None, NFFT=None, e=None, v=None, method='eigen', show=True):
         """Multitapering spectral estimation
         :param array x: the data
+        :param array y: the data
         :param float NW: The time half bandwidth parameter (typical values are 2.5,3,3.5,4). Must be provided otherwise the tapering windows and eigen values (outputs of dpss) must be provided  
         :param int k: uses the first k Slepian sequences. If *k* is not provided, *k* is set to *NW*2*.
         :param NW
@@ -501,13 +518,13 @@ class ComputeCalibrations(object):
             # The S_k spectrum can be weighted by the eigenvalues, as in Park et al. 
             weights = numpy.array([_x/float(i+1) for i,_x in enumerate(eigenvalues)])
             weights = weights.reshape(nwin,1)
-       
+
         xin = numpy.fft.fft(numpy.multiply(tapers.transpose(), x), NFFT)
         yin = numpy.fft.fft(numpy.multiply(tapers.transpose(), y), NFFT)
         
         Sk = numpy.multiply(xin,numpy.conj(yin))
         Sk = numpy.mean(Sk * weights, axis=0)
-    
+        
         #clf(); p.plot(); plot(arange(0,0.5,1./512),20*log10(res[0:256]))
         if show==True:
             spectrum.semilogy(Sk)
