@@ -239,13 +239,15 @@ class ComputeCalibrations(object):
                 print('(Manual Override) Error displaying calculation results.')
     
     def computeRandomCal(self):
+        debug = True
         if(self.dbconn != None):
             duration = self.cal_duration / 10000.0 #divide by 10000 when getting the cal_duration from the database
         else:
             duration = self.cal_duration
-        print 'cal duration = ' + str(duration)
+        if debug:
+            print 'cal duration = ' + str(duration)
         #read data for the random calibration  
-        stime = UTCDateTime(self.startdate) - 5*60  
+        stime = UTCDateTime(self.startdate)  
         stOUT = read(self.dataOutLoc,starttime = stime, endtime = stime + duration)
         stOUT.merge()
         stIN = read(self.dataInLoc,starttime = stime, endtime = stime + duration)
@@ -253,40 +255,42 @@ class ComputeCalibrations(object):
         trIN = stIN[0]
         trOUT = stOUT[0]
 
-        #trim input array if it is larger than the output
-        #if(trIN.data.size > trOUT.data.size):
-        #    trIN.data = trIN.data[:trOUT.data.size]
+        if debug:
+            trIN.plot()
+            trOUT.plot()
         
-        temp=trOUT.copy()
-        temp.trim(endtime = stime + int(duration/2.))
-        #only grab the positive portion of the fft data
-        if temp.max() < 0.0:
-            trOUT.data = -trOUT.data
-    
         #remove the linear trend from the data
         trIN.detrend('constant')
         trOUT.detrend('constant')
         samplerate = trOUT.stats.sampling_rate
         segLength = int(math.pow(2, math.floor(math.log(math.floor(len(trIN.data)/1.3), 2))))
-        offset = 0.8 * segLength
+        offset = int(0.8 * segLength)
         cnt = 0
+        
+        if debug:
+            print 'Here is the segment length: ' + str(segLength)
+            print 'Here is the offset: ' + str(offset)        
         runningTotal = numpy.zeros(segLength)
         numSegments = 0
-        [tapers, eigen] = spectrum.dpss(int(segLength), 12, 12);
+        [tapers, eigen] = spectrum.dpss(segLength, 12, 12);
         while (cnt + segLength < len(trIN.data)):
             x = trIN.data[cnt:cnt+segLength]
             y = trOUT.data[cnt:cnt+segLength]
             #perform the multi-taper method on both the input and output traces
-            x = self.pmtm(x, x, e=tapers, v=eigen, NFFT = segLength, show=False)
-            y = self.pmtm(x, y, e=tapers, v=eigen, NFFT = segLength, show=False)
+            pxx = self.pmtm(x, x, e=tapers, v=eigen, NFFT = segLength,show=False)
+            
+            pxy = self.pmtm(x, y, e=tapers, v=eigen, NFFT = segLength, show=False)
+
             #determine the frequency response by dividing the output by the input
-            res = numpy.divide(y,x) 
+            res = numpy.divide(pxy,pxx) 
             #create a running total of all responses
             runningTotal = numpy.add(runningTotal, res)
             if(cnt + segLength > len(trIN.data)):
                 cnt = len(trIN.data)- segLength
             else:
                 cnt = cnt + (segLength - offset)
+            if debug:
+                print 'Here is the cnt: ' + str(cnt)
             numSegments = numSegments + 1
         #find the average of segments
         res = runningTotal / numSegments
@@ -296,7 +300,7 @@ class ComputeCalibrations(object):
             self.sentype = self.determineSensorType()
         
         #determine the response based off of the poles and zeros values
-        resPaz = self.getRespFromModel(self.pzvals(self.sentype), len(trOUT.data), trOUT.stats.delta)
+        resPaz = self.getRespFromModel(self.pzvals(self.sentype), len(res), trOUT.stats.delta)
                 
         #generate the frequency array
         freq = numpy.multiply(numpy.fft.fftfreq(len(res)), samplerate)
@@ -439,6 +443,7 @@ class ComputeCalibrations(object):
     def determineSensorType(self):
         if(self.dbconn != None):
             #returns the sensor type for a given station location/channel
+            # Remove this hard coded locations
             mdgetstr = '/home/nfalco/calanalyzer/./mdget.py -n ' + str(self.network) + ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
                         ' -s ' + str(self.station) + ' -t ' + str(self.startdate.year) + '-' + str(self.julianday) + ' -o \'instrument type\''
     
@@ -491,8 +496,9 @@ class ComputeCalibrations(object):
         :param str method: set how the eigenvalues are used. Must be in ['unity', 'adapt', 'eigen']
         :param bool show: plot results
         """
+        debug = True
         assert method in ['adapt','eigen','unity']
-    
+        
         N = len(x)
         # if dpss not provided, compute them
         if e is None and v is None:
@@ -501,6 +507,8 @@ class ComputeCalibrations(object):
             else:
                 raise ValueError("NW must be provided (e.g. 2.5, 3, 3.5, 4")
         elif e is not None and v is not None:
+            if debug:
+                print 'Using given tapers.'
             eigenvalues = v[:]
             tapers = e[:]
         else:
