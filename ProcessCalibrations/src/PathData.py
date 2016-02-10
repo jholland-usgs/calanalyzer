@@ -1,5 +1,7 @@
 class PathData(object):
-    def __init__(self, cal_id, network, station, location, date, channel, cal_duration):
+
+    def __init__(self, cal_id, network, station,
+                 location, date, channel, cal_duration):
         self.cal_id = cal_id
         self.network = network
         self.station = station
