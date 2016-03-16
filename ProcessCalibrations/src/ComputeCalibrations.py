@@ -47,6 +47,9 @@ class ComputeCalibrations(object):
         self.stepcal_logger = logging.getLogger('ComputeCalibrations.stepcal')
         self.sinecal_logger = logging.getLogger('ComputeCalibrations.sinecal')
 
+    '''
+    '    Computes the Sine Calibration rms input, rms output, and coil constant
+    '''
     def computeSineCal(self):
         try:
             # Read in BH and BC
@@ -61,9 +64,9 @@ class ComputeCalibrations(object):
 
             # Calculate RMS of both traces and divide
             dataINRMS = math.sqrt(2.) * sum(numpy.square(dataIN[0].data))
-            dataINRMS /= float(dataIN[0].stats.numpyts)
+            dataINRMS /= float(dataIN[0].stats.npts)
             dataOUTRMS = math.sqrt(2.) * sum(numpy.square(dataOUT[0].data))
-            dataINRMS /= float(dataOUT[0].stats.numpyts)
+            dataINRMS /= float(dataOUT[0].stats.npts)
 
             if(self.dbconn is not None):
                 # Write results to database
@@ -82,6 +85,9 @@ class ComputeCalibrations(object):
         except:
             self.sinecal_logger.error("Unexpected error:", sys.exc_info()[0])
 
+    '''
+    '    Computes the nominal, best fit, and actual step calibration
+    '''
     def computeStepCal(self):
         # cal duration needs to be divided by 10000 for step cals only.  This
         # only applies for when you are reading the cal duration from the
@@ -93,7 +99,7 @@ class ComputeCalibrations(object):
             duration = self.cal_duration
 
         # Determine the type of sensor from the metadata
-        sensor = self.determineSensorType()
+        sensor = self._determineSensorType()
 
         # ignores every location except for Z for triaxial STS-2s
         if((self.dbconn is not None) and ("Z" not in self.outChannel) and
@@ -101,7 +107,7 @@ class ComputeCalibrations(object):
             print("Skipped " + str(self.outChannel) + ' ' + sensor)
 
         # get the poles values for the sensor type
-        pz = self.pzvals(sensor)
+        pz = self._pzvals(sensor)
 
         # read data for the calibration
         try:
@@ -157,7 +163,7 @@ class ComputeCalibrations(object):
             x = numpy.array([f, h, sen])
             try:
                 # compute best fit
-                bf = fmin(self.resi, x, args=(trIN, trOUT),
+                bf = fmin(self._resi, x, args=(trIN, trOUT),
                           xtol=10 ** -8, ftol=10 ** -3, disp=False)
             except:
                 bf = x
@@ -227,7 +233,7 @@ class ComputeCalibrations(object):
             # finished running.
             plt.clf()
             t = numpy.arange(
-                0, trOUTsim.stats.numpyts / trOUTsim.stats.sampling_rate, trOUTsim.stats.delta)
+                0, trOUTsim.stats.npts / trOUTsim.stats.sampling_rate, trOUTsim.stats.delta)
             plt.plot(t, trIN.data, 'b', label='input')
             plt.plot(t, trOUTsim.data, 'k', label='h=' + str(round(h, 6)) +
                      ' f=' + str(round(f, 6)) + ' resi=' + str(round(compOUT, 6)))
@@ -293,6 +299,9 @@ class ComputeCalibrations(object):
                 print(
                     '(Manual Override) Error displaying calculation results.')
 
+    '''
+    '    Computes the nominal, actual, and best fit amplitude and phase responses of an instrument for a random calibration.
+    '''
     def computeRandomCal(self):
         debug = False
         if(self.dbconn is not None):
@@ -317,8 +326,8 @@ class ComputeCalibrations(object):
             trOUT.plot()
 
         # remove the linear trend from the data
-        trIN.detrend('constant')
-        trOUT.detrend('constant')
+        trIN.split().detrend('constant')
+        trOUT.split().detrend('constant')
         samplerate = trOUT.stats.sampling_rate
         segLength = int(
             math.pow(2, math.floor(math.log(math.floor(len(trIN.data) / 1.3), 2))))
@@ -336,10 +345,10 @@ class ComputeCalibrations(object):
             y = trOUT.data[cnt:cnt + segLength]
             # perform the multi-taper method on both the input and output
             # traces
-            pxx = self.pmtm(
+            pxx = self._pmtm(
                 x, x, e=tapers, v=eigen, NFFT=segLength, show=False)
 
-            pxy = self.pmtm(
+            pxy = self._pmtm(
                 x, y, e=tapers, v=eigen, NFFT=segLength, show=False)
 
             # determine the frequency response by dividing the output by the
@@ -359,11 +368,18 @@ class ComputeCalibrations(object):
 
         # determine sensor type
         if self.sentype is None:
-            self.sentype = self.determineSensorType()
+            self.sentype = self._determineSensorType()
 
         # determine the response based off of the poles and zeros values
-        resPaz = self.getRespFromModel(
-            self.pzvals(self.sentype), len(res), trOUT.stats.delta)
+        resPaz = self._getRespFromModel(
+            self._pzvals(self.sentype), len(res), trOUT.stats.delta)
+
+        # compute best fit
+        resBfPolesList = fmin(self._resiFreq,  numpy.array(self._pazDictToList(self._pzvals(self.sentype))), args=(res, samplerate),
+                  xtol=10 ** -8, ftol=10 ** -3, disp=False)
+        resBfPoles = self._pazListToDict(resBfPolesList)
+        resBf = self._getRespFromModel(
+            resBfPoles, len(res), trOUT.stats.delta)
 
         # generate the frequency array
         freq = numpy.multiply(numpy.fft.fftfreq(len(res)), samplerate)
@@ -383,29 +399,36 @@ class ComputeCalibrations(object):
 
         # limit to data between 20s and 1000s period
         freq = freq[freq1000Index: freq20Index]
+        
         res = res[freq1000Index: freq20Index]
         resPaz = resPaz[freq1000Index: freq20Index]
+        resBf = resBf[freq1000Index: freq20Index]
+        
+        #convert to degrees
         res = res * (2. * math.pi * freq)
         resPaz = resPaz * (2. * math.pi * freq)
+        resBf = resBf * (2. * math.pi * freq)
 
         # get index where frequency closest to 50 seconds (0.02 Hz)
         freq50Array = freq[(freq >= (1. / 50.))]
         min50Freq = numpy.min(freq50Array)
         res50Index = numpy.where(freq == min50Freq)[0]
 
-        res, resPhase = self.respToFAP(res, res50Index)
-        resPaz, resPazPhase = self.respToFAP(resPaz, res50Index)
+        res, resPhase = self._respToFAP(res, res50Index)
+        resPaz, resPazPhase = self._respToFAP(resPaz, res50Index)
+        resBf, resBfPhase = self._respToFAP(resBf, res50Index)
 
         # calculate the free period
-        fp = 2 * math.pi / abs(numpy.min(self.pzvals(self.sentype)["poles"]))
+        fp = 2 * math.pi / abs(numpy.min(self._pzvals(self.sentype)['poles']))
         # determine the damping ratio of the signal
         damping = abs(
-            numpy.real(numpy.min(self.pzvals(self.sentype)["poles"])) / (2 * math.pi / fp))
+            numpy.real(numpy.min(self._pzvals(self.sentype)['poles'])) / (2 * math.pi / fp))
 
         fig = plt.figure()
         ax = fig.add_subplot(121)
         ax.semilogx(numpy.divide(1, freq), res, label='Actual')
         ax.semilogx(numpy.divide(1, freq), resPaz, label='Nominal')
+        ax.semilogx(numpy.divide(1, freq), resBf, label='Best Fit')
         ax.set_xlabel('Period (seconds)')
         ax.set_ylabel('Amplitude [DB]')
         ax.legend(loc=9, ncol=2, mode="expand", borderaxespad=0.)
@@ -413,6 +436,7 @@ class ComputeCalibrations(object):
         ax = fig.add_subplot(122)
         ax.semilogx(numpy.divide(1, freq), resPhase, label='Actual')
         ax.semilogx(numpy.divide(1, freq), -resPazPhase, label='Nominal')
+        ax.semilogx(numpy.divide(1, freq), -resBfPhase, label='Best Fit')
         ax.set_xlabel('Period (seconds)')
         ax.set_ylabel('Phase [radian]')
         plt.legend(loc=9, ncol=2, mode="expand", borderaxespad=0.)
@@ -425,25 +449,27 @@ class ComputeCalibrations(object):
         plt.suptitle(title, fontsize=11)
         plt.show()
 
-    def getRespFromModel(self, pazModel, nfft, delta):
+    '''
+    '    Returns the frequency response given a dictionary of poles and zeros without any normalization
+    '''
+    def _getRespFromModel(self, pazModel, nfft, delta):
+        '''
+        :param dictionary pazModel: dictionary or poles and zeros
+        :param int nfft:
+        :param delta: delta T between samples
+        '''
         # This function returns the response without normalization
         resp = pazToFreqResp(pazModel['poles'], pazModel['zeros'], 1, delta,
                              nfft, freq=False)
         return resp
-
-    def respToFAP(self, resp, norm):
-        # This function returns the phase in degrees and the amp in dB
-        # Convert the amplitude response to dB
-        respAmp = 20 * numpy.log10(abs(resp))
-        respAmp = respAmp - respAmp[norm]
-
-    # Convert the phase response to degrees
-        respPhase = numpy.unwrap(numpy.angle(resp)) * 180 / math.pi
-        respPhase = respPhase - respPhase[norm]
-
-        return respAmp, respPhase
-
-    def pzvals(self, sensor):
+    
+    '''
+    '    Given a sensor type returns a dictionary of poles and zeros
+    '''
+    def _pzvals(self, sensor):
+        '''
+        :param string sensor: sensor type. Choose from: STS-1, STS-2, STS-2GH, T-120, T-240, CMG-3T, KS-54000
+        '''
         # get the instrument values for a given type of seismometer
         if sensor == 'STS-1':
             pz = {'zeros': [0.],
@@ -507,8 +533,105 @@ class ComputeCalibrations(object):
                   'sensitivity': 1.}
 
         return pz
+    
+    '''
+    '    Returns a normalized amplitude response and phase response in dB
+    '''
+    def _respToFAP(self, resp, norm):
+        '''
+        :param numpy array resp: Array of response signal to be converted
+        :param int norm: index of the response array for the value to be normalized by. Usually the index of the array
+                    closest to 50 seconds period.
+        '''
+        # This function returns the phase in degrees and the amp in dB
+        # Convert the amplitude response to dB
+        respAmp = 20. * numpy.log10(abs(resp))
+        respAmp = respAmp - respAmp[norm]
 
-    def resi(self, x, *args):
+        # Convert the phase response to degrees
+        respPhase = numpy.unwrap(numpy.angle(resp)) * 180 / math.pi
+        respPhase = respPhase - respPhase[norm]
+
+        return respAmp, respPhase
+
+    '''
+    '    Converts dictionary of poles and zeros into a list of real and imaginary values seperated by sys.maxint
+    '''
+    def _pazDictToList(self, pazDict):
+        '''
+        :param dictionary pazDict: dictonary of poles and zeros.
+        '''
+        poles = pazDict['poles']
+        zeros = pazDict['zeros'] 
+        polesList = []
+        absValuePolesList = []
+        for pole in poles:
+            polesList.append(pole.real)
+            polesList.append(pole.imag)
+            absValuePolesList.append(abs(pole))
+        zerosList = []
+        for zero in zeros:
+            zerosList.append(zero.real)
+            zerosList.append(zero.imag)
+        return polesList + [sys.maxint] +  zerosList
+    
+    '''
+    '    Converts list of real and imaginary values to ad dictionary of complex poles and zeros
+    '''
+    def _pazListToDict(self, pazList):
+        '''
+        :param list pazList: List of the nominal poles and zeros values split by sys.maxint. Each complex
+                    value is separated into its real and imaginary components. 
+                    i.e. [pole real val, pole imaginary val, ... , sys.maxint, zero real val, pole imaginary val, ... ]
+        '''
+        poles, zeros = self._isplit(pazList, sys.maxint)
+        cmplxPoles = []
+        i = 0
+        while i+1 < len(poles):
+            cmplxPoles.append( (poles[i] + (poles[i+1] * 1j)) ) 
+            i = i + 2
+        cmplxZeros = []
+        i = 0
+        while i+1 < len(zeros):
+            cmplxZeros.append( (zeros[i] + (zeros[i+1] * 1j)) ) 
+            i = i + 2
+        paz = {'zeros' : cmplxZeros, 'poles' : cmplxPoles}
+        return paz
+    
+    '''
+    '    Splits a list of values into two separate list based on one splitter value
+    '    e.g. is splitter = sys.maxint then [8, 2j, sys.maxint, 3, 5j] becomes two list containg [8, 2j] [3, 5j]
+    '''
+    def _isplit(self, iterable,splitter):
+        '''
+        :param list iterable: list of values
+        :param splitter: value to split list by
+        '''
+        polesList = []
+        zerosList = []
+
+        for item in iterable:
+            if item != splitter:
+                polesList.append(item)
+            else:
+                break
+
+        reversed_arr = iterable[::-1]
+        for item in reversed_arr:
+            if item != splitter:
+                zerosList.append(item)
+            else:
+                break
+        return polesList, zerosList
+    
+    '''
+    '    Residual function for computing step calibration. Calculates estimated instrument free period, damping, and sensitivity. 
+    '''
+    def _resi(self, x, *args):
+        '''
+        :param numpy array x: Containing original guess for free period, damping, and sensitivity
+        :param tuple *args: tuple containing the step calibration input signal and output signal.     
+        '''
         f = x[0]
         h = x[1]
         sen = x[2]
@@ -532,10 +655,41 @@ class ComputeCalibrations(object):
 
         comp = sum((trOUTsim.data - trINCP) ** 2)
         return comp
+    
+    '''
+    '    Residual method used to calculate best fit estimated poles and zeros values for the random calibration
+    '''
+    def _resiFreq(self, x, *args):
+        '''
+        :param numpy array x: Array of the nominal poles and zeros values split by sys.maxint. Each complex
+                    value is separated into its real and imaginary components. 
+                    i.e. [pole real val, pole imaginary val, ... , sys.maxint, zero real val, pole imaginary val, ... ]
+        :param tuple *args: tuple containing the acutal response and the sample rate.         
+        '''
+        paz = self._pazListToDict(x)
+        respActual = args[0]
+        samplerate = args[1]
+        #compute response from given poles and zeros
+        respPaz = abs(self._getRespFromModel(paz, len(respActual) * 2, 1. / samplerate))[1:] #skip zero term to avoid taking log10(0)
+        respPAZ = 20. * numpy.log10(respPaz) #convert to dB
+        respActual = 20. * numpy.log10(respActual)
+        #convert actual response to dB
+        #get the maximum magnitude to normalize by
+        pazMaxMag = numpy.amax(respPAZ)
+        
+        #phase angle arrays
+        respActualAngle = numpy.arctan(respActual)
+        respPAZAngle = numpy.arctan(respPAZ)
+        #get maximum phase angle to normalize by
+        pazMaxTheta = numpy.amax(numpy.arctan(respPaz))
+        comp = numpy.sum( ( ((respActual - respPAZ) / pazMaxMag) ** 2 ) + ( ((respActualAngle - respPAZAngle) / pazMaxTheta) ** 2 ) )
+        return comp
 
-    def determineSensorType(self):
+    '''
+    '    Returns the sensor type for a given station location/channel
+    '''
+    def _determineSensorType(self):
         if(self.dbconn is not None):
-            # returns the sensor type for a given station location/channel
             # Remove this hard coded locations
             mdgetstr = '/home/nfalco/calanalyzer/./mdget.py -n ' + str(self.network) + \
                 ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
@@ -580,8 +734,11 @@ class ComputeCalibrations(object):
 
         return sensor
 
-    def pmtm(self, x, y, NW=None, k=None, NFFT=None, e=None, v=None, method='eigen', show=True):
-        """Multitapering spectral estimation
+    '''
+    '    Multitapering sepectral estimation method used for random calibration calculations.
+    '''
+    def _pmtm(self, x, y, NW=None, k=None, NFFT=None, e=None, v=None, method='eigen', show=True):
+        '''Multitapering spectral estimation
         :param array x: the data
         :param array y: the data
         :param float NW: The time half bandwidth parameter (typical values are 2.5,3,3.5,4).
@@ -593,7 +750,7 @@ class ComputeCalibrations(object):
         :param v: the window concentrations (eigenvalues)
         :param str method: set how the eigenvalues are used. Must be in ['unity', 'adapt', 'eigen']
         :param bool show: plot results
-        """
+        '''
         debug = False
         assert method in ['adapt', 'eigen', 'unity']
 

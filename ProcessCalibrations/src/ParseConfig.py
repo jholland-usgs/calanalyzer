@@ -11,7 +11,7 @@ import yaml
 class ParseConfig(object):
 
     def __init__(self):
-        arguments = self._getArguments()  # gets arguments from the comand line
+        arguments = self._getArguments()  # gets arguments from the command line
         self._getConfigData(arguments)
 
     def _getArguments(self):
@@ -33,7 +33,9 @@ class ParseConfig(object):
                             help='''(Optional) Type of
                               calibration to compute. Choose
                               from {sine, step, random}
-                              separated by commas.''',
+                              separated by commas. If not 
+                              specified, method computes
+                              sine, step, and random cal.''',
                             type=str,
                             required=False)
 
@@ -42,7 +44,7 @@ class ParseConfig(object):
                             action='store',
                             default=None,
                             help='''(Optional) Manual override
-                              for sensor type.''',
+                              for sensor type. Choose from {STS-1, STS-2, STS-2GH, T-120, T-240, CMG-3T, KS-54000}.''',
                             type=str,
                             required=False)
         # Manual override for start date & time
