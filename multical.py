@@ -73,7 +73,7 @@ def checkNetsta(netsta):
 			print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, bjday, '- 366', 'for calibrations'
 			#starting on the beginning day and ending at the end of the current year
 			for day in xrange(int(bjday), 366 + 1):
-				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
+				output = commands.getstatusoutput('python ./addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
 				#if there is a calibration, proceed
 				if output != '':
 					print output
@@ -82,7 +82,7 @@ def checkNetsta(netsta):
 			print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, '001 - 366', 'for calibrations'
 			#proceed from day 001 to day 366
 			for day in xrange(1, 366 + 1):
-				ouput = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
+				ouput = commands.getstatusoutput('python ./addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
 				#if there is a calibration, proceed
 				if output != '':
 					print output
@@ -91,7 +91,7 @@ def checkNetsta(netsta):
 			print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, '001 -', ejday, 'for calibrations'
 			#proceed form day 001 to the ending day
 			for day in xrange(1, int(ejday) + 1):
-				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
+				output = commands.getstatusoutput('python ./addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
 				#if there is a calibration, proceed
 				if output != '':
 					print output
@@ -100,7 +100,7 @@ def checkNetsta(netsta):
 			print str(UTCDateTime.now()).split('.')[0].replace('T',' '), 'Checking', network, station.ljust(4), year, bjday, '-', ejday, 'for calibrations'
 			#proceed from the beginning day to the ending day
 			for day in xrange(int(bjday), int(ejday) + 1):
-				output = commands.getstatusoutput('python /home/ambaker/calanalyzer/addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
+				output = commands.getstatusoutput('python ./addNewCals.py -n ' + network + ' -s ' + station + ' -d ' + str(year) + ',' + str(day).zfill(3))[1]
 				#if there is a calibration, proceed
 				if output != '':
 					print output
