@@ -85,7 +85,7 @@ def processCals():
 					    WHERE network = '""" + str(net) + "' AND station_name = '" + str(sta) + "' AND startdate = '" + str(cal['startdate']) + "' AND location = '" + str(loc) + \
 						   "' AND channel = '" + str(cal['channel']) + "' AND cal_duration = '" + str(cal['step_duration']) + "'"
 				cur.execute(query)
-				if cur.fetchall() == 0:
+				if len(cur.fetchall()) == 0:
 					#Processes a step calibration
 					if cal['type'] == 300:
 						query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
