@@ -76,12 +76,12 @@ def processCals():
 				cur = conn.cursor()
 				cal = calibration
 				#Check if calibration results already exist in the database
-				query = """SELECT tbl_310.pk_id, tbl_networks.network,
+				query = "SELECT tbl_"+cal['type']+""".pk_id, tbl_networks.network,
 					           tbl_stations.station_name, tbl_sensors.location, 
-					           tbl_310.startdate, tbl_310.channel, tbl_310.cal_duration
+					           tbl_"""+cal['type']+".startdate, tbl_"+cal['type']+".channel, tbl_"+cal['type']+""".cal_duration
 					    FROM tbl_networks JOIN tbl_stations ON tbl_networks.pk_id = tbl_stations.fk_networkid
 						   JOIN tbl_sensors ON tbl_stations.pk_id = tbl_sensors.fk_stationid
-						   JOIN tbl_310 ON tbl_sensors.pk_id = tbl_310.fk_sensorid
+						   JOIN tbl_"""+cal['type']+" ON tbl_sensors.pk_id = tbl_"+cal['type']+""".fk_sensorid
 					    WHERE network = '""" + str(net) + "' AND station_name = '" + str(sta) + "' AND startdate = '" + str(cal['startdate']) + "' AND location = '" + str(loc) + \
 						   "' AND channel = '" + str(cal['channel']) + "' AND cal_duration = '" + str(cal['step_duration']) + "'"
 				cur.execute(query)
