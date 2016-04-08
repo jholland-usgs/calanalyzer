@@ -12,8 +12,9 @@ import math
 import sys
 
 import numpy
-from obspy.core import read, UTCDateTime, Stream
+from obspy.core import read, UTCDateTime, Stream, trace
 from obspy.signal import cornFreq2Paz
+from obspy.signal import filter
 from obspy.signal import pazToFreqResp
 import psycopg2
 from scipy.optimize import fmin
@@ -25,8 +26,8 @@ import matplotlib.pyplot as plt
 class ComputeCalibrations(object):
 
     def __init__(self, dataInLoc, dataOutLoc, startdate,
-                 julianday, cal_duration, cal_id, network,
-                 station, location, outChannel, dbconn, sentype=None):
+                 julianday, cal_duration, cal_id, network = '',
+                 station = '', location = '', outChannel = '', dbconn = None, ps = None, sentype=None ):
         self.dataInLoc = dataInLoc  # Location where the input data is located
         # Location where the output seed data is located
         self.dataOutLoc = dataOutLoc
@@ -43,6 +44,7 @@ class ComputeCalibrations(object):
         self.outChannel = outChannel
         self.sentype = sentype  # Manual override for sensor type
         self.dbconn = dbconn  # Database connection object
+        self.ps = ps
         # Setup logging for calibrations
         self.stepcal_logger = logging.getLogger('ComputeCalibrations.stepcal')
         self.sinecal_logger = logging.getLogger('ComputeCalibrations.sinecal')
@@ -51,23 +53,110 @@ class ComputeCalibrations(object):
     '    Computes the Sine Calibration rms input, rms output, and coil constant
     '''
     def computeSineCal(self):
-        try:
-            # Read in BH and BC
-            dataIN = read(self.dataInLoc)
-            dataOUT = read(self.dataOutLoc)
-            # Convert start date to UTC
-            stime = UTCDateTime(str(self.startdate))
+        debug = False
+        #try:
+        # determine sensor type
+        if self.sentype is None:
+            self.sentype = self._determineSensorType()
+            
+        if(self.dbconn is not None):
+            # divide by 10000 when getting the cal_duration from the database
+            self.cal_duration = self.cal_duration / 10000.0
+        else:
+            self.cal_duration = self.cal_duration
+        
+        # Read in BH and BC
+        dataIN = read(self.dataInLoc)
+        dataOUT = read(self.dataOutLoc)
+        
+        # Convert start date to UTC
+        stime = UTCDateTime(str(self.startdate))
 
-            # Trim data to only grab the sine calibration
-            dataIN.trim(starttime=stime, endtime=stime + self.cal_duration)
-            dataOUT.trim(starttime=stime, endtime=stime + self.cal_duration)
-
-            # Calculate RMS of both traces and divide
-            dataINRMS = math.sqrt(2.) * sum(numpy.square(dataIN[0].data))
-            dataINRMS /= float(dataIN[0].stats.npts)
-            dataOUTRMS = math.sqrt(2.) * sum(numpy.square(dataOUT[0].data))
-            dataINRMS /= float(dataOUT[0].stats.npts)
-
+        #get poles and zeros of 
+        paz = self.ps.getPAZ(str(self.network)+'.'+str(self.station)+'.'+
+                    str(self.location)+'.'+str(dataOUT[0].stats.channel), stime)
+        
+        # Trim data to only grab the sine calibration
+        dataIN.trim(starttime=stime, endtime=stime + self.cal_duration)
+        dataOUT.trim(starttime=stime, endtime=stime + self.cal_duration)
+        
+        print 'dataIN length = ' + str(len(dataIN[0].data))
+        print 'dataOUT length = ' + str(len(dataOUT[0].data))
+        
+        # Convert input and output to volts
+        dataINVolts = dataIN[0]
+        dataINVolts.data = dataIN[0].data / float(paz['digitizer_gain']) #remove digitizer gain from input signal
+        dataOUTVolts = dataOUT[0]
+        dataOUTVolts.filter('highpass',freq=1./(dataINVolts.stats.delta * 2.))
+        dataOUTVolts.simulate(paz_remove = paz, remove_sensitivity=True) #removes response. Units now in m/s
+        
+        # convert units to volts by mutilplying by sensitivity (volt/(m/s))
+        dataOUTVolts.data = numpy.multiply(dataOUTVolts.data, float(str(paz['seismometer_gain']))) #units now in volts
+        
+        # Calculate RMS of both traces and divide
+        dataINRMS = math.sqrt(sum(numpy.square(dataINVolts.data)) / dataINVolts.stats.npts)
+        dataOUTRMS = math.sqrt(sum(numpy.square(dataOUTVolts.data)) / dataOUTVolts.stats.npts)
+        
+        print 'dataINVolts length = ' + str(len(dataINVolts.data))
+        print 'dataOUTVolts length = ' + str(len(dataOUTVolts.data))
+        
+        #decimate data
+        dataINVolts.decimate(2, no_filter=True)
+        dataOUTVolts.decimate(2, no_filter=True)
+        
+        #print 'dataINVolts decimated length = ' + str(len(dataINVolts.data))
+        #print 'dataOUTVolts decimated length = ' + str(len(dataOUTVolts.data))
+        
+        #try:
+        plt.clf()
+        t = numpy.arange(
+            0, dataOUTVolts.stats.npts / dataOUTVolts.stats.sampling_rate, dataOUTVolts.stats.delta)
+        fig = plt.figure(1, figsize=(8,8))
+        plt.subplot(211)
+        plt.plot(t, dataINVolts.data, 'b', label='input')
+        plt.plot(t, dataOUTVolts.data, 'k', label='output')
+        plt.xlabel('Time (s)')
+        plt.ylabel('Volts')
+        plt.title('Sine Calibration ' + str(dataOUTVolts.stats.station) + ' ' + str(
+            dataOUTVolts.stats.starttime.year) + ' ' + str(dataOUTVolts.stats.starttime.julday).zfill(3) +
+                  '\ninput rms = ' + str(dataINRMS) + ', output rms = ' + str(dataOUTRMS))
+        plt.legend(prop={'size': 12})
+        plt.subplot(212)
+        plt.xlabel('Cal output (V)')
+        plt.ylabel('Cal input (V)')
+        plt.plot(dataINVolts.data, dataOUTVolts.data)
+        plt.show()
+        plt.savefig('temp/' + str(self.startdate.year) + '_' + str(self.julianday) + '_'+ str(dataOUTVolts.stats.station) + '_' + str(self.location) + '_' + str(self.outChannel) +
+            '_' + str(self.startdate.time()) + 'sine.png', format="png", dpi=400)
+        print 'saved figure temp/' + str(dataOUTVolts.stats.station) + '_' + str(self.location) + '_' + str(self.outChannel) + \
+                    str(self.startdate.year) + '_' + str(self.julianday) + '_' + str(self.startdate.time) + '_sine.png'
+        if debug:
+            plt.show()
+        plt.close()
+        '''    except:
+                if(self.dbconn is not None):
+                    print 'network = ' + str(self.network)
+                    print 'station = ' + str(self.station)
+                    print 'sensor = ' + str(self.sensor)
+                    print 'location = ' + str(self.location)
+                    print 'channel = ' + str(self.channel)
+                    if (self.network != None and self.station == None and self.sentype != None and self.location != None and self.outChannel != None):
+                        self.stepcal_logger.error('Unable to plot {' +
+                                                  'network = ' + str(self.network) +
+                                                  ', station = ' + str(self.station) +
+                                                  ', sensor = ' + str(self.sentype) +
+                                                  ', location = ' + str(self.location) +
+                                                  ', channel = ' + str(self.outChannel) +
+                                                  '}')
+                    else:
+                        self.stepcal_logger.error('Unable to plot cal for {' +
+                          'data input = ' + str(self.dataInLoc) +
+                          ', data output = ' + str(self.dataOutLoc) +
+                          '}')
+                else:
+                    self.stepcal_logger.error('(Manual Override) Unable to make plot for input file ' + str(
+                        self.dataInLoc) + ' and output file ' + str(self.dataOutLoc))
+    
             if(self.dbconn is not None):
                 # Write results to database
                 cur = self.dbconn.cursor()
@@ -78,12 +167,13 @@ class ComputeCalibrations(object):
                             "', '" + str(self.outChannel) + "', '" +
                             str(dataINRMS / dataOUTRMS) + "')")
                 self.dbconn.commit()
+                cur.close()
             else:
                 print('input rms = ' + str(dataINRMS) +
                       ', output rms = ' + str(dataOUTRMS) +
                       ', coil constant = ' + str(dataINRMS / dataOUTRMS))
         except:
-            self.sinecal_logger.error("Unexpected error:", sys.exc_info()[0])
+            self.sinecal_logger.error("Unexpected error:", str(sys.exc_info()[0]))'''
 
     '''
     '    Computes the nominal, best fit, and actual step calibration
@@ -246,6 +336,7 @@ class ComputeCalibrations(object):
             plt.legend(prop={'size': 6})
             plt.savefig('temp/' + str(trOUT.stats.station) + str(self.outChannel) + str(self.location) +
                         str(self.startdate.year) + str(self.julianday) + 'step.png', format="png", dpi=400)
+            plt.close()
         except:
             if(self.dbconn is not None):
                 self.stepcal_logger.error('Unable to plot {' +
@@ -276,6 +367,7 @@ class ComputeCalibrations(object):
                              round(bf[1], 6), round(compOUTPERT, 6),
                              str(self.outChannel), psycopg2.Binary(imgdata)])
                 self.dbconn.commit()
+                cur.close()
             except:
                 self.stepcal_logger.error('Unable to insert into database for {' +
                                           'network = ' + self.network +
@@ -303,7 +395,7 @@ class ComputeCalibrations(object):
     '    Computes the nominal, actual, and best fit amplitude and phase responses of an instrument for a random calibration.
     '''
     def computeRandomCal(self):
-        debug = False
+        debug = True
         if(self.dbconn is not None):
             # divide by 10000 when getting the cal_duration from the database
             duration = self.cal_duration / 10000.0
@@ -366,6 +458,9 @@ class ComputeCalibrations(object):
         # find the average of segments
         res = runningTotal / numSegments
 
+        # generate the frequency array
+        freq = numpy.multiply(numpy.fft.fftfreq(len(res)), samplerate)
+
         # determine sensor type
         if self.sentype is None:
             self.sentype = self._determineSensorType()
@@ -375,14 +470,11 @@ class ComputeCalibrations(object):
             self._pzvals(self.sentype), len(res), trOUT.stats.delta)
 
         # compute best fit
-        resBfPolesList = fmin(self._resiFreq,  numpy.array(self._pazDictToList(self._pzvals(self.sentype))), args=(res, samplerate),
+        resBfPolesList = fmin(self._resiFreq,  numpy.array(self._pazDictToList(self._pzvals(self.sentype))), args=(res, samplerate, freq),
                   xtol=10 ** -8, ftol=10 ** -3, disp=False)
         resBfPoles = self._pazListToDict(resBfPolesList)
         resBf = self._getRespFromModel(
             resBfPoles, len(res), trOUT.stats.delta)
-
-        # generate the frequency array
-        freq = numpy.multiply(numpy.fft.fftfreq(len(res)), samplerate)
 
         # only grab positive frequencies
         freq = freq[freq > 0]
@@ -424,14 +516,14 @@ class ComputeCalibrations(object):
         damping = abs(
             numpy.real(numpy.min(self._pzvals(self.sentype)['poles'])) / (2 * math.pi / fp))
 
-        fig = plt.figure()
+        fig = plt.figure(figsize=(14,10))
         ax = fig.add_subplot(121)
         ax.semilogx(numpy.divide(1, freq), res, label='Actual')
         ax.semilogx(numpy.divide(1, freq), resPaz, label='Nominal')
         ax.semilogx(numpy.divide(1, freq), resBf, label='Best Fit')
         ax.set_xlabel('Period (seconds)')
         ax.set_ylabel('Amplitude [DB]')
-        ax.legend(loc=9, ncol=2, mode="expand", borderaxespad=0.)
+        ax.legend(loc='lower left', ncol=2, borderaxespad=0.)
 
         ax = fig.add_subplot(122)
         ax.semilogx(numpy.divide(1, freq), resPhase, label='Actual')
@@ -439,15 +531,35 @@ class ComputeCalibrations(object):
         ax.semilogx(numpy.divide(1, freq), -resBfPhase, label='Best Fit')
         ax.set_xlabel('Period (seconds)')
         ax.set_ylabel('Phase [radian]')
-        plt.legend(loc=9, ncol=2, mode="expand", borderaxespad=0.)
+        plt.legend(loc='lower left', ncol=2, borderaxespad=0.)
         plt.subplots_adjust(wspace=0.3, top=0.85)
-
+        
         title = 'Frequency Response of a ' + self.sentype + ' Seismometer for \n Station = ' \
             + self.network + '_' + self.station + ', Location = ' + self.location \
             + ', Channel = ' + self.outChannel + ', Start-time = ' + str(self.startdate) \
             + '\nh = ' + str(damping) + ', fp= ' + str(fp)
         plt.suptitle(title, fontsize=11)
-        plt.show()
+        plt.savefig('temp/' + str(trOUT.stats.station) + str(self.outChannel) + str(self.location) +
+            str(self.startdate.year) + str(self.julianday) + 'random.png', format="png", dpi=400)
+        if debug:
+            plt.show()
+        plt.close()
+        if(self.dbconn is not None):
+            # insert results into the database
+            fin = open('temp/' + str(trOUT.stats.station) + str(self.outChannel) + str(
+                self.location) + str(self.startdate.year) + str(self.julianday) + 'random.png', 'rb')
+            imgdata = fin.read()
+            # Write results to database
+            cur = self.dbconn.cursor()
+            cur.execute("""INSERT INTO tbl_320calresults (fk_calibrationid,
+                        damping, freeperiod, randomcal_img)
+                        VALUES (%s,%s,%s,%s)""",
+                            [self.cal_id, round(damping, 6), round(fp, 6),
+                             psycopg2.Binary(imgdata)])
+            self.dbconn.commit()
+            cur.close()
+        else:
+            print('Unable to insert random calibration into the database.')
 
     '''
     '    Returns the frequency response given a dictionary of poles and zeros without any normalization
@@ -667,8 +779,9 @@ class ComputeCalibrations(object):
         :param tuple *args: tuple containing the acutal response and the sample rate.         
         '''
         paz = self._pazListToDict(x)
-        respActual = args[0]
+        respActual = args[0][1:] #skip 0 term
         samplerate = args[1]
+        freq = args[2]
         #compute response from given poles and zeros
         respPaz = abs(self._getRespFromModel(paz, len(respActual) * 2, 1. / samplerate))[1:] #skip zero term to avoid taking log10(0)
         respPAZ = 20. * numpy.log10(respPaz) #convert to dB
@@ -680,9 +793,17 @@ class ComputeCalibrations(object):
         #phase angle arrays
         respActualAngle = numpy.arctan(respActual)
         respPAZAngle = numpy.arctan(respPAZ)
+        
+        deltaFreqList = []
+        deltaFreqIndex = 0
+        while deltaFreqIndex + 1 < len(freq):
+            deltaFreqList.append(freq[deltaFreqIndex + 1] - freq[deltaFreqIndex])
+            deltaFreqIndex = deltaFreqIndex + 1
+        deltaFreqArray = numpy.array(deltaFreqList)
+
         #get maximum phase angle to normalize by
         pazMaxTheta = numpy.amax(numpy.arctan(respPaz))
-        comp = numpy.sum( ( ((respActual - respPAZ) / pazMaxMag) ** 2 ) + ( ((respActualAngle - respPAZAngle) / pazMaxTheta) ** 2 ) )
+        comp = numpy.sum( ( ((respActual - respPAZ) / pazMaxMag) ** 2 ) + ( ((respActualAngle - respPAZAngle) / pazMaxTheta) ** 2 ) * deltaFreqArray)
         return comp
 
     '''
@@ -691,11 +812,11 @@ class ComputeCalibrations(object):
     def _determineSensorType(self):
         if(self.dbconn is not None):
             # Remove this hard coded locations
-            mdgetstr = '/home/nfalco/calanalyzer/./mdget.py -n ' + str(self.network) + \
+            mdgetstr = '/home/nfalco/calanalyzer/ProcessCalibrations/src/./mdget.py -n ' + str(self.network) + \
                 ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
                 ' -s ' + str(self.station) + ' -t ' + str(self.startdate.year) + \
                 '-' + str(self.julianday) + ' -o \'instrument type\''
-
+            print mdgetstr
             output = commands.getstatusoutput(mdgetstr)
 
             # These might not be consistent names for sensors between networks
@@ -751,7 +872,7 @@ class ComputeCalibrations(object):
         :param str method: set how the eigenvalues are used. Must be in ['unity', 'adapt', 'eigen']
         :param bool show: plot results
         '''
-        debug = False
+        debug = True
         assert method in ['adapt', 'eigen', 'unity']
 
         N = len(x)

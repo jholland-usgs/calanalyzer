@@ -4,6 +4,10 @@ Created on Sep 18, 2015
 
 @author: Nick Falco
 '''
+'''
+'    Connect to the database using the db info read from the config file
+'''
+
 import datetime
 import glob
 import logging
@@ -11,6 +15,7 @@ from multiprocessing import Pool
 import os
 import re
 
+from obspy import xseed
 import obspy
 from obspy.core import UTCDateTime
 import psycopg2
@@ -19,9 +24,7 @@ from src import ComputeCalibrations
 from src import ParseConfig
 from src import PathData
 
-'''
-'    Connect to the database using the db info read from the config file
-'''
+
 def connectToDatabase(config):
     try:
         conn = psycopg2.connect("dbname='" + config.dbname +
@@ -55,7 +58,7 @@ def getPathData():
     cur = dbconn.cursor()
     # Query the database to retrieve all records for the
     # given calibration type
-    query = "SELECT " + calTable + """.pk_id, tbl_networks.name,
+    query = "SELECT DISTINCT " + calTable + """.pk_id, tbl_networks.network,
             tbl_stations.station_name, tbl_sensors.location, """ + \
             calTable + ".startdate, " + calTable + ".channel, " + \
             calTable + "." + durationType + \
@@ -64,18 +67,19 @@ def getPathData():
                                JOIN tbl_sensors ON tbl_stations.pk_id = tbl_sensors.fk_stationid
                                JOIN """ + calTable + " ON tbl_sensors.pk_id = " + calTable + """.fk_sensorid
                                LEFT JOIN """ + calTable + "calresults ON " + calTable + ".pk_id = " + calTable + "calresults.fk_calibrationid " + \
-            " WHERE " + calTable + """calresults is NULL
-             ORDER BY startdate DESC
+            """WHERE station_name = 'TUC' AND date_part('year',tbl_310.startdate) > 2011
+             ORDER BY tbl_networks.network DESC, startdate DESC
             """
-
+    print query
     cur.execute(query)
-    rows = cur.fetchall()
+    rows = cur.fetchall()    
+    cur.close()
     dbconn.close()
+
     pathlist = []
     for row in rows:
         pathlist.append(PathData.PathData(cal_id=row[0], network=row[1], station=row[
-                        2], location=row[3], date=row[4], channel=row[5], cal_duration=row[6]))
-
+                        2], location=row[3], date=row[4], channel=row[5], cal_duration=row[6], ps=None))
     return pathlist
 
 '''
@@ -93,12 +97,12 @@ def computeNewCal(pathData):
         path = '/xs0/seed/' + pathData.network + '_' + pathData.station + '/' + str(pathData.date.year) + '/' + str(
             pathData.date.year) + '_' + str('{0:0=3d}'.format(julianday)) + '_' + pathData.network + '_' + pathData.station + '/'
 
-    # Build the path for the inumpyut file
-    dataInumpyath = ''
+    # Build the path for the input file
+    dataInPath = ''
     if len(glob.glob(path + pathData.channel + '.*')) > 0:
-        dataInumpyath = str(glob.glob(path + pathData.channel + '.*')[0])
+        dataInPath = str(glob.glob(path + pathData.channel + '.*')[0])
     elif len(pathData.location) > 0 and len(glob.glob(path + pathData.channel[0] + "C" + pathData.location[0] + '.*')) > 0:
-        dataInumpyath = str(
+        dataInPath = str(
             glob.glob(path + pathData.channel[0] + "C" + pathData.location[0] + '.*')[0])
     else:
         logging.warn(
@@ -106,11 +110,14 @@ def computeNewCal(pathData):
 
     # Build the path for the output file
     patternBH = re.compile("^BC*")
+    patternHH = re.compile("^HC*")
     outChannels = []
     if(pathData.channel == 'BC8'):
         outChannels = ['BHZ']
     elif(patternBH.match(pathData.channel)):
         outChannels = ['BHZ', 'BH1', 'BH2']
+    elif(patternHH.match(pathData.channel)):
+        outChannels = ['HHZ', 'HH1', 'HH2']
     else:
         outChannels = ['LHZ']
     dataOutPath = ''
@@ -118,12 +125,21 @@ def computeNewCal(pathData):
     for outChannel in outChannels:
         dataOutPath = path + pathData.location + "_" + outChannel + ".512.seed"
         # Compute sine cal for the given data path
-        if(os.path.isfile(dataInumpyath) and os.path.isfile(dataOutPath)):
+        if(os.path.isfile(dataInPath) and os.path.isfile(dataOutPath)):
             # Connect to the database
             dbconn = connectToDatabase(config)
-            pc = ComputeCalibrations.ComputeCalibrations(dataInumpyath, dataOutPath, pathData.date, str('{0:0=3d}'.format(julianday)),
+            #if debug:
+            #    print 'dataInPath = ' + str(dataInPath)
+            #    print 'dataOutPath = ' + str(dataOutPath)
+            #    print 'pathData.date = ' + str(pathData.date)
+            #    print 'pathData.cal_duration = ' + str(pathData.cal_duration)
+            #    print 'pathData.cal_id = ' + str(pathData.cal_id)
+            #    print 'pathData.network = ' + str(pathData.network)
+            #    print 'pathData.station = ' + str(pathData.station)
+            #    print 'pathData.location = ' + str(pathData.location)
+            pc = ComputeCalibrations.ComputeCalibrations(dataInPath, dataOutPath, pathData.date, str('{0:0=3d}'.format(julianday)),
                                                          pathData.cal_duration, pathData.cal_id, pathData.network, pathData.station,
-                                                         pathData.location, outChannel, dbconn)
+                                                         pathData.location, outChannel, dbconn, pathData.ps)
             if(calType == 'sine'):
                 pc.computeSineCal()
             elif(calType == 'step'):
@@ -139,8 +155,10 @@ def computeNewCalManualOverride():
     if not os.path.exists(config.outputloc):
         print 'output file path - ' + config.outputloc + ' does not exist'
     elif not os.path.exists(config.inputloc):
-        print 'input file path - ' + config.outputloc + ' does not exist'
+        print config.inputloc
+        print 'input file path - ' + config.inputloc + ' does not exist'
     else:
+        print 'here - ' + config.calibrationType
         # Calculate equivalent julian calendar day
         stats = obspy.read(config.outputloc)[0].stats
         date = datetime.datetime.strptime(
@@ -153,7 +171,7 @@ def computeNewCalManualOverride():
                                                          'network'], stats['station'],
                                                      stats['location'], stats[
                                                          'channel'],
-                                                     None, config.sentype)
+                                                     None, None, config.sentype)
         if(calType == 'sine'):
             pc.computeSineCal()
         elif(calType == 'step'):
@@ -166,7 +184,10 @@ if __name__ == "__main__":
     # Global Variables
     global calType
     global config
-
+    global debug 
+    
+    debug = True
+    
     # make a logs directory if it doesn't already exist
     if not os.path.isdir('logs'):
         os.mkdir('logs')
@@ -188,36 +209,44 @@ if __name__ == "__main__":
     os.mkdir('temp')
     for ct in calTypes:
         calType = ct
-        # Query database to get path data for sine calibrations
-        pool = Pool(10)
-        # If specific calibration information is provided  use the provided
-        # information rather than querying the database
-        '''if((config.sentype == None) and (config.startdate == None) and (config.duration == 0) and (config.inputloc == None) and (config.outputloc == None)):
-            pathData = getPathData()
-            pool.map(computeNewCal, pathData)
-        elif((config.sentype != None) and (config.startdate != None) and (config.duration != None) and (config.inputloc != None) and (config.outputloc != None)):
-            computeNewCalManualOverride()
+        if debug: # not multithreaded for debugging.
+            if(config.sentype == None and config.startdate == None and int(config.duration) == 0 and
+               config.inputloc == None and config.outputloc == None):
+                pathData = getPathData()
+                calculatedNetwork = ''
+                for path in pathData:
+                    if path.network != calculatedNetwork:
+                        ps = xseed.Parser('/APPS/metadata/SEED/'+path.network+'.dataless')
+                        calculatedNetwork = path.network
+                    path.ps = ps
+                    computeNewCal(path)
+            elif((config.sentype is not None) and (config.startdate is not None) and
+                 (config.duration != '0') and (config.inputloc is not None) and
+                 (config.outputloc is not None)):
+                computeNewCalManualOverride()
+            else:
+                print(
+                    "There was a problem with way the program was called. Please verify your input.")
         else:
-            print("There was a problem with way the program was called. Please verify your input.")'''
+            # Query database to get path data for sine calibrations
+            pool = Pool(10)
+            # If specific calibration information is provided  use the provided
+            # information rather than querying the database
+            if(config.sentype == None and config.startdate == None and int(config.duration) == 0 and
+               config.inputloc == None and config.outputloc == None):
+                pathData = getPathData()
+                calculatedNetwork = ''
+                for path in pathData:
+                    if path.network != calculatedNetwork:
+                        ps = xseed.Parser('/APPS/metadata/SEED/'+path.network+'.dataless')
+                        calculatedNetwork = path.network
+                    path.ps = ps
+                pool.map(computeNewCal, pathData)
+            elif((config.sentype != None) and (config.startdate != None) and (config.duration != None) and (config.inputloc != None) and (config.outputloc != None)):
+                computeNewCalManualOverride()
+            else:
+                print("There was a problem with way the program was called. Please verify your input.")
+            
 
-        # not multithreaded for debugging.
-        print 'config.sentype = ' + str(config.sentype)
-        print 'config.startdate = ' + str(config.startdate)
-        print 'config.duration = ' + str(config.duration)
-        print 'config.inputloc = ' + str(config.inputloc)
-        print 'config.outputloc = ' + str(config.outputloc)
-        if((config.sentype is None) and (config.startdate is None) and (config.duration == '0') and
-           (config.inputloc is None) and (config.outputloc is None)):
-            pathData = getPathData()
-            for path in pathData:
-                computeNewCal(path)
-        elif((config.sentype is not None) and (config.startdate is not None) and
-             (config.duration != '0') and (config.inputloc is not None) and
-             (config.outputloc is not None)):
-            computeNewCalManualOverride()
-        else:
-            print(
-                "There was a problem with way the program was called. Please verify your input.")
-
-    os.system('rm -rf temp')
+    #os.system('rm -rf temp')
     exit(1)

@@ -105,6 +105,8 @@ class ParseConfig(object):
         self.startdate = arguments.startdate
         if self.calibrationType == 'random':
             self.duration = arguments.duration
+        elif self.calibrationType == 'sine':
+            self.duration = int(arguments.duration)
         else:
             # convert from seconds to milliseconds
             self.duration = int(arguments.duration) * 1000

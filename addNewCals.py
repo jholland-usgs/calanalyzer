@@ -75,17 +75,21 @@ def processCals():
 					chan = locchan[1][:3]
 				cur = conn.cursor()
 				cal = calibration
+                                if(str(cal['type']) == '310' or str(cal['type']) == '320'):
+                                    durationType = 'cal_duration'
+                                elif(str(cal['type']) == '300'):
+                                    durationType = 'step_duration'
 				#Check if calibration results already exist in the database
-				query = "SELECT tbl_"+cal['type']+""".pk_id, tbl_networks.network,
+				query = "SELECT tbl_"+str(cal['type'])+""".pk_id, tbl_networks.network,
 					           tbl_stations.station_name, tbl_sensors.location, 
-					           tbl_"""+cal['type']+".startdate, tbl_"+cal['type']+".channel, tbl_"+cal['type']+""".cal_duration
+					           tbl_"""+str(cal['type'])+".startdate, tbl_"+str(cal['type'])+".channel, tbl_"+str(cal['type'])+"."+durationType+""" 
 					    FROM tbl_networks JOIN tbl_stations ON tbl_networks.pk_id = tbl_stations.fk_networkid
 						   JOIN tbl_sensors ON tbl_stations.pk_id = tbl_sensors.fk_stationid
-						   JOIN tbl_"""+cal['type']+" ON tbl_sensors.pk_id = tbl_"+cal['type']+""".fk_sensorid
-					    WHERE network = '""" + str(net) + "' AND station_name = '" + str(sta) + "' AND startdate = '" + str(cal['startdate']) + "' AND location = '" + str(loc) + \
-						   "' AND channel = '" + str(cal['channel']) + "' AND cal_duration = '" + str(cal['step_duration']) + "'"
+						   JOIN tbl_"""+str(cal['type'])+" ON tbl_sensors.pk_id = tbl_"+str(cal['type'])+""".fk_sensorid
+					    WHERE network = '""" + str(net) + "' AND station_name = '" + str(sta) + "' AND tbl_"+str(cal['type'])+".startdate = '" + str(cal['startdate']) + "' AND location = '" + str(loc) + \
+						   "' AND channel = '" + str(cal['channel']) + "' AND "+durationType+" = '" + str(cal[durationType]) + "'"
 				cur.execute(query)
-				if cur.fetchall() == 0:
+				if len(cur.fetchall()) == 0:
 					#Processes a step calibration
 					if cal['type'] == 300:
 						query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
@@ -157,7 +161,7 @@ def getCalibrations(file_name):
 
 def getSensorid():
 	#queries for a list of the networks and populates a dictionary
-	query = "SELECT pk_id FROM tbl_networks WHERE name = \'" + net + "\'"
+	query = "SELECT pk_id FROM tbl_networks WHERE network = \'" + net + "\'"
 	networkid = queryDatabase(query)[0][0]
 	#queries for a list of sensors at the given network and station
 	query = "SELECT pk_id FROM tbl_stations WHERE fk_networkid = \'" + str(networkid) + "\' AND station_name = \'" + sta + "\'"
