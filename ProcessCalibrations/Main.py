@@ -59,34 +59,36 @@ def getPathData():
     # Query the database to retrieve all records for the
     # given calibration type
     query = "SELECT DISTINCT " + calTable + """.pk_id, tbl_networks.network,
-            tbl_stations.station_name, tbl_sensors.location, """ + \
+            tbl_stations.station_name, tbl_locations.location, """ + \
             calTable + ".startdate, " + calTable + ".channel, " + \
-            calTable + "." + durationType + \
+            calTable + "." + durationType + (', ' + calTable + '.signal_period' if calType == 'sine' else '') + \
             """
              FROM tbl_networks JOIN tbl_stations ON tbl_networks.pk_id = tbl_stations.fk_networkid
-                               JOIN tbl_sensors ON tbl_stations.pk_id = tbl_sensors.fk_stationid
+                               JOIN tbl_locations ON tbl_stations.pk_id = tbl_locations.fk_stationid
+                               JOIN tbl_sensors ON tbl_locations.pk_id = tbl_sensors.fk_locationid
                                JOIN """ + calTable + " ON tbl_sensors.pk_id = " + calTable + """.fk_sensorid
                                LEFT JOIN """ + calTable + "calresults ON " + calTable + ".pk_id = " + calTable + "calresults.fk_calibrationid " + \
-            """WHERE station_name = 'TUC' AND date_part('year',"""+calTable+""".startdate) > 2011
-             ORDER BY tbl_networks.network DESC, startdate DESC
-            """
+            "ORDER BY tbl_networks.network DESC, startdate DESC"
     print query
     cur.execute(query)
-    rows = cur.fetchall()    
+    rows = cur.fetchall()   
     cur.close()
     dbconn.close()
 
     pathlist = []
     for row in rows:
+        if calType == 'sine':
+            sig_period=row[7]
+        else:
+            sig_period=''
         pathlist.append(PathData.PathData(cal_id=row[0], network=row[1], station=row[
-                        2], location=row[3], date=row[4], channel=row[5], cal_duration=row[6], ps=None))
+                        2], location=row[3], date=row[4], channel=row[5], cal_duration=row[6], signal_period=sig_period, ps=None))
     return pathlist
 
 '''
-'    Computes the specified calibration using the information provided by the databas
+'    Computes the specified calibration using the information provided by the database
 '''
 def computeNewCal(pathData):
-    print 'computing new cal'
     # Calculate equivalent julian calendar day
     julianday = UTCDateTime(
         pathData.date.year, pathData.date.month, pathData.date.day, 0, 0).julday
@@ -100,15 +102,17 @@ def computeNewCal(pathData):
 
     # Build the path for the input file
     dataInPath = ''
-    if len(glob.glob(path + pathData.channel + '.*')) > 0:
+    if len(glob.glob(path + pathData.channel + '.*')) > 0 and pathData.channel != '':
         dataInPath = str(glob.glob(path + pathData.channel + '.*')[0])
-    elif len(pathData.location) > 0 and len(glob.glob(path + pathData.channel[0] + "C" + pathData.location[0] + '.*')) > 0:
+    elif pathData.location > 0 and len(glob.glob(path + pathData.channel[0] + "C" + 
+                            pathData.location[0] + '.*')) > 0 and pathData.channel != '':
         dataInPath = str(
             glob.glob(path + pathData.channel[0] + "C" + pathData.location[0] + '.*')[0])
+    elif pathData.channel == '':
+        pathData.channel = 'BH' + pathData.location[0]
     else:
         logging.warn(
             'Unable to find input file ' + str(path + pathData.channel + '.*'))
-
     # Build the path for the output file
     patternBH = re.compile("^BC*")
     patternHH = re.compile("^HC*")
@@ -122,27 +126,15 @@ def computeNewCal(pathData):
     else:
         outChannels = ['LHZ']
     dataOutPath = ''
-    print outChannels
     for outChannel in outChannels:
         dataOutPath = path + pathData.location + "_" + outChannel + ".512.seed"
-        print outChannel
         # Compute sine cal for the given data path
         if(os.path.isfile(dataInPath) and os.path.isfile(dataOutPath)):
-            print dataOutPath
             # Connect to the database
             dbconn = connectToDatabase(config)
-            #if debug:
-            #    print 'dataInPath = ' + str(dataInPath)
-            #    print 'dataOutPath = ' + str(dataOutPath)
-            #    print 'pathData.date = ' + str(pathData.date)
-            #    print 'pathData.cal_duration = ' + str(pathData.cal_duration)
-            #    print 'pathData.cal_id = ' + str(pathData.cal_id)
-            #    print 'pathData.network = ' + str(pathData.network)
-            #    print 'pathData.station = ' + str(pathData.station)
-            #    print 'pathData.location = ' + str(pathData.location)
             pc = ComputeCalibrations.ComputeCalibrations(dataInPath, dataOutPath, pathData.date, str('{0:0=3d}'.format(julianday)),
                                                          pathData.cal_duration, pathData.cal_id, pathData.network, pathData.station,
-                                                         pathData.location, outChannel, dbconn, pathData.ps)
+                                                         pathData.location, outChannel, pathData.signal_period, dbconn, pathData.ps)
             if(calType == 'sine'):
                 pc.computeSineCal()
             elif(calType == 'step'):
@@ -162,10 +154,8 @@ def computeNewCalManualOverride():
     if not os.path.exists(config.outputloc):
         print 'output file path - ' + config.outputloc + ' does not exist'
     elif not os.path.exists(config.inputloc):
-        print config.inputloc
         print 'input file path - ' + config.inputloc + ' does not exist'
     else:
-        print 'here - ' + config.calibrationType
         # Calculate equivalent julian calendar day
         stats = obspy.read(config.outputloc)[0].stats
         date = datetime.datetime.strptime(
@@ -222,10 +212,13 @@ if __name__ == "__main__":
                 pathData = getPathData()
                 calculatedNetwork = ''
                 for path in pathData:
-                    if path.network != calculatedNetwork:
-                        ps = xseed.Parser('/APPS/metadata/SEED/'+path.network+'.dataless')
-                        calculatedNetwork = path.network
-                    path.ps = ps
+                    if calType == 'sine':
+                        if path.network != calculatedNetwork:
+                            ps = xseed.Parser('/APPS/metadata/SEED/'+path.network+'.dataless')
+                            calculatedNetwork = path.network
+                        path.ps = ps
+                    else:
+                        path.ps = None
                     computeNewCal(path)
             elif((config.sentype is not None) and (config.startdate is not None) and
                  (config.duration != '0') and (config.inputloc is not None) and
