@@ -24,12 +24,12 @@ def main():
 	#main logic sequence
 	global conn
 	conn = psycopg2.connect("dbname='cals' user='caluser' host='136.177.121.26' password='" + caluser.password() + "'")
-	arguments = getArguments()
-	setArguments(arguments)
-	processCals()
+	arguments = get_arguments()
+	set_arguments(arguments)
+	# process_cals()
 	conn.close()
 
-def getArguments():
+def get_arguments():
 	#this function parses the command line arguments
 	parser = argparse.ArgumentParser(description='Code to compare data availability')
 
@@ -45,7 +45,7 @@ def getArguments():
 	parserval = parser.parse_args()
 	return parserval
 
-def setArguments(arguments):
+def set_arguments(arguments):
 	#globally sets the arguments received from the above function
 	global net, sta, date, year, jday
 	net = arguments.net
@@ -53,7 +53,7 @@ def setArguments(arguments):
 	date = arguments.date
 	year, jday = date.split(',')
 
-def processCals():
+def process_cals():
 	#processes the cals, inserts them into the database
 	cals = []
 	filepath = glob.glob('/xs[01]/seed/' + net + '_' + sta + '/')[0]
@@ -75,34 +75,23 @@ def processCals():
 					chan = locchan[1][:3]
 				cur = conn.cursor()
 				cal = calibration
-				#Check if calibration results already exist in the database
-				query = "SELECT tbl_"+cal['type']+""".pk_id, tbl_networks.network,
-					           tbl_stations.station_name, tbl_sensors.location, 
-					           tbl_"""+cal['type']+".startdate, tbl_"+cal['type']+".channel, tbl_"+cal['type']+""".cal_duration
-					    FROM tbl_networks JOIN tbl_stations ON tbl_networks.pk_id = tbl_stations.fk_networkid
-						   JOIN tbl_sensors ON tbl_stations.pk_id = tbl_sensors.fk_stationid
-						   JOIN tbl_"""+cal['type']+" ON tbl_sensors.pk_id = tbl_"+cal['type']+""".fk_sensorid
-					    WHERE network = '""" + str(net) + "' AND station_name = '" + str(sta) + "' AND startdate = '" + str(cal['startdate']) + "' AND location = '" + str(loc) + \
-						   "' AND channel = '" + str(cal['channel']) + "' AND cal_duration = '" + str(cal['step_duration']) + "'"
+				#Processes a step calibration
+				if cal['type'] == 300:
+					query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+					if debug:
+						print '\tStep cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
+				#Processes a sine calibration
+				if cal['type'] == 310:
+					query = "INSERT INTO tbl_310 (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['signal_period']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+					if debug:
+						print '\tSine cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
+				#Processes a random calibration
+				if cal['type'] == 320:
+					query = "INSERT INTO tbl_320 (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['ptp_amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+					if debug:
+						print '\tRand cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
 				cur.execute(query)
-				if len(cur.fetchall()) == 0:
-					#Processes a step calibration
-					if cal['type'] == 300:
-						query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
-						if debug:
-							print '\tStep cal found:', net, sta, cal['startdate'].replace('T',' ').split('.')[0]
-					#Processes a sine calibration
-					if cal['type'] == 310:
-						query = "INSERT INTO tbl_310 (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['signal_period']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
-						if debug:
-							print '\tSine cal found:', net, sta, cal['startdate'].replace('T',' ').split('.')[0]
-					#Processes a random calibration
-					if cal['type'] == 320:
-						query = "INSERT INTO tbl_320 (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['ptp_amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
-						if debug:
-							print '\tRand cal found:', net, sta, cal['startdate'].replace('T',' ').split('.')[0]
-					cur.execute(query)
-					conn.commit()
+				conn.commit()
 				cur.close()
 
 
@@ -150,8 +139,7 @@ def getCalibrations(file_name):
 						if debug:
 							print 'Generic cal:', net, sta, cal['startdate']
 	except:
-		#filler variable assignment
-		x = 0
+		pass
 	fh.close()
 	return calibrations
 
