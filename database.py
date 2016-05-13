@@ -5,7 +5,7 @@
 #																			#
 #	Author:		Adam Baker (ambaker@usgs.gov)								#
 #	Date:		2016-05-13													#
-#	Version:	0.4.5														#
+#	Version:	0.5.1														#
 #																			#
 #	Purpose:	Allows for quicker implementation of a database				#
 #############################################################################
@@ -38,6 +38,16 @@ class Database(object):
 			results = cur.fetchall()
 		cur.close()
 		return results
+	def insert_query(self, query):
+		'Inserts information into the PostgreSQL database'
+		cur = self.conn.cursor()
+		cur.execute(query)
+		if 'returning' in query.lower():
+			results = cur.fetchone()
+		else:
+			results = cur.fetchall()
+		cur.close()
+		return results
 	def populate_table_names_and_fields(self):
 		'Populates a dictionary for table names and fields'
 		self.tables = {}
@@ -47,7 +57,7 @@ class Database(object):
 			fields = []
 			for column in self.select_query(query):
 				fields.append(column[0])
-			self.tables[table[0]] = fields
+			self.tables[table[0]] = tuple(fields)
 	def close_connection(self):
 		'Closes the connection to the database'
 		try:

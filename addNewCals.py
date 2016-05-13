@@ -1,7 +1,18 @@
 #!/usr/bin/env python
 
+#############################################################################
+#	addNewCals.py															#
+#																			#
+#	Author:		Adam Baker (ambaker@usgs.gov)								#
+#	Date:		2016-05-13													#
+#	Version:	1.1.8														#
+#																			#
+#	Purpose:	Allows for quicker implementation of a database				#
+#############################################################################
+
 import argparse
 import caluser
+import database
 import glob
 import os
 import psycopg2
@@ -18,19 +29,31 @@ date = ''
 year = ''
 jday = ''
 loc  = ''
+locs = []
 chan = ''
+chans= []
+
+# def main():
+# 	#main logic sequence
+# 	global conn
+# 	conn = psycopg2.connect("dbname='cals' user='caluser' host='136.177.121.26' password='" + caluser.password() + "'")
+# 	arguments = get_arguments()
+# 	set_arguments(arguments)
+# 	# process_cals()
+# 	conn.close()
 
 def main():
-	#main logic sequence
-	global conn
-	conn = psycopg2.connect("dbname='cals' user='caluser' host='136.177.121.26' password='" + caluser.password() + "'")
+	'Main logic sequence'
+	global caldb
+	caldb = database.Database('cals','caluser','136.177.121.26',caluser.password())
 	arguments = get_arguments()
 	set_arguments(arguments)
-	# process_cals()
-	conn.close()
+	process_calibrations()
+	caldb.close_connection()
+	
 
 def get_arguments():
-	#this function parses the command line arguments
+	'Parses the command line arguments'
 	parser = argparse.ArgumentParser(description='Code to compare data availability')
 
 	#sets flag for the network
@@ -46,58 +69,95 @@ def get_arguments():
 	return parserval
 
 def set_arguments(arguments):
-	#globally sets the arguments received from the above function
+	'Globally sets the arguments received from get_arguments()'
 	global net, sta, date, year, jday
 	net = arguments.net
 	sta = arguments.sta
 	date = arguments.date
 	year, jday = date.split(',')
 
-def process_cals():
-	#processes the cals, inserts them into the database
-	cals = []
-	filepath = glob.glob('/xs[01]/seed/' + net + '_' + sta + '/')[0]
-	try:
-		filepath = glob.glob(filepath + year + '/' + year + '_' + jday + '_' + net + '_' + sta + '/')[0]
-		filepaths = glob.glob(filepath + '*[BL]HZ*')
-	except:
-		filepaths = []
+def process_calibrations():
+	'Processes the cals, inserting them into the database when necessary'
+	global loc, chan
+	filepaths = glob.glob('/msd/%s_%s/%s/%s/*[BL]HZ*.seed' % (net, sta, year, jday))
 	for filepath in filepaths:
-		for calibration in getCalibrations(filepath):
-			#Checks to see if there is a calibration for this day (e.g. it was not passed an empty list)
-			if calibration != []:
-				global loc, chan
-				locchan = filepath.split('/')[-1].split('_')
-				if locchan[0][:3].isalpha():
-					chan = locchan[0][:3]
-				elif locchan[0].isdigit() and locchan[1][:3].isalpha():
-					loc = locchan[0]
-					chan = locchan[1][:3]
-				cur = conn.cursor()
-				cal = calibration
-				#Processes a step calibration
-				if cal['type'] == 300:
-					query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
-					if debug:
-						print '\tStep cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
-				#Processes a sine calibration
-				if cal['type'] == 310:
-					query = "INSERT INTO tbl_310 (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['signal_period']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
-					if debug:
-						print '\tSine cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
-				#Processes a random calibration
-				if cal['type'] == 320:
-					query = "INSERT INTO tbl_320 (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['ptp_amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
-					if debug:
-						print '\tRand cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
-				cur.execute(query)
-				conn.commit()
-				cur.close()
+		for calibration in get_calibrations(filepath):
+			loc, chan = filepath.split('/')[-1].split('.')[0].split('_')
+			add_calibration()
+
+def add_calibration():
+	'Adds the calibration to the database if not a duplicate'
+	check_location()
+	getSensorid()
+	# check_calibration()
+
+def check_location():
+	'Adds the location to the database if not a duplicate'
+	query = """SELECT tbl_stations.pk_id, tbl_locations.pk_id FROM tbl_networks
+					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
+					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
+				WHERE network = '%s' AND station_name = '%s' AND location = '%s'
+			""" % (net, sta, loc)
+	stationid = caldb.select_query(query)
+	if not stationid:
+		#if location is not found
+		query = """INSERT INTO tbl_locations ('fk_stationid','location')
+					VALUES (%s, %s) RETURNING pk_id""" % (stationid[0][0], loc)
+		locationid = caldb.insert_query(query)[0][0]
+		return locationid
+	return stationid[0][1]
+
+def check_calibration():
+	'Adds the calibration to the database if not a duplicate'
+	query = """SELECT tbl_stations.pk_id, tbl_locations.pk_id FROM tbl_networks
+					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
+					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
+					JOIN tbl_sensors
+				WHERE network = '%s' AND station_name = '%s' AND location = '%s'
+			""" % (net, sta, loc)
+
+	# filepath = glob.glob('/xs[01]/seed/' + net + '_' + sta + '/')[0]
+	# try:
+	# 	filepath = glob.glob(filepath + year + '/' + year + '_' + jday + '_' + net + '_' + sta + '/')[0]
+	# 	filepaths = glob.glob(filepath + '*[BL]HZ*')
+	# except:
+	# 	filepaths = []
+	# for filepath in filepaths:
+	# 	for calibration in getCalibrations(filepath):
+	# 		#Checks to see if there is a calibration for this day (e.g. it was not passed an empty list)
+	# 		if calibration != []:
+	# 			global loc, chan
+	# 			locchan = filepath.split('/')[-1].split('_')
+	# 			if locchan[0][:3].isalpha():
+	# 				chan = locchan[0][:3]
+	# 			elif locchan[0].isdigit() and locchan[1][:3].isalpha():
+	# 				loc = locchan[0]
+	# 				chan = locchan[1][:3]
+	# 			cur = conn.cursor()
+	# 			cal = calibration
+	# 			#Processes a step calibration
+	# 			if cal['type'] == 300:
+	# 				query = "INSERT INTO tbl_300 (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['num_step_cals']) + ', ' +  str(cal['step_duration']) + ', ' +  str(cal['interval_duration']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+	# 				if debug:
+	# 					print '\tStep cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
+	# 			#Processes a sine calibration
+	# 			if cal['type'] == 310:
+	# 				query = "INSERT INTO tbl_310 (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['signal_period']) + ', ' +  str(cal['amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+	# 				if debug:
+	# 					print '\tSine cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
+	# 			#Processes a random calibration
+	# 			if cal['type'] == 320:
+	# 				query = "INSERT INTO tbl_320 (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (" + str(getSensorid()) + ', ' +  str(cal['type']) + ', ' +  '\'' + cal['startdate'] + '\''  + ', ' +  str(cal['flags']) + ', ' +  str(cal['cal_duration']) + ', ' +  str(cal['ptp_amplitude']) + ', ' +  '\'' + cal['channel'] + '\''  + ")"
+	# 				if debug:
+	# 					print '\tRand cal found:', net, sta.ljust(4), cal['startdate'].replace('T',' ').split('.')[0]
+	# 			cur.execute(query)
+	# 			conn.commit()
+	# 			cur.close()
 
 
 
-def getCalibrations(file_name):
-	#attempts to retrieve calibrations by looking for calibration blockettes (300, 310, 320)
+def get_calibrations(file_name):
+	'Attempts to retrieve calibrations by looking for calibration blockettes (300, 310, 320)'
 	#mostly written by Adam Ringler
 	calibrations = []
 	#read the first file and get the record length from blockette 1000
@@ -145,15 +205,14 @@ def getCalibrations(file_name):
 
 def getSensorid():
 	#queries for a list of the networks and populates a dictionary
-	query = "SELECT pk_id FROM tbl_networks WHERE name = \'" + net + "\'"
-	networkid = queryDatabase(query)[0][0]
-	#queries for a list of sensors at the given network and station
-	query = "SELECT pk_id FROM tbl_stations WHERE fk_networkid = \'" + str(networkid) + "\' AND station_name = \'" + sta + "\'"
-	stationid = queryDatabase(query)[0][0]
-	#queries for the primary key of the sensor for a given time and location code
-	query = "SELECT pk_id AS sensor, startdate FROM tbl_sensors WHERE fk_stationid = \'" + str(stationid) + "\' AND location = \'" + loc + "\'"
-	sensors = queryDatabase(query)
-	sensorid = findAppropriateSensorID(sensors)
+	query = """SELECT tbl_sensors.pk_id AS sensor, startdate FROM tbl_networks
+					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
+					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
+					JOIN tbl_sensors ON tbl_sensors.fk_locationid = tbl_locations.pk_id
+				WHERE network = '%s' AND station_name = '%s' AND location = '%s'
+			""" % (net, sta, loc)
+	sensorid = findAppropriateSensorID(caldb.select_query(query))
+	print 'SENSOR ID', sensorid
 	return sensorid
 
 def queryDatabase(query):
@@ -176,4 +235,5 @@ def findAppropriateSensorID(sensorIDsDates):
 		if dates[dates.index(date) - 1] == epochstart:
 			return sensorid
 
-main()
+if __name__ == "__main__":
+	main()
