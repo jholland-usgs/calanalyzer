@@ -4,15 +4,17 @@
 #	addNewCals.py															#
 #																			#
 #	Author:		Adam Baker (ambaker@usgs.gov)								#
-#	Date:		2016-05-13													#
-#	Version:	1.1.8														#
+#	Date:		2016-05-17													#
+#	Version:	1.3.21														#
 #																			#
 #	Purpose:	Allows for quicker implementation of a database				#
 #############################################################################
 
 import argparse
 import caluser
+import commands
 import database
+import datalesstools
 import glob
 import os
 import psycopg2
@@ -83,38 +85,106 @@ def process_calibrations():
 	for filepath in filepaths:
 		for calibration in get_calibrations(filepath):
 			loc, chan = filepath.split('/')[-1].split('.')[0].split('_')
-			add_calibration()
+			add_calibration(calibration)
 
-def add_calibration():
+def add_calibration(cal):
 	'Adds the calibration to the database if not a duplicate'
-	check_location()
-	getSensorid()
-	# check_calibration()
+	networkid = check_network()
+	stationid = check_station(networkid)
+	locationid = check_location(stationid)
+	check_sensor(locationid)
+	check_calibration(cal)
 
-def check_location():
-	'Adds the location to the database if not a duplicate'
-	query = """SELECT tbl_stations.pk_id, tbl_locations.pk_id FROM tbl_networks
+def check_network():
+	'Adds the network to the database if not a duplicate'
+	query = """SELECT pk_id FROM tbl_networks
+				WHERE network = '%s'""" % (net)
+	networkid = caldb.select_query(query, 1)
+	if networkid:
+		return networkid[0]
+	if not networkid:
+		query = """INSERT INTO tbl_networks (network)
+					VALUES (%s) RETURNING pk_id""" % (net)
+		networkid = caldb.insert(query, True)
+		return networkid
+
+def check_station(networkid):
+	'Adds the station to the database if not a duplicate'
+	query = """SELECT tbl_stations.pk_id FROM tbl_networks
 					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
-					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
-				WHERE network = '%s' AND station_name = '%s' AND location = '%s'
-			""" % (net, sta, loc)
-	stationid = caldb.select_query(query)
+				WHERE network = '%s' AND station_name = '%s'""" % (net, sta)
+	stationid = caldb.select_query(query, 1)
+	if stationid:
+		return stationid[0]
 	if not stationid:
-		#if location is not found
-		query = """INSERT INTO tbl_locations ('fk_stationid','location')
-					VALUES (%s, %s) RETURNING pk_id""" % (stationid[0][0], loc)
-		locationid = caldb.insert_query(query)[0][0]
-		return locationid
-	return stationid[0][1]
+		query = """INSERT INTO tbl_stations (fk_networkid, station_name)
+					VALUES (%s, '%s') RETURNING pk_id""" % (networkid, sta)
+		stationid = caldb.insert_query(query, True)
+		return stationid
 
-def check_calibration():
-	'Adds the calibration to the database if not a duplicate'
-	query = """SELECT tbl_stations.pk_id, tbl_locations.pk_id FROM tbl_networks
+def check_location(stationid):
+	'Adds the location to the database if not a duplicate'
+	query = """SELECT tbl_locations.pk_id FROM tbl_networks
 					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
 					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
-					JOIN tbl_sensors
-				WHERE network = '%s' AND station_name = '%s' AND location = '%s'
-			""" % (net, sta, loc)
+				WHERE network = '%s' AND station_name = '%s' AND location = '%s'""" % (net, sta, loc)
+	locationid = caldb.select_query(query, 1)
+	if locationid:
+		return locationid[0]
+	if not locationid:
+		query = """INSERT INTO tbl_locations (fk_stationid, location)
+					VALUES (%s, %s) RETURNING pk_id""" % (stationid, loc)
+		locationid = caldb.insert_query(query, True)
+		return locationid
+
+def check_sensor(locationid):
+	'Adds the sensor to the database if not a duplicate'
+	#Does not return anything because getSensorid() handles finding the appropriate sensorid
+	query = """SELECT tbl_sensors.pk_id FROM tbl_networks
+					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
+					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
+					JOIN tbl_sensors ON tbl_sensors.fk_locationid = tbl_locations.pk_id
+				WHERE network = '%s' AND station_name = '%s' AND location = '%s'""" % (net, sta, loc)
+	sensorid = caldb.select_query(query, 1)
+	if sensorid:
+		return sensorid[0]
+	if not sensorid:
+		dataless = datalesstools.getDataless(net + sta)
+		for station in dataless.stations:
+			if station[0].blockette_type == 50 and station[0].station_call_letters == sta:
+				
+		query = """INSERT INTO tbl_locations (fk_locationid, location)
+					VALUES (%s, %s) RETURNING pk_id""" % (locationid, loc)
+		sensorid = caldb.insert_query(query, True)
+		return sensorid
+
+def check_calibration(cal):
+	'Adds the calibration to the database if not a duplicate'
+	# query = """SELECT tbl_stations.pk_id, tbl_locations.pk_id FROM tbl_networks
+	# 				JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
+	# 				JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
+	# 				JOIN tbl_sensors ON tbl_sensors.fk_locationid = tbl_locations.pk_id
+	# 			WHERE network = '%s' AND station_name = '%s' AND location = '%s'
+	# 		""" % (net, sta, loc)
+	query = """SELECT tbl_%s.pk_id, tbl_networks.network, tbl_stations.station_name, tbl_locations.location, tbl_sensors.sensor, tbl_%s.startdate, tbl_%s.channel, tbl_%s.%s FROM tbl_networks
+		JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
+		JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
+		JOIN tbl_sensors ON tbl_sensors.fk_locationid = tbl_locations.pk_id
+		JOIN tbl_%s ON tbl_%s.fk_sensorid = tbl_sensors.pk_id
+		WHERE network = '%s' AND station_name = '%s' AND tbl_%s.startdate = '%s' AND location = '%s' AND channel = '%s' AND %s = %s"""
+	if cal['type'] == 300:
+		query %= (cal['type'], cal['type'], cal['type'], cal['type'], 'step_duration', cal['type'], cal['type'], net, sta, cal['type'], cal['startdate'], loc, cal['channel'], 'step_duration', cal['step_duration'])
+	else:
+		query %= (cal['type'], cal['type'], cal['type'], cal['type'], 'cal_duration', cal['type'], cal['type'], net, sta, cal['type'], cal['startdate'], loc, cal['channel'], 'cal_duration', cal['cal_duration'])
+	if not caldb.select_query(query):
+		#if the cal does not exist in the database
+		if cal['type'] == 300:
+			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, %s, %s, '%s')""" % (cal['type'], str(getSensorid()), cal['type'], cal['startdate'], cal['flags'], cal['num_step_cals'], cal['step_duration'], cal['interval_duration'], cal['amplitude'], cal['channel'])
+		if cal['type'] == 310:
+			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, %s, '%s')""" % (cal['type'], str(getSensorid()), cal['type'], cal['startdate'], cal['flags'], cal['cal_duration'], cal['signal_period'], cal['amplitude'], cal['channel'])
+		if cal['type'] == 320:
+			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, '%s')""" % (cal['type'], str(getSensorid()), cal['type'], cal['startdate'], cal['flags'], cal['cal_duration'], cal['ptp_amplitude'], cal['channel'])
+		caldb.insert_query(query)
 
 	# filepath = glob.glob('/xs[01]/seed/' + net + '_' + sta + '/')[0]
 	# try:
@@ -212,7 +282,6 @@ def getSensorid():
 				WHERE network = '%s' AND station_name = '%s' AND location = '%s'
 			""" % (net, sta, loc)
 	sensorid = findAppropriateSensorID(caldb.select_query(query))
-	print 'SENSOR ID', sensorid
 	return sensorid
 
 def queryDatabase(query):
@@ -234,6 +303,90 @@ def findAppropriateSensorID(sensorIDsDates):
 	for sensorid, epochstart in sensorIDsDates:
 		if dates[dates.index(date) - 1] == epochstart:
 			return sensorid
+
+def getDictionaries(netsta):
+	net = netsta[:2]
+	sta = netsta[2:]
+	b031, b033, b034 = parseRDSEEDAbbreviations(commands.getstatusoutput(formRDSEEDCommand(net, sta))[-1])
+	return b031, b033, b034
+
+def formRDSEEDCommand(net, sta):
+	netsta = net + '_' + sta
+	path = ''
+	if os.path.exists('/xs0/seed/' + netsta):
+		path = '/xs0/seed/' + netsta
+	elif os.path.exists('/xs1/seed/' + netsta):
+		path = '/xs1/seed/' + netsta
+	elif os.path.exists('/tr1/telemetry_days/' + netsta):
+		path = '/tr1/telemetry_days/' + netsta
+		return 'rdseed -f ' + '%s -g /APPS/metadata/SEED/%s.dataless -a' % (filepath, net)
+	
+def globMostRecent(filepath):
+	paths = glob.glob(filepath + '/*')
+	pathsTemp = []
+	for path in paths:
+		if len(path.split('/')[-1]) <= 16 and 'SAVE' not in path:
+			pathsTemp.append(path)
+	return max(pathsTemp)
+
+def parseRDSEEDAbbreviations(output):
+	b031 = []
+	b033 = []
+	b034 = []
+	for group in output.split('#\t\t\n'):
+		if 'B031' == group[:4]:
+		# 	dictionary = {}
+		# 	for line in group.strip().split('\n'):
+		# 		if 'B031F03' in line:
+		# 			dictionary['comment code id'] = int(line.split('  ')[-1].strip())
+		# 		elif 'B031F04' in line:
+		# 			dictionary['comment class code'] = line.split('  ')[-1].strip()
+		# 		elif 'B031F05' in line:
+		# 			dictionary['comment text'] = line.split('  ')[-1].strip()
+		# 		elif 'B031F06' in line:
+		# 			dictionary['comment units'] = line.split('  ')[-1].strip()
+		# 	b031.append(dictionary)
+			pass
+		elif 'B033' == group[:4]:
+			dictionary = {}
+			for line in group.strip().split('\n'):
+				if 'B033F03' in line:
+					dictionary['description key code'] = int(line.split('  ')[-1].strip())
+				elif 'B033F04' in line:
+					dictionary['abbreviation description'] = line.split('  ')[-1].strip()
+			b033.append(dictionary)
+		# elif 'B034' == group[:4]:
+		# 	dictionary = {}
+		# 	for line in group.strip().split('\n'):
+		# 		if 'B034F03' in line:
+		# 			dictionary['unit code'] = int(line.split('  ')[-1].strip())
+		# 		elif 'B034F04' in line:
+		# 			dictionary['unit name'] = line.split('  ')[-1].strip()
+		# 		elif 'B034F05' in line:
+		# 			dictionary['unit description'] = line.split('  ')[-1].strip()
+		# 	b034.append(dictionary)
+	return b031, b033, b034
+
+# def fetchComment(dictB031, value):
+# 	'Blockette 31, used for describing comments'
+# 	for comment in dictB031:
+# 		if value == comment['comment code id']:
+# 			return [comment['comment text'], comment['comment units'], comment['comment class code']]
+# 	return ['No comments found', 'N/A', '0']
+
+def fetchInstrument(dictB033, value):
+	'Blockette 33, used for describing instruments'
+	for instrument in dictB033:
+		if value == instrument['description key code']:
+			return instrument['abbreviation description']
+	return 'No instrument found'
+
+# def fetchUnit(dictB034, value):
+# 	'Blockette 34, used for describing units'
+# 	for unit in dictB034:
+# 		if value == unit['unit code']:
+# 			return [unit['unit name'], unit['unit description']]
+# 	return ['None', 'No units found']
 
 if __name__ == "__main__":
 	main()

@@ -4,8 +4,8 @@
 #	database.py																#
 #																			#
 #	Author:		Adam Baker (ambaker@usgs.gov)								#
-#	Date:		2016-05-13													#
-#	Version:	0.5.1														#
+#	Date:		2016-05-17													#
+#	Version:	0.5.4														#
 #																			#
 #	Purpose:	Allows for quicker implementation of a database				#
 #############################################################################
@@ -38,16 +38,16 @@ class Database(object):
 			results = cur.fetchall()
 		cur.close()
 		return results
-	def insert_query(self, query):
+	def insert_query(self, query, returning=False):
 		'Inserts information into the PostgreSQL database'
 		cur = self.conn.cursor()
 		cur.execute(query)
-		if 'returning' in query.lower():
+		if returning:
 			results = cur.fetchone()
-		else:
-			results = cur.fetchall()
+		self.conn.commit()
 		cur.close()
-		return results
+		if returning:
+			return results
 	def populate_table_names_and_fields(self):
 		'Populates a dictionary for table names and fields'
 		self.tables = {}
