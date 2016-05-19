@@ -5,7 +5,7 @@
 #																			#
 #	Author:		Adam Baker (ambaker@usgs.gov)								#
 #	Date:		2016-05-17													#
-#	Version:	1.6.14														#
+#	Version:	1.7.12														#
 #																			#
 #	Purpose:	Allows for quicker implementation of a database				#
 #############################################################################
@@ -82,22 +82,29 @@ def set_arguments(arguments):
 def process_calibrations():
 	'Processes the cals, inserting them into the database when necessary'
 	global loc, chan
-	filepaths = glob.glob(find_appropriate_filepath())
-	for filepath in filepaths:
-		for calibration in get_calibrations(filepath):
-			loc, chan = filepath.split('/')[-1].split('.')[0].split('_')
-			add_calibration(calibration)
+	try:
+		filepaths = glob.glob(find_appropriate_filepath())
+		for filepath in filepaths:
+			for calibration in get_calibrations(filepath):
+				loc, chan = filepath.split('/')[-1].split('.')[0].split('_')
+				add_calibration(calibration)
+	except:
+		pass
 
 def find_appropriate_filepath():
 	'Finds the first available stationday seed filepath'
 	msdPath = '/msd/%s_%s/%s/%s/' % (net, sta, year, jday)
+	if os.path.exists(msdPath):
+		return msdPath + '*[BL]HZ*.seed'
 	tr1Path = '/tr1/telemetry_days/%s_%s/%s/%s_%s/' % (net, sta, year, year, jday)
+	if os.path.exists(tr1Path):
+		return tr1Path + '*[BL]HZ*.seed'
 	xs0Path = '/xs0/seed/%s_%s/%s/%s_%s_%s_%s/' % (net, sta, year, year, jday, net, sta)
+	if os.path.exists(xs0Path):
+		return xs0Path + '*[BL]HZ*.seed'
 	xs1Path = '/xs1/seed/%s_%s/%s/%s_%s_%s_%s/' % (net, sta, year, year, jday, net, sta)
-	paths = [msdPath, tr1Path, xs0Path, xs1Path]
-	for path in paths:
-		if os.path.exists(path + '00_BHZ.512.seed'):
-			return path + '*[BL]HZ*.seed'
+	if os.path.exists(xs1Path):
+		return xs1Path + '*[BL]HZ*.seed'
 
 def add_calibration(cal):
 	'Adds the calibration to the database if not a duplicate'
@@ -152,6 +159,7 @@ def check_location(stationid):
 def check_sensor(locationid):
 	'Adds the sensor to the database if not a duplicate'
 	global dataless
+	instrumentid = 0
 	if not dataless:
 		dataless = datalesstools.getDataless(net + sta)
 	for station in dataless.stations:
@@ -160,6 +168,7 @@ def check_sensor(locationid):
 				if blockette.blockette_type == 52 and blockette.location_identifier == loc and blockette.channel_identifier == chan and blockette.start_date <= UTCDateTime(year + jday + 'T23:59:59.999999Z') <= blockette.end_date:
 					startdate = blockette.start_date
 					enddate = blockette.end_date
+					instrumentid = blockette.instrument_identifier
 					break
 	query = """SELECT tbl_sensors.pk_id FROM tbl_networks
 					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
@@ -170,8 +179,10 @@ def check_sensor(locationid):
 	if sensorid:
 		return sensorid[0]
 	if not sensorid:
+		dictB031, dictB033, dictB034 = getDictionaries()
+		sensorName = fetchInstrument(dictB033, instrumentid)
 		query = """INSERT INTO tbl_locations (fk_locationid, sensor, startdate, enddate)
-					VALUES (%s, %s) RETURNING pk_id""" % (locationid, loc)
+					VALUES (%s, %s, %s, %s) RETURNING pk_id""" % (locationid, sensorName, startdate, enddate)
 		sensorid = caldb.insert_query(query, True)
 		return sensorid
 
@@ -202,6 +213,7 @@ def check_calibration(cal, sensorid):
 		if cal['type'] == 320:
 			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, '%s')""" % (cal['type'], sensorid, cal['type'], cal['startdate'], cal['flags'], cal['cal_duration'], cal['ptp_amplitude'], cal['channel'])
 		caldb.insert_query(query)
+		print '\tCal detected and inserted', net, sta, loc, year, jday
 
 	# filepath = glob.glob('/xs[01]/seed/' + net + '_' + sta + '/')[0]
 	# try:
@@ -321,22 +333,22 @@ def get_calibrations(file_name):
 # 		if dates[dates.index(date) - 1] == epochstart:
 # 			return sensorid
 
-def getDictionaries(netsta):
-	net = netsta[:2]
-	sta = netsta[2:]
+def getDictionaries():
 	b031, b033, b034 = parseRDSEEDAbbreviations(commands.getstatusoutput(formRDSEEDCommand(net, sta))[-1])
 	return b031, b033, b034
 
 def formRDSEEDCommand(net, sta):
 	netsta = net + '_' + sta
 	path = ''
-	if os.path.exists('/xs0/seed/' + netsta):
+	if os.path.exists('/msd/%s_%s/' % (net, sta)):
+		path = '/msd/%s_%s/' % (net, sta)
+	elif os.path.exists('/xs0/seed/' + netsta):
 		path = '/xs0/seed/' + netsta
 	elif os.path.exists('/xs1/seed/' + netsta):
 		path = '/xs1/seed/' + netsta
 	elif os.path.exists('/tr1/telemetry_days/' + netsta):
 		path = '/tr1/telemetry_days/' + netsta
-		return 'rdseed -f ' + '%s -g /APPS/metadata/SEED/%s.dataless -a' % (filepath, net)
+	return 'rdseed -f ' + '%s -g /APPS/metadata/SEED/%s.dataless -a' % (filepath, net)
 	
 def globMostRecent(filepath):
 	paths = glob.glob(filepath + '/*')
