@@ -5,7 +5,7 @@
 #																			#
 #	Author:		Adam Baker (ambaker@usgs.gov)								#
 #	Date:		2016-05-17													#
-#	Version:	1.5.16														#
+#	Version:	1.6.14														#
 #																			#
 #	Purpose:	Allows for quicker implementation of a database				#
 #############################################################################
@@ -34,6 +34,7 @@ loc  = ''
 locs = []
 chan = ''
 chans= []
+dataless = None
 
 # def main():
 # 	#main logic sequence
@@ -81,19 +82,30 @@ def set_arguments(arguments):
 def process_calibrations():
 	'Processes the cals, inserting them into the database when necessary'
 	global loc, chan
-	filepaths = glob.glob('/msd/%s_%s/%s/%s/*[BL]HZ*.seed' % (net, sta, year, jday))
+	filepaths = glob.glob(find_appropriate_filepath())
 	for filepath in filepaths:
 		for calibration in get_calibrations(filepath):
 			loc, chan = filepath.split('/')[-1].split('.')[0].split('_')
 			add_calibration(calibration)
+
+def find_appropriate_filepath():
+	'Finds the first available stationday seed filepath'
+	msdPath = '/msd/%s_%s/%s/%s/' % (net, sta, year, jday)
+	tr1Path = '/tr1/telemetry_days/%s_%s/%s/%s_%s/' % (net, sta, year, year, jday)
+	xs0Path = '/xs0/seed/%s_%s/%s/%s_%s_%s_%s/' % (net, sta, year, year, jday, net, sta)
+	xs1Path = '/xs1/seed/%s_%s/%s/%s_%s_%s_%s/' % (net, sta, year, year, jday, net, sta)
+	paths = [msdPath, tr1Path, xs0Path, xs1Path]
+	for path in paths:
+		if os.path.exists(path + '00_BHZ.512.seed'):
+			return path + '*[BL]HZ*.seed'
 
 def add_calibration(cal):
 	'Adds the calibration to the database if not a duplicate'
 	networkid = check_network()
 	stationid = check_station(networkid)
 	locationid = check_location(stationid)
-	check_sensor(locationid)
-	check_calibration(cal)
+	sensorid = check_sensor(locationid)
+	check_calibration(cal, sensorid)
 
 def check_network():
 	'Adds the network to the database if not a duplicate'
@@ -139,11 +151,13 @@ def check_location(stationid):
 
 def check_sensor(locationid):
 	'Adds the sensor to the database if not a duplicate'
-	dataless = datalesstools.getDataless(net + sta)
+	global dataless
+	if not dataless:
+		dataless = datalesstools.getDataless(net + sta)
 	for station in dataless.stations:
 		if station[0].blockette_type == 50 and station[0].station_call_letters == sta:
 			for blockette in station:
-				if blockette.blockette_type == 52 and blockette.location_identifier == loc and blockette.channel_identifier == chan and blockette.start_date <= time <= blockette.end_date:
+				if blockette.blockette_type == 52 and blockette.location_identifier == loc and blockette.channel_identifier == chan and blockette.start_date <= UTCDateTime(year + jday + 'T23:59:59.999999Z') <= blockette.end_date:
 					startdate = blockette.start_date
 					enddate = blockette.end_date
 					break
@@ -153,7 +167,6 @@ def check_sensor(locationid):
 					JOIN tbl_sensors ON tbl_sensors.fk_locationid = tbl_locations.pk_id
 				WHERE network = '%s' AND station_name = '%s' AND location = '%s' AND startdate <= '%s' AND enddate >= '%s'""" % (net, sta, loc, startdate, enddate)
 	sensorid = caldb.select_query(query, 1)
-	print getSensorid()
 	if sensorid:
 		return sensorid[0]
 	if not sensorid:
@@ -162,7 +175,7 @@ def check_sensor(locationid):
 		sensorid = caldb.insert_query(query, True)
 		return sensorid
 
-def check_calibration(cal):
+def check_calibration(cal, sensorid):
 	'Adds the calibration to the database if not a duplicate'
 	# query = """SELECT tbl_stations.pk_id, tbl_locations.pk_id FROM tbl_networks
 	# 				JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
@@ -183,11 +196,11 @@ def check_calibration(cal):
 	if not caldb.select_query(query):
 		#if the cal does not exist in the database
 		if cal['type'] == 300:
-			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, %s, %s, '%s')""" % (cal['type'], str(getSensorid()), cal['type'], cal['startdate'], cal['flags'], cal['num_step_cals'], cal['step_duration'], cal['interval_duration'], cal['amplitude'], cal['channel'])
+			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, num_step_cals, step_duration, interval_duration, amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, %s, %s, '%s')""" % (cal['type'], sensorid, cal['type'], cal['startdate'], cal['flags'], cal['num_step_cals'], cal['step_duration'], cal['interval_duration'], cal['amplitude'], cal['channel'])
 		if cal['type'] == 310:
-			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, %s, '%s')""" % (cal['type'], str(getSensorid()), cal['type'], cal['startdate'], cal['flags'], cal['cal_duration'], cal['signal_period'], cal['amplitude'], cal['channel'])
+			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, cal_duration, signal_period, amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, %s, '%s')""" % (cal['type'], sensorid, cal['type'], cal['startdate'], cal['flags'], cal['cal_duration'], cal['signal_period'], cal['amplitude'], cal['channel'])
 		if cal['type'] == 320:
-			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, '%s')""" % (cal['type'], str(getSensorid()), cal['type'], cal['startdate'], cal['flags'], cal['cal_duration'], cal['ptp_amplitude'], cal['channel'])
+			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, '%s')""" % (cal['type'], sensorid, cal['type'], cal['startdate'], cal['flags'], cal['cal_duration'], cal['ptp_amplitude'], cal['channel'])
 		caldb.insert_query(query)
 
 	# filepath = glob.glob('/xs[01]/seed/' + net + '_' + sta + '/')[0]
@@ -277,36 +290,36 @@ def get_calibrations(file_name):
 	fh.close()
 	return calibrations
 
-def getSensorid():
-	'Queries for a list of the networks and populates a dictionary'
-	query = """SELECT tbl_sensors.pk_id AS sensor, startdate FROM tbl_networks
-					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
-					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
-					JOIN tbl_sensors ON tbl_sensors.fk_locationid = tbl_locations.pk_id
-				WHERE network = '%s' AND station_name = '%s' AND location = '%s'
-			""" % (net, sta, loc)
-	sensorid = findAppropriateSensorID(caldb.select_query(query))
-	return sensorid
+# def getSensorid():
+# 	'Queries for a list of the networks and populates a dictionary'
+# 	query = """SELECT tbl_sensors.pk_id AS sensor, startdate FROM tbl_networks
+# 					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
+# 					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
+# 					JOIN tbl_sensors ON tbl_sensors.fk_locationid = tbl_locations.pk_id
+# 				WHERE network = '%s' AND station_name = '%s' AND location = '%s'
+# 			""" % (net, sta, loc)
+# 	sensorid = findAppropriateSensorID(caldb.select_query(query))
+# 	return sensorid
 
-def queryDatabase(query):
-	'Assists in querying the database'
-	cur = conn.cursor()
-	cur.execute(query)
-	results = cur.fetchall()
-	cur.close()
-	return results
+# def queryDatabase(query):
+# 	'Assists in querying the database'
+# 	cur = conn.cursor()
+# 	cur.execute(query)
+# 	results = cur.fetchall()
+# 	cur.close()
+# 	return results
 
-def findAppropriateSensorID(sensorIDsDates):
-	'Returns the primary key of the appropriate sensor'
-	date = str(UTCDateTime(year + jday + 'T235959.999999'))
-	dates = [date]
-	for sensorid, epochstart in sensorIDsDates:
-		if epochstart <= date:
-			dates.append(epochstart)
-	dates.sort()
-	for sensorid, epochstart in sensorIDsDates:
-		if dates[dates.index(date) - 1] == epochstart:
-			return sensorid
+# def findAppropriateSensorID(sensorIDsDates):
+# 	'Returns the primary key of the appropriate sensor'
+# 	date = str(UTCDateTime(year + jday + 'T235959.999999'))
+# 	dates = [date]
+# 	for sensorid, epochstart in sensorIDsDates:
+# 		if epochstart <= date:
+# 			dates.append(epochstart)
+# 	dates.sort()
+# 	for sensorid, epochstart in sensorIDsDates:
+# 		if dates[dates.index(date) - 1] == epochstart:
+# 			return sensorid
 
 def getDictionaries(netsta):
 	net = netsta[:2]
