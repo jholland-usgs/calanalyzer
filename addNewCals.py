@@ -139,23 +139,30 @@ def check_location(stationid):
 
 def check_sensor(locationid):
 	'Adds the sensor to the database if not a duplicate'
-	#Does not return anything because getSensorid() handles finding the appropriate sensorid
+	dataless = datalesstools.getDataless(net + sta)
+	for station in dataless.stations:
+		if station[0].blockette_type == 50 and station[0].station_call_letters == sta:
+			for blockette in station:
+				if blockette.blockette_type == 52 and blockette.location_identifier == loc and blockette.channel_identifier == chan and blockette.start_date <= time <= blockette.end_date:
+					startdate = blockette.start_date
+					enddate = blockette.end_date
+					break
 	query = """SELECT tbl_sensors.pk_id FROM tbl_networks
 					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
 					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
 					JOIN tbl_sensors ON tbl_sensors.fk_locationid = tbl_locations.pk_id
-				WHERE network = '%s' AND station_name = '%s' AND location = '%s'""" % (net, sta, loc)
+				WHERE network = '%s' AND station_name = '%s' AND location = '%s' AND startdate <= '%s' AND enddate >= '%s'""" % (net, sta, loc, startdate, enddate)
 	sensorid = caldb.select_query(query, 1)
+	print getSensorid()
 	if sensorid:
 		return sensorid[0]
 	if not sensorid:
-		dataless = datalesstools.getDataless(net + sta)
-		for station in dataless.stations:
-			if station[0].blockette_type == 50 and station[0].station_call_letters == sta:
+
 				
 		query = """INSERT INTO tbl_locations (fk_locationid, location)
 					VALUES (%s, %s) RETURNING pk_id""" % (locationid, loc)
 		sensorid = caldb.insert_query(query, True)
+		print query
 		return sensorid
 
 def check_calibration(cal):
@@ -294,7 +301,7 @@ def queryDatabase(query):
 
 def findAppropriateSensorID(sensorIDsDates):
 	#returns the primary key of the appropriate sensor
-	date = str(UTCDateTime(year + '-' + jday))
+	date = str(UTCDateTime(year + jday + 'T235959.999999'))
 	dates = [date]
 	for sensorid, epochstart in sensorIDsDates:
 		if epochstart <= date:
