@@ -5,7 +5,7 @@
 #																			#
 #	Author:		Adam Baker (ambaker@usgs.gov)								#
 #	Date:		2016-05-17													#
-#	Version:	1.3.21														#
+#	Version:	1.5.16														#
 #																			#
 #	Purpose:	Allows for quicker implementation of a database				#
 #############################################################################
@@ -157,12 +157,9 @@ def check_sensor(locationid):
 	if sensorid:
 		return sensorid[0]
 	if not sensorid:
-
-				
-		query = """INSERT INTO tbl_locations (fk_locationid, location)
+		query = """INSERT INTO tbl_locations (fk_locationid, sensor, startdate, enddate)
 					VALUES (%s, %s) RETURNING pk_id""" % (locationid, loc)
 		sensorid = caldb.insert_query(query, True)
-		print query
 		return sensorid
 
 def check_calibration(cal):
@@ -281,7 +278,7 @@ def get_calibrations(file_name):
 	return calibrations
 
 def getSensorid():
-	#queries for a list of the networks and populates a dictionary
+	'Queries for a list of the networks and populates a dictionary'
 	query = """SELECT tbl_sensors.pk_id AS sensor, startdate FROM tbl_networks
 					JOIN tbl_stations ON tbl_stations.fk_networkid = tbl_networks.pk_id
 					JOIN tbl_locations ON tbl_locations.fk_stationid = tbl_stations.pk_id
@@ -292,7 +289,7 @@ def getSensorid():
 	return sensorid
 
 def queryDatabase(query):
-	#assists in querying the database
+	'Assists in querying the database'
 	cur = conn.cursor()
 	cur.execute(query)
 	results = cur.fetchall()
@@ -300,7 +297,7 @@ def queryDatabase(query):
 	return results
 
 def findAppropriateSensorID(sensorIDsDates):
-	#returns the primary key of the appropriate sensor
+	'Returns the primary key of the appropriate sensor'
 	date = str(UTCDateTime(year + jday + 'T235959.999999'))
 	dates = [date]
 	for sensorid, epochstart in sensorIDsDates:
