@@ -4,8 +4,8 @@
 #	addNewCals.py															#
 #																			#
 #	Author:		Adam Baker (ambaker@usgs.gov)								#
-#	Date:		2016-05-17													#
-#	Version:	1.7.12														#
+#	Date:		2016-05-20													#
+#	Version:	1.7.15														#
 #																			#
 #	Purpose:	Allows for quicker implementation of a database				#
 #############################################################################
@@ -213,7 +213,7 @@ def check_calibration(cal, sensorid):
 		if cal['type'] == 320:
 			query = """INSERT INTO tbl_%s (fk_sensorid, type, startdate, flags, cal_duration, ptp_amplitude, channel) VALUES (%s, '%s', '%s', '%s', %s, %s, '%s')""" % (cal['type'], sensorid, cal['type'], cal['startdate'], cal['flags'], cal['cal_duration'], cal['ptp_amplitude'], cal['channel'])
 		caldb.insert_query(query)
-		print '\tCal detected and inserted', net, sta, loc, year, jday
+		print '\tCal detected and inserted', net, sta, loc, year, jday, cal['startdate'].split('T')[-1].split('.')[0]
 
 	# filepath = glob.glob('/xs[01]/seed/' + net + '_' + sta + '/')[0]
 	# try:
