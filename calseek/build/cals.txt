@@ -1,0 +1,3498 @@
+Record 000001 (0) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:00:00.0695 Samples 13 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=0 Frames=1
+
+Record 030539 (1) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:00:13.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030540 (2) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:03:38.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030541 (3) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:07:04.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030542 (4) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:10:30.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030543 (5) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:13:56.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030544 (6) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:17:22.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030545 (7) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:20:45.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030546 (8) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:24:11.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030547 (9) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:27:37.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030548 (10) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:31:03.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030549 (11) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:34:28.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030550 (12) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:37:54.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030551 (13) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:41:18.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030552 (14) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:44:42.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030553 (15) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:48:08.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030554 (16) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:51:29.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030555 (17) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:54:52.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030556 (18) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,00:58:18.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030557 (19) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:01:44.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030558 (20) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:05:08.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030559 (21) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:08:34.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030560 (22) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:11:57.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030561 (23) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:15:23.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030562 (24) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:18:44.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030563 (25) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:22:10.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030564 (26) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:25:32.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030565 (27) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:28:54.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030566 (28) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:32:20.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030567 (29) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:35:45.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030568 (30) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:39:11.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030569 (31) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:42:37.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030570 (32) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:45:58.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030571 (33) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:49:24.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030572 (34) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:52:49.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030573 (35) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:56:15.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030574 (36) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,01:59:37.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030575 (37) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:03:01.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030576 (38) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:06:26.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030577 (39) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:09:52.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030578 (40) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:13:15.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030579 (41) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:16:41.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030580 (42) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:20:07.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030581 (43) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:23:33.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030582 (44) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:26:58.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030583 (45) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:30:21.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030584 (46) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:33:46.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030585 (47) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:37:12.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030586 (48) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:40:36.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030587 (49) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:44:02.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030588 (50) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:47:27.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030589 (51) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:50:50.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030590 (52) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:54:16.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030591 (53) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,02:57:42.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030592 (54) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:01:08.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030593 (55) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:04:34.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030594 (56) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:07:58.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030595 (57) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:11:23.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030596 (58) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:14:45.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030597 (59) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:18:11.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030598 (60) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:21:37.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030599 (61) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:25:03.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030600 (62) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:28:26.0695 Samples 200 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030601 (63) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:31:46.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030602 (64) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:35:12.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030603 (65) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:38:38.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030604 (66) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:42:04.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030605 (67) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:45:26.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030606 (68) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:48:51.0695 Samples 199 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030607 (69) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:52:10.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030608 (70) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:55:36.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030609 (71) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,03:58:57.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030610 (72) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:02:19.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030611 (73) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:05:45.0695 Samples 200 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030612 (74) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:09:05.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030613 (75) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:12:28.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030614 (76) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:15:54.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030615 (77) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:19:20.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030616 (78) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:22:44.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030617 (79) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:26:10.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030618 (80) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:29:36.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030619 (81) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:33:02.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030620 (82) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:36:27.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030621 (83) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:39:49.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030622 (84) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:43:15.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030623 (85) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:46:39.0695 Samples 200 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030624 (86) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:49:59.0695 Samples 200 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030625 (87) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:53:19.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030626 (88) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,04:56:45.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030627 (89) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:00:08.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030628 (90) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:03:32.0695 Samples 197 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030629 (91) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:06:49.0695 Samples 199 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030630 (92) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:10:08.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030631 (93) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:13:32.0695 Samples 193 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030632 (94) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:16:45.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030633 (95) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:20:11.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030634 (96) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:23:36.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030635 (97) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:26:59.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030636 (98) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:30:20.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030637 (99) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:33:42.0695 Samples 200 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030638 (100) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:37:02.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030639 (101) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:40:28.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030640 (102) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:43:50.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030641 (103) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:47:15.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030642 (104) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:50:37.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030643 (105) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:54:01.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030644 (106) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,05:57:25.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030645 (107) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:00:51.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030646 (108) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:04:15.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030647 (109) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:07:41.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030648 (110) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:11:02.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030649 (111) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:14:24.0695 Samples 200 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030650 (112) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:17:44.0695 Samples 199 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030651 (113) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:21:03.0695 Samples 200 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030652 (114) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:24:23.0695 Samples 199 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030653 (115) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:27:42.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030654 (116) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:31:08.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030655 (117) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:34:33.0695 Samples 200 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030656 (118) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:37:53.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030657 (119) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:41:19.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030658 (120) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:44:42.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030659 (121) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:48:08.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030660 (122) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:51:30.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030661 (123) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:54:55.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030662 (124) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,06:58:21.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030663 (125) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:01:47.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030664 (126) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:05:13.0695 Samples 197 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030665 (127) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:08:30.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030666 (128) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:11:54.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030667 (129) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:15:20.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030668 (130) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:18:43.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030669 (131) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:22:09.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030670 (132) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:25:35.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030671 (133) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:28:59.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030672 (134) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:32:23.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030673 (135) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:35:49.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030674 (136) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:39:15.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030675 (137) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:42:40.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030676 (138) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:46:06.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030677 (139) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:49:32.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030678 (140) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:52:53.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030679 (141) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:56:17.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030680 (142) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,07:59:42.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030681 (143) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:03:06.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030682 (144) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:06:32.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030683 (145) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:09:56.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030684 (146) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:13:21.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030685 (147) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:16:45.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030686 (148) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:20:10.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030687 (149) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:23:35.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030688 (150) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:26:59.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030689 (151) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:30:25.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030690 (152) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:33:51.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030691 (153) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:37:17.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030692 (154) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:40:42.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030693 (155) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:44:08.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030694 (156) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:47:34.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030695 (157) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:50:55.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030696 (158) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:54:18.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030697 (159) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,08:57:44.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030698 (160) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:01:08.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030699 (161) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:04:34.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030700 (162) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:08:00.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030701 (163) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:11:25.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030702 (164) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:14:51.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030703 (165) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:18:16.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030704 (166) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:21:42.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030705 (167) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:25:07.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030706 (168) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:28:34.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030707 (169) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:32:00.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030708 (170) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:35:26.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030709 (171) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:38:48.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030710 (172) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:42:14.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030711 (173) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:45:40.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030712 (174) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:49:04.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030713 (175) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:52:30.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030714 (176) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:55:55.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030715 (177) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,09:59:16.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030716 (178) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:02:41.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030717 (179) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:06:06.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030718 (180) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:09:32.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030719 (181) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:12:58.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030720 (182) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:16:21.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030721 (183) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:19:47.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030722 (184) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:23:12.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030723 (185) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:26:38.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030724 (186) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:30:04.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030725 (187) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:33:30.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030726 (188) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:36:56.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030727 (189) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:40:22.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030728 (190) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:43:48.0695 Samples 203 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030729 (191) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:47:11.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030730 (192) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:50:37.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030731 (193) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:54:03.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030732 (194) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,10:57:30.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030733 (195) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:00:54.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030734 (196) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:04:20.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030735 (197) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:07:46.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030736 (198) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:11:12.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030737 (199) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:14:38.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030738 (200) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:18:05.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030739 (201) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:21:31.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030740 (202) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:24:53.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030741 (203) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:28:19.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030742 (204) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:31:43.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030743 (205) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:35:07.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030744 (206) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:38:33.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030745 (207) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:41:59.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030746 (208) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:45:26.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030747 (209) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:48:52.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030748 (210) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:52:18.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030749 (211) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:55:44.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030750 (212) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,11:59:10.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030751 (213) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:02:36.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030752 (214) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:06:02.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030753 (215) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:09:28.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030754 (216) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:12:54.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030755 (217) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:16:21.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030756 (218) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:19:47.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030757 (219) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:23:13.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030758 (220) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:26:39.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030759 (221) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:30:05.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030760 (222) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:33:31.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030761 (223) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:36:57.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030762 (224) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:40:23.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030763 (225) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:43:50.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030764 (226) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:47:16.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030765 (227) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:50:42.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030766 (228) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:54:06.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030767 (229) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,12:57:32.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030768 (230) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:00:58.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030769 (231) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:04:24.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030770 (232) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:07:51.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030771 (233) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:11:17.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030772 (234) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:14:43.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030773 (235) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:18:09.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030774 (236) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:21:35.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030775 (237) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:25:01.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030776 (238) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:28:27.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030777 (239) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:31:53.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030778 (240) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:35:19.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030779 (241) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:38:45.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030780 (242) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:42:11.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030781 (243) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:45:37.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030782 (244) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:49:03.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030783 (245) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:52:30.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030784 (246) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:55:56.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030785 (247) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,13:59:22.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030786 (248) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:02:47.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030787 (249) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:06:09.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030788 (250) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:09:33.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030789 (251) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:12:59.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030790 (252) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:16:24.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030791 (253) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:19:50.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030792 (254) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:23:16.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030793 (255) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:26:42.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030794 (256) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:30:08.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030795 (257) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:33:34.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030796 (258) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:37:00.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030797 (259) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:40:26.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030798 (260) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:43:52.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030799 (261) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:47:18.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030800 (262) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:50:44.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030801 (263) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:54:10.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030802 (264) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,14:57:36.0695 Samples 205 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030803 (265) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:01:01.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030804 (266) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:04:27.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030805 (267) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:07:53.0695 Samples 207 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030806 (268) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:11:20.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030807 (269) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:14:46.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030808 (270) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:18:12.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030809 (271) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:21:38.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030810 (272) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:25:04.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030811 (273) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:28:30.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030812 (274) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:31:56.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030813 (275) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:35:22.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030814 (276) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:38:48.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030815 (277) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:42:14.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030816 (278) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:45:40.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030817 (279) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:49:06.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030818 (280) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:52:32.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030819 (281) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:55:58.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030820 (282) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,15:59:24.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030821 (283) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:02:50.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030822 (284) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:06:16.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030823 (285) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:09:42.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030824 (286) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:13:08.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030825 (287) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:16:34.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030826 (288) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:20:00.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030827 (289) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:23:26.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030828 (290) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:26:52.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030829 (291) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:30:18.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030830 (292) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:33:44.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030831 (293) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:37:10.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030832 (294) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:40:36.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030833 (295) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:44:02.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030834 (296) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:47:28.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030835 (297) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:50:54.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030836 (298) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:54:20.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030837 (299) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,16:57:46.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030838 (300) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:01:12.0695 Samples 204 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030839 (301) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:04:36.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030840 (302) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:08:02.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030841 (303) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:11:28.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030842 (304) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:14:54.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030843 (305) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:18:20.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030844 (306) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:21:46.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030845 (307) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:25:12.0695 Samples 202 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030846 (308) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:28:34.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030847 (309) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:32:00.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030848 (310) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:35:26.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030849 (311) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:38:52.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030850 (312) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:42:18.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030851 (313) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:45:44.0695 Samples 206 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030852 (314) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:49:10.0695 Samples 205 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030853 (315) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:52:35.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Blockette 310 present
+Record 030854 (316) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:56:01.0695 Samples 120 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 3 Correction 0 Data Start 128 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=6
+Blockette 310 seen
+
+Record 030855 (317) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:58:01.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030856 (318) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,17:59:48.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030857 (319) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:01:35.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030858 (320) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:03:22.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030859 (321) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:05:09.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030860 (322) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:06:56.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030861 (323) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:08:39.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030862 (324) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:10:26.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030863 (325) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:12:13.0695 Samples 108 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030864 (326) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:14:01.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 030865 (327) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:15:48.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030866 (328) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:17:35.0695 Samples 106 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030867 (329) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:19:21.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030868 (330) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:21:04.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030869 (331) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:22:51.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030870 (332) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:24:38.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030871 (333) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:26:25.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030872 (334) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:28:12.0695 Samples 106 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030873 (335) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:29:58.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030874 (336) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:31:42.0695 Samples 106 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030875 (337) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:33:28.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030876 (338) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:35:15.0695 Samples 107 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030877 (339) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:37:02.0695 Samples 148 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030878 (340) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:39:30.0695 Samples 193 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030879 (341) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:42:43.0695 Samples 204 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030880 (342) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:46:07.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Blockette 310 present
+Record 030881 (343) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:49:33.0695 Samples 102 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 3 Correction 0 Data Start 128 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=6
+Blockette 310 seen
+
+Record 030882 (344) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:51:15.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030883 (345) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:52:58.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030884 (346) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:54:41.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030885 (347) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:56:24.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030886 (348) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:58:07.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030887 (349) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,18:59:50.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030888 (350) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:01:33.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030889 (351) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:03:16.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030890 (352) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:04:59.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030891 (353) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:06:42.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030892 (354) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:08:25.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030893 (355) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:10:08.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030894 (356) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:11:51.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030895 (357) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:13:34.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030896 (358) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:15:17.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030897 (359) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:17:00.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030898 (360) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:18:43.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030899 (361) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:20:26.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030900 (362) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:22:09.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030901 (363) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:23:52.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030902 (364) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:25:35.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030903 (365) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:27:18.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030904 (366) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:29:01.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030905 (367) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:30:44.0695 Samples 150 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030906 (368) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:33:14.0695 Samples 201 Factor 1 Mult 1 (1sps)
+IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030907 (369) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:36:35.0695 Samples 195 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Blockette 310 present
+Record 030908 (370) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:39:50.0695 Samples 176 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 3 Correction 0 Data Start 128 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=6
+Blockette 310 seen
+
+Record 030909 (371) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:42:46.0695 Samples 109 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030910 (372) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:44:35.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030911 (373) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:46:18.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030912 (374) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:48:01.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030913 (375) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:49:44.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030914 (376) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:51:27.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030915 (377) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:53:10.0695 Samples 121 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030916 (378) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:55:11.0695 Samples 197 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030917 (379) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,19:58:28.0695 Samples 203 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030918 (380) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:01:51.0695 Samples 205 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Blockette 310 present
+Record 030919 (381) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:05:16.0695 Samples 159 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 3 Correction 0 Data Start 128 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=6
+Blockette 310 seen
+
+Record 030920 (382) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:07:55.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030921 (383) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:11:21.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030922 (384) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:14:47.0695 Samples 194 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030923 (385) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:18:01.0695 Samples 202 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030924 (386) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:21:23.0695 Samples 204 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030925 (387) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:24:47.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030926 (388) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:28:13.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030927 (389) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:31:39.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030928 (390) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:35:05.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Blockette 300 present
+Record 030929 (391) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:38:31.0695 Samples 114 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 3 Correction 0 Data Start 128 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=6
+Blockette 300 seen
+
+Record 030930 (392) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:40:25.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030931 (393) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:42:08.0695 Samples 170 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030932 (394) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:44:58.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030933 (395) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:48:24.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030934 (396) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:51:50.0695 Samples 168 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030935 (397) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:54:38.0695 Samples 115 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030936 (398) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:56:33.0695 Samples 137 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030937 (399) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,20:58:50.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030938 (400) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:02:16.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030939 (401) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:05:42.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030940 (402) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:09:08.0695 Samples 204 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030941 (403) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:12:32.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030942 (404) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:15:58.0695 Samples 206 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Blockette 320 present
+Record 030943 (405) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:19:24.0695 Samples 165 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 3 Correction 0 Data Start 128 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=6
+Blockette 320 seen
+
+Record 030944 (406) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:22:09.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030945 (407) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:23:52.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030946 (408) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:25:36.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030947 (409) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:27:19.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030948 (410) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:29:03.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030949 (411) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:30:47.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030950 (412) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:32:31.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030951 (413) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:34:14.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030952 (414) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:35:58.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030953 (415) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:37:42.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030954 (416) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:39:26.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030955 (417) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:41:10.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030956 (418) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:42:53.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030957 (419) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:44:36.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030958 (420) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:46:19.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030959 (421) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:48:03.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030960 (422) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:49:46.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030961 (423) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:51:29.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030962 (424) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:53:12.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030963 (425) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:54:55.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030964 (426) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:56:38.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030965 (427) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,21:58:21.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030966 (428) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:00:05.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030967 (429) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:01:48.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030968 (430) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:03:32.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030969 (431) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:05:16.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030970 (432) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:06:59.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030971 (433) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:08:42.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030972 (434) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:10:25.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030973 (435) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:12:08.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030974 (436) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:13:51.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030975 (437) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:15:34.0695 Samples 105 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030976 (438) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:17:19.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030977 (439) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:19:02.0695 Samples 105 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030978 (440) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:20:47.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030979 (441) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:22:30.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030980 (442) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:24:14.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030981 (443) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:25:57.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030982 (444) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:27:40.0695 Samples 105 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 030983 (445) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:29:25.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030984 (446) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:31:08.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030985 (447) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:32:51.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030986 (448) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:34:35.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030987 (449) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:36:18.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030988 (450) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:38:01.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030989 (451) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:39:44.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030990 (452) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:41:27.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030991 (453) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:43:10.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030992 (454) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:44:53.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030993 (455) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:46:36.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030994 (456) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:48:19.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030995 (457) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:50:02.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030996 (458) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:51:45.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030997 (459) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:53:28.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030998 (460) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:55:11.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 030999 (461) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:56:54.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031000 (462) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,22:58:37.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 031001 (463) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:00:20.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031002 (464) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:02:04.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 031003 (465) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:03:48.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031004 (466) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:05:32.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031005 (467) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:07:16.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 031006 (468) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:08:59.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031007 (469) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:10:43.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031008 (470) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:12:27.0695 Samples 106 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031009 (471) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:14:13.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031010 (472) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:15:56.0695 Samples 106 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031011 (473) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:17:42.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031012 (474) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:19:26.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031013 (475) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:21:10.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031014 (476) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:22:53.0695 Samples 105 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=39 Frames=7
+
+Record 031015 (477) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:24:38.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031016 (478) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:26:21.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031017 (479) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:28:04.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031018 (480) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:29:47.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031019 (481) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:31:30.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 031020 (482) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:33:13.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031021 (483) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:34:56.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031022 (484) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:36:40.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031023 (485) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:38:24.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031024 (486) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:40:07.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031025 (487) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:41:50.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031026 (488) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:43:34.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031027 (489) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:45:17.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=36 Frames=7
+
+Record 031028 (490) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:47:00.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031029 (491) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:48:43.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031030 (492) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:50:26.0695 Samples 104 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031031 (493) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:52:10.0695 Samples 105 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031032 (494) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:53:55.0695 Samples 105 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031033 (495) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:55:40.0695 Samples 103 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 031034 (496) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:57:23.0695 Samples 105 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=38 Frames=7
+
+Record 000000 (497) Type Q Network IU Station HRV Location 00 Channel LHZ
+Time 2015,180,23:59:08.0695 Samples 52 Factor 1 Mult 1 (1sps)
+Activity: CALSIG (0x01) IO: GOODTM (0x20) 
+Blockettes 2 Correction 0 Data Start 64 First Block 48 Host Swap LE
+1000-DATAONLY: STEIM-2 Swap=BE Len=9
+1001-QTADEXT: Quality=100% Usec=0 Frames=4
+
