@@ -4,13 +4,14 @@
 #include <string>
 #include <vector>
 
+//finds and returns the filesize of the file in question
 std::ifstream::pos_type filesize(const char* filename)
 {
     std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
     return in.tellg(); 
 }
 
-struct Blkt {
+struct Blockette {
     int type;
     int index;
 };
@@ -18,28 +19,31 @@ struct Blkt {
 struct DataRecord {
     int index;
     int sequence_number;
-    std::vector<Blkt> blockettes;
+    std::vector<Blockette> blockettes;
 };
 
-std::ostream & operator<<(std::ostream & os, Blkt const & blkt) {
+//overloaded operator to print out pertinent information for each Blockette struct
+std::ostream & operator<<(std::ostream & os, Blockette const & blkt) {
     os << blkt.type;
     
     return os;
 }
 
+//overloaded operator to print out pertinent information for each DataRecord struct
 std::ostream & operator<<(std::ostream & os, DataRecord const & dr) {
-    os << "Seq#: " << dr.sequence_number << " [" << dr.index << "]";
+    os << "Seq# " << dr.sequence_number << " [byte " << dr.index << "]";
 
     for (auto b : dr.blockettes) {
-        os << " [Blkt "<< b << "]";
+        os << " [blkt "<< b << "]";
     }
 
     return os;
 }
 
 int main() {
-    std::ifstream seedfile("/msd/IU_HRV/2015/180/00_LHZ.512.seed");
-    int seedfile_length = filesize("/msd/IU_HRV/2015/180/00_LHZ.512.seed");
+    std::string filename = "/msd/IU_HRV/2015/180/00_LHZ.512.seed";
+    std::ifstream seedfile(filename);
+    int seedfile_length = filesize(filename.c_str());
     std::ofstream output("output.txt", std::ios::trunc);
     
     //put the data into a vector for indexing
@@ -51,26 +55,25 @@ int main() {
     
     std::vector<DataRecord> station_day;
     int nbbn;
-    int next_blockette_index;
     
     for (int i = 0; i < seedfile_length; i += 512) {
-        DataRecord rec;
-        rec.index = i;
+        DataRecord data_record;
+        data_record.index = i;
         
         std::string str_sequence_number(std::begin(data) + i, std::begin(data) + i + 6);
-        rec.sequence_number = std::stoi(str_sequence_number);
+        data_record.sequence_number = std::stoi(str_sequence_number);
         //there is always at least one blockette, usually 1000
         nbbn = 48;
         
         while (nbbn != 0) {
-            Blkt blockette;
+            Blockette blockette;
             blockette.index = nbbn;
             blockette.type = (static_cast<int>(data[i + nbbn]) << 8) + static_cast<int>(data[i + nbbn + 1]);
-            rec.blockettes.push_back(blockette);
+            data_record.blockettes.push_back(blockette);
             
             nbbn = (static_cast<int>(data[i + nbbn + 2]) << 8) + static_cast<int>(data[i + nbbn + 3]);
-            if (blockette.type != 1000 and blockette.type != 1001) {
-                std::cout << rec << std::endl;
+            if (blockette.type == 300 or blockette.type == 310 or blockette.type == 320) {
+                std::cout << data_record << std::endl;
             }
         }
         
@@ -79,15 +82,15 @@ int main() {
         //initialize the next_blockette_index to the end of the Fixed Section of Data Header
         // bool more_blockettes = true;
         // while (more_blockettes) {
-        //     Blkt blockette;
+        //     Blockette blockette;
         //     blockette.index = i + nbbn;
         //     blockette.type = (static_cast<int>(data[i + nbbn]) << 8) + static_cast<int>(data[i + nbbn + 1]);
-        //     rec.blockettes.push_back(blockette);
+        //     data_record.blockettes.push_back(blockette);
         //
         //
-        //     if (rec.sequence_number == 30929) {
+        //     if (data_record.sequence_number == 30929) {
         //         std::cout << blockette.type << " next at byte " << nbbn << std::endl;
-        //         std::cout << std::endl << std::endl << rec.sequence_number << std::endl;
+        //         std::cout << std::endl << std::endl << data_record.sequence_number << std::endl;
         //         std::vector<unsigned char> record_vector(std::begin(data) + i, std::begin(data) + i + 512);
         //         std::cout << std::endl;
         //         int counter = 0;
@@ -111,8 +114,8 @@ int main() {
         //
         // }
 
-        station_day.push_back(rec);
-        // std::cout << rec << std::endl;
+        station_day.push_back(data_record);
+        // std::cout << data_record << std::endl;
         //
         // std::cout << "\t";
         // for (int j = 48; j < 48 + 2; j++) {
