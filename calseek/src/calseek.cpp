@@ -53,27 +53,41 @@ int main() {
         data.push_back(seedfile.get());
     }
     
+    //a vector to hold each record
     std::vector<DataRecord> station_day;
+    //an integer to hold the next blockette byte number, used for indexing
     int nbbn;
     
+    //TODO: change from 512 to a variable derived from the filename, or arguments
     for (int i = 0; i < seedfile_length; i += 512) {
         DataRecord data_record;
         data_record.index = i;
         
+        //parse the sequence number of the record
         std::string str_sequence_number(std::begin(data) + i, std::begin(data) + i + 6);
         data_record.sequence_number = std::stoi(str_sequence_number);
-        //there is always at least one blockette, usually 1000
+        
+        //initialize the next blockette byte number to the end of the Fixed Section of Data Header
         nbbn = 48;
         
+        //while there is a blockette present after the current
         while (nbbn != 0) {
             Blockette blockette;
             blockette.index = nbbn;
             blockette.type = (static_cast<int>(data[i + nbbn]) << 8) + static_cast<int>(data[i + nbbn + 1]);
             data_record.blockettes.push_back(blockette);
             
+            //find the current blockette's Field 02, next blockette's byte number
             nbbn = (static_cast<int>(data[i + nbbn + 2]) << 8) + static_cast<int>(data[i + nbbn + 3]);
-            if (blockette.type == 300 or blockette.type == 310 or blockette.type == 320) {
-                std::cout << data_record << std::endl;
+            
+            if (blockette.type == 300) {
+                
+            } else 
+            if (blockette.type == 310) {
+                
+            } else
+            if (blockette.type == 320) {
+                
             }
         }
         
