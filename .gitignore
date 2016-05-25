@@ -1,3 +1,4 @@
 *.pyc
 caluser.py
 timer.py
+CMake*
