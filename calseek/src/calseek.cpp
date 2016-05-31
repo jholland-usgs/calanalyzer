@@ -1,4 +1,5 @@
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -88,7 +89,9 @@ int main() {
             
             //detect the desired cals
             if (blockette.type == 300) {
-                std::cout << std::endl << "CALIBRATION BLOCKETTE" << std::endl;
+                // Calibration cal(data, (i + nbbn));
+                // Calibration cal = Calibration();
+                std::cout << std::endl << "CALIBRATION 300 BLOCKETTE" << std::endl;
                 // Calibration calibration(data, i + nbbn);
                 // for (int j = 0; j < 60; j++) {
                 //     std::cout << "[" << j << "]\t";
@@ -105,13 +108,13 @@ int main() {
                 std::cout << (static_cast<int>(data[i + nbbn + 2]) << 8) + static_cast<int>(data[i + nbbn + 3]) << std::endl;
                 
                 //B300F03 - beginning of calibration time
-                std::cout << "Calibration time: ";
-                std::cout << (static_cast<int>(data[i + nbbn + 4]) << 8) + static_cast<int>(data[i + nbbn + 5]) << ",";    //year
-                std::cout << (static_cast<int>(data[i + nbbn + 6]) << 8) + static_cast<int>(data[i + nbbn + 7]) << "T";    //jday (001 - 366)
-                std::cout << static_cast<int>(data[i + nbbn + 8]) << ":";   //hour (0 - 23)
-                std::cout << static_cast<int>(data[i + nbbn + 9]) << ":";   //minute (0 - 60)
-                std::cout << (static_cast<int>(data[i + nbbn + 10]) << 8) + static_cast<int>(data[i + nbbn + 11]) << ".";   //second (0 - 60)
-                std::cout << (static_cast<int>(data[i + nbbn + 12]) << 8) + static_cast<int>(data[i + nbbn + 13]) << std::endl;   //second (0 - 60)
+                std::cout << "Calibration time: " << std::setfill('0')
+                    << (static_cast<int>(data[i + nbbn + 4]) << 8) + static_cast<int>(data[i + nbbn + 5]) << "," << std::setw(3)    //year
+                    << (static_cast<int>(data[i + nbbn + 6]) << 8) + static_cast<int>(data[i + nbbn + 7]) << "T" << std::setw(2)    //jday (001 - 366)
+                    << static_cast<int>(data[i + nbbn + 8]) << ":" << std::setw(2)   //hour (0 - 23)
+                    << static_cast<int>(data[i + nbbn + 9]) << ":" << std::setw(2)   //minute (0 - 60)
+                    << (static_cast<int>(data[i + nbbn + 10]) << 8) + static_cast<int>(data[i + nbbn + 11]) << "." << std::setw(4)   //second (0 - 60)
+                    << (static_cast<int>(data[i + nbbn + 12]) << 8) + static_cast<int>(data[i + nbbn + 13]) << std::endl;   //second (0 - 60)
                 
                 //B300F04 - number of step calibrations
                 std::cout << "No Step Calibras: ";
@@ -129,14 +132,226 @@ int main() {
                     static_cast<int>(data[i + nbbn + 19])
                         << std::endl;
                 
+                //B300F07 - interval duration
+                std::cout << "Intervl duration: ";
+                std::cout << (static_cast<int>(data[i + nbbn + 20]) << 24) +
+                    (static_cast<int>(data[i + nbbn + 21]) << 16) +
+                    (static_cast<int>(data[i + nbbn + 22]) << 8) +
+                    static_cast<int>(data[i + nbbn + 23])
+                        << std::endl;
                 
+                //B300F08 - calibration signal amplitude
+                std::cout << "Cal signal ampli: ";
+                // std::cout << std::hex << std::showbase;
+                // std::cout << (static_cast<int>(data[i + nbbn + 24]) << 24) +
+                //     (static_cast<int>(data[i + nbbn + 25]) << 16) +
+                //     (static_cast<int>(data[i + nbbn + 26]) << 8) +
+                //     static_cast<int>(data[i + nbbn + 27]) << std::endl;
+                // std::cout << std::dec << std::noshowbase;
+                std::cout << std::hex << std::showbase;
+                std::cout << static_cast<int>(data[i + nbbn + 24]) << " "
+                    << static_cast<int>(data[i + nbbn + 25]) << " "
+                    << static_cast<int>(data[i + nbbn + 26]) << " "
+                    << static_cast<int>(data[i + nbbn + 27])
+                        << std::endl;
+                std::cout << std::dec << std::noshowbase;
+                
+                //B300F09 - channel with calibration output
+                std::cout << "  Output channel: ";
+                std::cout << data[i + nbbn + 28];
+                std::cout << data[i + nbbn + 29];
+                std::cout << data[i + nbbn + 30];
                 std::cout << std::endl;
+                
+                //B300F10 - reserved byte
+                std::cout << "   Reserved byte: ";
+                std::cout << static_cast<int>(data[i + nbbn + 31]) << std::endl;
+                
+                //B300F11 - reference amplitude
+                std::cout << "Reference amplit: ";
+                std::cout << (static_cast<int>(data[i + nbbn + 32]) << 24) +
+                    (static_cast<int>(data[i + nbbn + 33]) << 16) +
+                    (static_cast<int>(data[i + nbbn + 34]) << 8) +
+                    static_cast<int>(data[i + nbbn + 35]) << std::endl;
+                
+                //B300F12 - coupling
+                std::cout << "        Coupling: ";
+                std::string str_coupling(std::begin(data) + i + nbbn + 36, std::begin(data) + i + nbbn + 47);
+                std::cout << str_coupling << std::endl;
+                // std::cout << std::string(std::begin(data) + i + nbbn + 436, std::begin(data) + i + nbbn + 47) << std::endl;
+                
+                //B300F13 - rolloff
+                std::cout << "         Rolloff: ";
+                std::string str_rolloff(std::begin(data) + i + nbbn + 48, std::begin(data) + i + nbbn + 59);
+                std::cout << str_rolloff << std::endl;
+                // std::cout << std::string(std::begin(data) + i + nbbn + 48, std::begin(data) + i + nbbn + 59) << std::endl;
+
             } else 
             if (blockette.type == 310) {
-                std::cout << "310 found" << std::endl;
+                // Calibration cal = Calibration();
+                std::cout << std::endl << "CALIBRATION 310 BLOCKETTE" << std::endl;
+
+                //B310F01 - blockette type
+                std::cout << "  Blockette Type: ";
+                std::cout << (static_cast<int>(data[i + nbbn]) << 8) + static_cast<int>(data[i + nbbn + 1]) << std::endl;
+                
+                //B310F02 - next blockette's byte number
+                std::cout << " Next blkt index: ";
+                std::cout << (static_cast<int>(data[i + nbbn + 2]) << 8) + static_cast<int>(data[i + nbbn + 3]) << std::endl;
+                
+                //B310F03 - beginning of calibration time
+                std::cout << "Calibration time: " << std::setfill('0')
+                    << (static_cast<int>(data[i + nbbn + 4]) << 8) + static_cast<int>(data[i + nbbn + 5]) << "," << std::setw(3)    //year
+                    << (static_cast<int>(data[i + nbbn + 6]) << 8) + static_cast<int>(data[i + nbbn + 7]) << "T" << std::setw(2)    //jday (001 - 366)
+                    << static_cast<int>(data[i + nbbn + 8]) << ":" << std::setw(2)   //hour (0 - 23)
+                    << static_cast<int>(data[i + nbbn + 9]) << ":" << std::setw(2)   //minute (0 - 60)
+                    << (static_cast<int>(data[i + nbbn + 10]) << 8) + static_cast<int>(data[i + nbbn + 11]) << "." << std::setw(4)   //second (0 - 60)
+                    << (static_cast<int>(data[i + nbbn + 12]) << 8) + static_cast<int>(data[i + nbbn + 13]) << std::endl;   //second (0 - 60)
+                
+                //B310F04 - Reserved byte
+                std::cout << "   Reserved byte: ";
+                std::cout << static_cast<int>(data[i + nbbn + 14]) << std::endl;
+                
+                //B310F05 - calibration flags
+                std::cout << "Calibration flag: ";
+                std::cout << std::bitset<8>(data[i + nbbn + 15]) << std::endl;  //big endian
+                
+                //B310F06 - calibration duration
+                std::cout << "  Calib duration: ";
+                std::cout << (static_cast<int>(data[i + nbbn + 16]) << 24) +
+                    (static_cast<int>(data[i + nbbn + 17]) << 16) +
+                    (static_cast<int>(data[i + nbbn + 18]) << 8) +
+                    static_cast<int>(data[i + nbbn + 19])
+                        << std::endl;
+                
+                //B310F07 - period of signal (seconds)
+                std::cout << "Period of signal: ";
+                std::cout << std::hex << std::showbase;
+                std::cout << static_cast<int>(data[i + nbbn + 20]) << " " <<
+                    static_cast<int>(data[i + nbbn + 21]) << " " <<
+                    static_cast<int>(data[i + nbbn + 22]) << " " <<
+                    static_cast<int>(data[i + nbbn + 23]) << std::endl;
+                std::cout << std::dec << std::noshowbase;
+                
+                //B310F08 - amplitude of signal
+                std::cout << "Signal amplitude: ";
+                std::cout << std::hex << std::showbase;
+                std::cout << static_cast<int>(data[i + nbbn + 24]) << " " <<
+                    static_cast<int>(data[i + nbbn + 25]) << " " <<
+                    static_cast<int>(data[i + nbbn + 26]) << " " <<
+                    static_cast<int>(data[i + nbbn + 27]) << std::endl;
+                std::cout << std::dec << std::noshowbase;
+
+                //B300F09 - channel with calibration output
+                std::cout << "  Output channel: ";
+                std::cout << data[i + nbbn + 28];
+                std::cout << data[i + nbbn + 29];
+                std::cout << data[i + nbbn + 30];
+                std::cout << std::endl;
+                
+                //B310F10 - reserved byte
+                std::cout << "   Reserved byte: ";
+                std::cout << static_cast<int>(data[i + nbbn + 31]) << std::endl;
+                
+                //B310F11 - reference amplitude
+                std::cout << "Reference amplit: ";
+                std::cout << (static_cast<int>(data[i + nbbn + 32]) << 24) +
+                    (static_cast<int>(data[i + nbbn + 33]) << 16) +
+                    (static_cast<int>(data[i + nbbn + 34]) << 8) +
+                    static_cast<int>(data[i + nbbn + 35])
+                        << std::endl;
+                
+                //B310F12 - coupling
+                std::cout << "        Coupling: ";
+                std::string str_coupling(std::begin(data) + i + nbbn + 36, std::begin(data) + i + nbbn + 47);
+                std::cout << str_coupling << std::endl;
+                
+                //B310F13 - rolloff
+                std::cout << "         Rolloff: ";
+                std::string str_rolloff(std::begin(data) + i + nbbn + 48, std::begin(data) + i + nbbn + 59);
+                std::cout << str_rolloff << std::endl;
+
             } else
             if (blockette.type == 320) {
-                std::cout << "320 found" << std::endl;
+                // Calibration cal = Calibration();
+                std::cout << std::endl << "CALIBRATION 320 BLOCKETTE" << std::endl;
+
+                //B320F01 - blockette type
+                std::cout << "  Blockette Type: ";
+                std::cout << (static_cast<int>(data[i + nbbn]) << 8) + static_cast<int>(data[i + nbbn + 1]) << std::endl;
+                
+                //B320F02 - next blockette's byte number
+                std::cout << " Next blkt index: ";
+                std::cout << (static_cast<int>(data[i + nbbn + 2]) << 8) + static_cast<int>(data[i + nbbn + 3]) << std::endl;
+                
+                //B320F03 - beginning of calibration time
+                std::cout << "Calibration time: " << std::setfill('0')
+                    << (static_cast<int>(data[i + nbbn + 4]) << 8) + static_cast<int>(data[i + nbbn + 5]) << "," << std::setw(3)    //year
+                    << (static_cast<int>(data[i + nbbn + 6]) << 8) + static_cast<int>(data[i + nbbn + 7]) << "T" << std::setw(2)    //jday (001 - 366)
+                    << static_cast<int>(data[i + nbbn + 8]) << ":" << std::setw(2)   //hour (0 - 23)
+                    << static_cast<int>(data[i + nbbn + 9]) << ":" << std::setw(2)   //minute (0 - 60)
+                    << (static_cast<int>(data[i + nbbn + 10]) << 8) + static_cast<int>(data[i + nbbn + 11]) << "." << std::setw(4)   //second (0 - 60)
+                    << (static_cast<int>(data[i + nbbn + 12]) << 8) + static_cast<int>(data[i + nbbn + 13]) << std::endl;   //second (0 - 60)
+                
+                //B320F04 - Reserved byte
+                std::cout << "   Reserved byte: ";
+                std::cout << static_cast<int>(data[i + nbbn + 14]) << std::endl;
+                
+                //B320F05 - calibration flags
+                std::cout << "Calibration flag: ";
+                std::cout << std::bitset<8>(data[i + nbbn + 15]) << std::endl;  //big endian
+                
+                //B320F06 - calibration duration
+                std::cout << "  Calib duration: ";
+                std::cout << (static_cast<int>(data[i + nbbn + 16]) << 24) +
+                    (static_cast<int>(data[i + nbbn + 17]) << 16) +
+                    (static_cast<int>(data[i + nbbn + 18]) << 8) +
+                    static_cast<int>(data[i + nbbn + 19])
+                        << std::endl;
+                
+                //B320F07 - peak to peak amplitude of signal
+                std::cout << "   P2P amplitude: ";
+                std::cout << std::hex << std::showbase;
+                std::cout << static_cast<int>(data[i + nbbn + 20]) << " " <<
+                    static_cast<int>(data[i + nbbn + 21]) << " " <<
+                    static_cast<int>(data[i + nbbn + 22]) << " " <<
+                    static_cast<int>(data[i + nbbn + 23]) << std::endl;
+                std::cout << std::dec << std::noshowbase;
+                
+                //B320F08 - channel with calibration output
+                std::cout << "  Output channel: ";
+                std::cout << data[i + nbbn + 24];
+                std::cout << data[i + nbbn + 25];
+                std::cout << data[i + nbbn + 26];
+                std::cout << std::endl;
+                
+                //B320F09 - reserved byte
+                std::cout << "   Reserved byte: ";
+                std::cout << static_cast<int>(data[i + nbbn + 27]) << std::endl;
+                
+                //B320F10 - reference amplitude
+                std::cout << "Reference amplit: ";
+                std::cout << (static_cast<int>(data[i + nbbn + 28]) << 24) +
+                    (static_cast<int>(data[i + nbbn + 29]) << 16) +
+                    (static_cast<int>(data[i + nbbn + 30]) << 8) +
+                    static_cast<int>(data[i + nbbn + 31])
+                        << std::endl;
+                
+                //B320F11 - coupling
+                std::cout << "        Coupling: ";
+                std::string str_coupling(std::begin(data) + i + nbbn + 32, std::begin(data) + i + nbbn + 43);
+                std::cout << str_coupling << std::endl;
+                
+                //B320F12 - rolloff
+                std::cout << "         Rolloff: ";
+                std::string str_rolloff(std::begin(data) + i + nbbn + 44, std::begin(data) + i + nbbn + 55);
+                std::cout << str_rolloff << std::endl;
+                
+                //B320F13 - noise type
+                std::cout << "      Noise type: ";
+                std::string str_noise_type(std::begin(data) + i + nbbn + 56, std::begin(data) + i + nbbn + 64);
+                std::cout << str_noise_type << std::endl;
+
             }
             
             //find the current blockette's Field 02, next blockette's byte number

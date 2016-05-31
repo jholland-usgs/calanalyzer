@@ -9,6 +9,8 @@
 /Users/ambaker/Documents/gitlab/calanalyzer/calseek/src/calseek.cpp
 fstream
 -
+iomanip
+-
 iostream
 -
 sstream
