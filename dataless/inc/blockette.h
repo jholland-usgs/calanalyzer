@@ -8,23 +8,15 @@
 #include <string>
 #include <vector>
 
-#include "blockette50.h"
-#include "blockette51.h"
-#include "blockette52.h"
-#include "blockette53.h"
-#include "blockette54.h"
-#include "blockette57.h"
-#include "blockette58.h"
-#include "blockette59.h"
-#include "blockette62.h"
-#include "date.h"
-
 class Blockette {
 public:
     int type;
     int length;
     
+    Blockette();
+    Blockette(std::vector<unsigned char> &dataless, int index);
     void Parse();
+    std::string get_value(std::vector<unsigned char> &dataless, int *index, int length);
 };
 
 #endif  //_Blockette_H_

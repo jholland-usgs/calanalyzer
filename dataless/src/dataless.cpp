@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include "date.h"
+#include "blockette.h"
 
 std::ifstream::pos_type filesize(const char* filename)
 {
@@ -559,6 +559,8 @@ void parse_blockette(std::vector<unsigned char> &dataless, int *index) {
         }
     }
     
+    // Blockette blkt(&dataless, *index);
+    
     std::string str_blkt_number = get_value(dataless, index, 3);
     int blkt_number = std::stoi(str_blkt_number);
     *index -= 3;
@@ -708,6 +710,8 @@ int main(int argc, char *argv[]) {
 
 
     //parse through them all
+    std::vector<Blockette> blkts;
+    
     while (index < dataless.size()) {
         station_blockettes_skeleton(dataless, &index);
     }
