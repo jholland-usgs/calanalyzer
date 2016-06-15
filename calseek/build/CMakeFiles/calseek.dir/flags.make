@@ -6,5 +6,5 @@ CXX_FLAGS =  -std=c++11 -Wall
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/Users/ambaker/Documents/gitlab/calanalyzer/calseek/inc -I/Users/ambaker/Documents/gitlab/calanalyzer/calseek/src 
+CXX_INCLUDES = -I/Users/ambaker/Documents/gitlab/calanalyzer/calseek/inc 
 

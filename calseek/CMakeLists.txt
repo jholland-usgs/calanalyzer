@@ -4,10 +4,10 @@ project(calseek)
 set(DIR_SRC ${CMAKE_CURRENT_LIST_DIR})
 message("calseek code directory:" ${DIR_SRC})
 
-include_directories(${DIR_SRC}/inc/
-                    	${DIR_SRC}/src/)
+include_directories(${DIR_SRC}/inc/)
 
-add_executable(calseek ${DIR_SRC}/src/calseek.cpp)
+add_executable(calseek ${DIR_SRC}/src/calibration.cpp
+                    ${DIR_SRC}/src/calseek.cpp)
 
 set_target_properties(calseek
                       PROPERTIES

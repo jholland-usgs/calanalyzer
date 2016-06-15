@@ -4,7 +4,7 @@ Calibration::Calibration() {
     std::cout << "YYY" << std::endl;
 }
 
-Calibration::Calibration(std::vector<unsigned char> &data, int offset) {
+Calibration::Calibration(std::vector<unsigned char> & data, int offset) {
     std::cout << "XXX" << std::endl;
     // for (int i = 0; i < 60; i++) {
     //     std::cout << "[" << i << "]\t";

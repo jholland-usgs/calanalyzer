@@ -48,10 +48,10 @@ RM = /usr/local/Cellar/cmake/3.4.2/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ambaker/Documents/gitlab/calanalyzer/calseek
+CMAKE_SOURCE_DIR = /Users/ambaker/Documents/gitlab/calanalyzer/dataless
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ambaker/Documents/gitlab/calanalyzer/calseek/build
+CMAKE_BINARY_DIR = /Users/ambaker/Documents/gitlab/calanalyzer/dataless/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ambaker/Documents/gitlab/calanalyzer/calseek/build/CMakeFiles /Users/ambaker/Documents/gitlab/calanalyzer/calseek/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ambaker/Documents/gitlab/calanalyzer/dataless/build/CMakeFiles /Users/ambaker/Documents/gitlab/calanalyzer/dataless/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ambaker/Documents/gitlab/calanalyzer/calseek/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ambaker/Documents/gitlab/calanalyzer/dataless/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,71 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named calseek
+# Target rules for targets named datalessparse
 
 # Build rule for target.
-calseek: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 calseek
-.PHONY : calseek
+datalessparse: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 datalessparse
+.PHONY : datalessparse
 
 # fast build rule for target.
-calseek/fast:
-	$(MAKE) -f CMakeFiles/calseek.dir/build.make CMakeFiles/calseek.dir/build
-.PHONY : calseek/fast
+datalessparse/fast:
+	$(MAKE) -f CMakeFiles/datalessparse.dir/build.make CMakeFiles/datalessparse.dir/build
+.PHONY : datalessparse/fast
 
-src/calibration.o: src/calibration.cpp.o
+src/dataless.o: src/dataless.cpp.o
 
-.PHONY : src/calibration.o
-
-# target to build an object file
-src/calibration.cpp.o:
-	$(MAKE) -f CMakeFiles/calseek.dir/build.make CMakeFiles/calseek.dir/src/calibration.cpp.o
-.PHONY : src/calibration.cpp.o
-
-src/calibration.i: src/calibration.cpp.i
-
-.PHONY : src/calibration.i
-
-# target to preprocess a source file
-src/calibration.cpp.i:
-	$(MAKE) -f CMakeFiles/calseek.dir/build.make CMakeFiles/calseek.dir/src/calibration.cpp.i
-.PHONY : src/calibration.cpp.i
-
-src/calibration.s: src/calibration.cpp.s
-
-.PHONY : src/calibration.s
-
-# target to generate assembly for a file
-src/calibration.cpp.s:
-	$(MAKE) -f CMakeFiles/calseek.dir/build.make CMakeFiles/calseek.dir/src/calibration.cpp.s
-.PHONY : src/calibration.cpp.s
-
-src/calseek.o: src/calseek.cpp.o
-
-.PHONY : src/calseek.o
+.PHONY : src/dataless.o
 
 # target to build an object file
-src/calseek.cpp.o:
-	$(MAKE) -f CMakeFiles/calseek.dir/build.make CMakeFiles/calseek.dir/src/calseek.cpp.o
-.PHONY : src/calseek.cpp.o
+src/dataless.cpp.o:
+	$(MAKE) -f CMakeFiles/datalessparse.dir/build.make CMakeFiles/datalessparse.dir/src/dataless.cpp.o
+.PHONY : src/dataless.cpp.o
 
-src/calseek.i: src/calseek.cpp.i
+src/dataless.i: src/dataless.cpp.i
 
-.PHONY : src/calseek.i
+.PHONY : src/dataless.i
 
 # target to preprocess a source file
-src/calseek.cpp.i:
-	$(MAKE) -f CMakeFiles/calseek.dir/build.make CMakeFiles/calseek.dir/src/calseek.cpp.i
-.PHONY : src/calseek.cpp.i
+src/dataless.cpp.i:
+	$(MAKE) -f CMakeFiles/datalessparse.dir/build.make CMakeFiles/datalessparse.dir/src/dataless.cpp.i
+.PHONY : src/dataless.cpp.i
 
-src/calseek.s: src/calseek.cpp.s
+src/dataless.s: src/dataless.cpp.s
 
-.PHONY : src/calseek.s
+.PHONY : src/dataless.s
 
 # target to generate assembly for a file
-src/calseek.cpp.s:
-	$(MAKE) -f CMakeFiles/calseek.dir/build.make CMakeFiles/calseek.dir/src/calseek.cpp.s
-.PHONY : src/calseek.cpp.s
+src/dataless.cpp.s:
+	$(MAKE) -f CMakeFiles/datalessparse.dir/build.make CMakeFiles/datalessparse.dir/src/dataless.cpp.s
+.PHONY : src/dataless.cpp.s
 
 # Help Target
 help:
@@ -185,13 +158,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... calseek"
-	@echo "... src/calibration.o"
-	@echo "... src/calibration.i"
-	@echo "... src/calibration.s"
-	@echo "... src/calseek.o"
-	@echo "... src/calseek.i"
-	@echo "... src/calseek.s"
+	@echo "... datalessparse"
+	@echo "... src/dataless.o"
+	@echo "... src/dataless.i"
+	@echo "... src/dataless.s"
 .PHONY : help
 
 

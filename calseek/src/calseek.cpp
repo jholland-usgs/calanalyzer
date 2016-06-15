@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-// #include "calibration.h"
+#include "calibration.h"
 
 //finds and returns the filesize of the file in question
 std::ifstream::pos_type filesize(const char* filename)
@@ -90,7 +90,7 @@ int main() {
             //detect the desired cals
             if (blockette.type == 300) {
                 // Calibration cal(data, (i + nbbn));
-                // Calibration cal = Calibration();
+                Calibration cal = Calibration();
                 std::cout << std::endl << "CALIBRATION 300 BLOCKETTE" << std::endl;
                 // Calibration calibration(data, i + nbbn);
                 // for (int j = 0; j < 60; j++) {
