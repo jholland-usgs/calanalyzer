@@ -8,11 +8,11 @@ from obspy.core import UTCDateTime
 today = UTCDateTime.now()
 jday = today.julday
 yearCur = today.year
-logFilepath = '/home/ambaker/calanalyzer/logs/' + today.strftime('%Y%j %H%M') + '.log'
+logFilepath = '/home/ambaker/calanalyzer/logs/' + today.strftime('%Y%j-%H%M') + '.log'
 
 #get first year
 years = []
-paths = glob.glob('/xs[01]/seed/*/*')
+paths = glob.glob('/msd/*/*')
 for path in paths:
 	if path.split('/')[-1] not in years:
 		if path.split('/')[-1].isdigit():
