@@ -60,7 +60,7 @@ def setArguments(arguments):
 def checkDates():
 	#sets the multiprocessing pool to 20 threads
 	pool = Pool(20)
-	netstas = glob.glob('/xs[01]/seed/' + net + '_' + sta)
+	netstas = glob.glob('/msd/' + net + '_' + sta)
 	pool.map(checkNetsta, netstas)
 
 def checkNetsta(netsta):

@@ -13,7 +13,7 @@
 import os
 import sys
 from aslparser import Parser as aslParser
-from obspy.io.xseed import Parser
+from obspy.xseed import Parser
 
 #variables
 netDatalessPath = '/APPS/metadata/SEED/'

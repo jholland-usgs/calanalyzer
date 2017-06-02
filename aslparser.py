@@ -15,8 +15,8 @@ from lxml.etree import Element, SubElement, tostring, parse as xmlparse
 from obspy.core.utcdatetime import UTCDateTime
 # from obspy.core.util.base import get_example_file
 from obspy.core.util.decorator import deprecated_keywords
-from obspy.io.xseed import DEFAULT_XSEED_VERSION, utils, blockette
-from obspy.io.xseed.utils import SEEDParserException
+from obspy.xseed import DEFAULT_XSEED_VERSION, utils, blockette
+from obspy.xseed.utils import SEEDParserException
 import copy
 import datetime
 import math
