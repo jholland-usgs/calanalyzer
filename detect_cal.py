@@ -223,7 +223,7 @@ def get_sensor_id(db, cal, location_id, dataless):
     return None
 
 def getDictionaries(filepath, net):
-    command = '~/apps/rdseed -f %s -g ~/apps/%s.dataless -a' % (filepath, net)
+    command = '/home/ambaker/apps/rdseed -f %s -g ~/apps/%s.dataless -a' % (filepath, net)
     b031, b033, b034 = parseRDSEEDAbbreviations(commands.getstatusoutput(command)[-1])
     return b031, b033, b034
 
