@@ -9,7 +9,7 @@ import struct
 
 from obspy.core import UTCDateTime
 
-debug = False
+debug = True
 
 def get_arguments():
     'Parses the command line arguments'
@@ -118,7 +118,8 @@ def find_calibrations(filepaths):
 
 def add_calibrations(dataless, cals):
     'Adds the calibrations to the database if not a duplicate'
-    caldb = database.Database('cals','caluser','136.177.121.26',caluser.password())
+    dbname, username, host, password = caluser.info()
+    caldb = database.Database(dbname, username, host, password)
     output = []
     for cal in cals:
         try:
