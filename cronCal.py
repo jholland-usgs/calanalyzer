@@ -1,47 +1,55 @@
-#!/usr/bin/env python
-
-import commands
+import datalesstools
+import detect_cal
 import glob
-import multical
+
 from obspy.core import UTCDateTime
 
 today = UTCDateTime.now()
-jday = today.julday
-yearCur = today.year
-logFilepath = '/home/ambaker/calanalyzer/logs/' + today.strftime('%Y%j-%H%M') + '.log'
+networks = ['CU','GS','IC','IU','IW','NE','US','XX']
+networks = ['CU','GS','IC','IU','IW','NE','US']
+output = ''
+debug = False
+detect_cal_filepath = '/home/ambaker/calanalyzer/detect_cal.py'
 
-#get first year
-years = []
-paths = glob.glob('/msd/*/*')
-for path in paths:
-	if path.split('/')[-1] not in years:
-		if path.split('/')[-1].isdigit():
-			years.append(path.split('/')[-1])
-years.sort()
-yearFirst = years[0]
+if debug:
+    print 'Scan started at %s' % today.strftime('%Y,%j %H:%M:%S')
 
-def printOutput(output):
-	output = output[1].split('\n')
-	fob = open(logFilepath, 'a')
-	for line in output:
-		if 'cal found' in line:
-			fob.write(line + '\n')
-	fob.write(str(UTCDateTime.now()))
-	fob.close()
+for network in networks:
+    dataless = datalesstools.getDataless(network)
+    
+    #check 1d, 7d, 30d, 60d, 90d, 180d ago
+    days_ago = [1,7,30,60,90,180]
+    for day in days_ago:
+        if debug:
+            print 'python %s -n %s -b %s -e %s' % (detect_cal_filepath, network, (today - day * 86400).strftime('%Y,%j'), (today - day * 86400).strftime('%Y,%j'))
+        output += detect_cal.find_files(network, '*', (today - day * 86400), (today - day * 86400), dataless)
 
-#first, check in steps
-steps = [7, 30, 60, 90, 180]
-for step in steps:
-	if jday > step:
-		output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearCur) + ',' + str(jday - step).zfill(3) + ' -e ' + str(yearCur) + ',' + str(jday - step).zfill(3))
-		printOutput(output)
+    #check one month last year
+    months = range(1, 13)
+    months.append(1)
+    index = today.julday % 12
+    begindate = UTCDateTime('%s-%s-01' % (today.year - 1, months[index]))
+    enddate = UTCDateTime('%s-%s-01' % (today.year - 1, months[index + 1]))
+    if debug:
+        print 'python %s -n %s -b %s -e %s' % (detect_cal_filepath, network, begindate.strftime('%Y,%j'), enddate.strftime('%Y,%j'))
+    output += detect_cal.find_files(network, '*', begindate, enddate, dataless)
+        
 
-#second, check one month last year
-month = jday % 15 * 25 + 1
-output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearCur - 1) + ',' + str(month).zfill(3) + ' -e ' + str(yearCur - 1) + ',' + str(month + 24).zfill(3))
-printOutput(output)
+    #check an entire historical year
+    years = range(1972, today.year)
+    index = today.julday % len(years)
+    begindate = UTCDateTime('%s-01-01' % years[index])
+    enddate = UTCDateTime('%s-12-31' % years[index])
+    if debug:
+        print 'python %s -n %s -b %s -e %s' % (detect_cal_filepath, network, begindate.strftime('%Y,%j'), enddate.strftime('%Y,%j'))
+    output += detect_cal.find_files(network, '*', begindate, enddate, dataless)
 
-#third, check one year
-yearOne = years[jday % (len(years) - 1)]
-output = commands.getstatusoutput('python /home/ambaker/calanalyzer/multical.py -b ' + str(yearOne) + ',001 -e ' + str(yearOne) + ',366')
-printOutput(output)
+if debug:
+    output = output.split('\n')
+    output_temp = []
+    for line in output:
+        if line != '':
+            output_temp.append(line)
+    print '\n'.join(output_temp)
+
+    print '%.2f seconds elapsed' % (UTCDateTime.now() - today)

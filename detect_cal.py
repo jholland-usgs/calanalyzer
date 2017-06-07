@@ -9,7 +9,7 @@ import struct
 
 from obspy.core import UTCDateTime
 
-debug = True
+debug = False
 
 def get_arguments():
     'Parses the command line arguments'
@@ -50,16 +50,19 @@ def set_arguments():
     assert edate <= UTCDateTime.now(), 'End date is in the future'
     return net, sta, bdate, edate
 
-def find_files(net, sta, bdate, edate):
+def find_files(net, sta, bdate, edate, dataless=None):
     'Find the files that may contain calibrations'
     date = bdate
-    dataless = datalesstools.getDataless(net + sta)
+    output = []
+    if dataless == None:
+        dataless = datalesstools.getDataless(net + sta)
     while date <= edate:
         filepath = '/msd/%s_%s/%s/%s/*[BL]HZ.512.seed' % (net, sta, date.strftime('%Y'), date.strftime('%j'))
         filepaths = glob.glob(filepath)
         cals = find_calibrations(filepaths)
-        add_calibrations(dataless, cals)
+        output.append(add_calibrations(dataless, cals))
         date += 86400
+    return '\n'.join(output)
 
 def find_calibrations(filepaths):
     'Attempts to retrieve calibrations by looking for calibration blockettes (300, 310, 320)'
@@ -116,6 +119,7 @@ def find_calibrations(filepaths):
 def add_calibrations(dataless, cals):
     'Adds the calibrations to the database if not a duplicate'
     caldb = database.Database('cals','caluser','136.177.121.26',caluser.password())
+    output = []
     for cal in cals:
         try:
             network_id = get_network_id(caldb, cal)
@@ -149,12 +153,18 @@ def add_calibrations(dataless, cals):
                 caldb.insert_query(query)
                 if debug:
                     print '+Calibration inserted: %2s_%-5s %2s-%3s %s' % (cal['net'], cal['sta'], cal['loc'], cal['chan'], cal['startdate'].strftime('%Y,%j %H:%M:%S'))
+                else:
+                    output.append('+Calibration inserted: %2s_%-5s %2s-%3s %s' % (cal['net'], cal['sta'], cal['loc'], cal['chan'], cal['startdate'].strftime('%Y,%j %H:%M:%S')))
             else:
                 if debug:
                     print ' Calibration detected: %2s_%-5s %2s-%3s %s' % (cal['net'], cal['sta'], cal['loc'], cal['chan'], cal['startdate'].strftime('%Y,%j %H:%M:%S'))
+                else:
+                    output.append(' Calibration detected: %2s_%-5s %2s-%3s %s' % (cal['net'], cal['sta'], cal['loc'], cal['chan'], cal['startdate'].strftime('%Y,%j %H:%M:%S')))
         except Exception, e:
             print 'Error for %s_%s %s-%s %s:' % (cal['net'], cal['sta'], cal['loc'], cal['chan'], cal['startdate'].strftime('%Y,%j %H:%M:%S')), e 
+            output.append('Error for %s_%s %s-%s %s: %s' % (cal['net'], cal['sta'], cal['loc'], cal['chan'], cal['startdate'].strftime('%Y,%j %H:%M:%S'), e))
     caldb.close_connection()
+    return '\n'.join(output)
 
 def get_network_id(db, cal):
     'Returns the primary key of the network'
@@ -214,7 +224,7 @@ def get_sensor_id(db, cal, location_id, dataless):
                     sensor_id = db.select_query(query, 1)
                     if not sensor_id:
                         fp = '/msd/%s_%s/%s/%s/%s-%s.512.seed' % (cal['net'], cal['sta'], cal['startdate'].strftime('%Y'), cal['startdate'].strftime('%j'), cal['loc'], cal['chan'])
-                        dict_b031, dict_b033, dict_b034 = getDictionaries(fp, net)
+                        dict_b031, dict_b033, dict_b034 = getDictionaries(fp, cal['net'])
                         sensor_name = fetchInstrument(dict_b033, blockette.instrument_identifier)
                         query = """INSERT INTO tbl_sensors (fk_locationid, sensor, startdate, enddate)
                                     VALUES (%s, '%s', '%s', '%s') RETURNING pk_id""" % (location_id, sensor_name, blockette.start_date, blockette.end_date)
