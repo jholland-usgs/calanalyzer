@@ -1,5 +1,4 @@
 import argparse
-import caluser
 import commands
 import database
 import datalesstools
@@ -118,9 +117,12 @@ def find_calibrations(filepaths):
 
 def add_calibrations(dataless, cals):
     'Adds the calibrations to the database if not a duplicate'
-    dbname, username, host, password = caluser.info()
-    caldb = database.Database(dbname, username, host, password)
+    fob = open('dbinfo','r')
+    dbinfo = eval(fob.read().strip())
+    fob.close()
+    caldb = database.Database(dbinfo['dbname'], dbinfo['username'], dbinfo['host'], dbinfo['password'])
     output = []
+    #cycle through the calibrations
     for cal in cals:
         try:
             network_id = get_network_id(caldb, cal)
