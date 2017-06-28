@@ -86,12 +86,8 @@ def computeNewCal(pathData):
     julianday = UTCDateTime(
         pathData.date.year, pathData.date.month, pathData.date.day, 0, 0).julday
     # Build the relative data path
-    if(pathData.network == 'US'):
-        path = '/xs1/seed/' + pathData.network + '_' + pathData.station + '/' + str(pathData.date.year) + '/' + str(
-            pathData.date.year) + '_' + str('{0:0=3d}'.format(julianday)) + '_' + pathData.network + '_' + pathData.station + '/'
-    else:
-        path = '/xs0/seed/' + pathData.network + '_' + pathData.station + '/' + str(pathData.date.year) + '/' + str(
-            pathData.date.year) + '_' + str('{0:0=3d}'.format(julianday)) + '_' + pathData.network + '_' + pathData.station + '/'
+    path = '/msd/' + pathData.network + '_' + pathData.station + '/' + str(pathData.date.year) + '/' +
+        str('{0:0=3d}'.format(julianday)) + '/'
 
     # Build the path for the inumpyut file
     dataInumpyath = ''
