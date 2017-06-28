@@ -691,7 +691,7 @@ class ComputeCalibrations(object):
     def _determineSensorType(self):
         if(self.dbconn is not None):
             # Remove this hard coded locations
-            mdgetstr = '/home/nfalco/calanalyzer/./mdget.py -n ' + str(self.network) + \
+            mdgetstr = '~/calanalyzer/./mdget.py -n ' + str(self.network) + \
                 ' -l ' + str(self.location) + ' -c ' + str(self.outChannel) + \
                 ' -s ' + str(self.station) + ' -t ' + str(self.startdate.year) + \
                 '-' + str(self.julianday) + ' -o \'instrument type\''
