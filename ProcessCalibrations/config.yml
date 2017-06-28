@@ -3,6 +3,6 @@
 
 # Database
 database: cals
-host: 136.177.121.26
-username: nfalco
-password: Fritz222
+host: 136.177.124.17
+username: caluser
+password: asldev
